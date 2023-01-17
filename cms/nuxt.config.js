@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'cms',
+    title: 'Movie App',
     htmlAttrs: {
       lang: 'en'
     },
@@ -16,6 +16,12 @@ export default {
     ]
   },
 
+  loading: {
+    color: '#2E3192',
+    throttle: 0,
+    height: '2px'
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
@@ -25,7 +31,9 @@ export default {
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~/components/general'
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
@@ -37,13 +45,31 @@ export default {
     '@nuxtjs/axios',
   ],
 
+  googleFonts: {
+    download: true,
+    inject: true,
+    useStylesheet: true,
+    families: {
+      'Roboto': [300, 400, 500, 600, 700]
+    },
+    display: 'swap'
+  },
+
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    credentials: false,
+    baseURL: process.env.API_URL,
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    loaders: {
+      cssModules: {
+        modules: {
+          localIdentName: "m0vie4pp__[hash:base64:6]"
+        }
+      }
+    },
+    postcss: null
   }
 }
