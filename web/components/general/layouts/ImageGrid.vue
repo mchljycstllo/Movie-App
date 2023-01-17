@@ -15,50 +15,9 @@
             :class="attr['section__grid__item__thumbnail']"
             :src="`${item.image.src}`"
           />
-          <div :class="attr['section__grid__item__texts']">
-            <nuxt-link
-              :to="item.slug"
-              :class="attr['section__grid__item__texts-title']"
-            >
-              {{  item.title  }}
-            </nuxt-link>
-            <div :class="attr['section__grid__item__star-container']">
-              <div 
-                :class="attr['section__grid__item__star']"
-                v-for="(rate, rate_key) in item.ratings"
-                :key="rate_key"
-              >
-                <img 
-                  src="/images/icons/star-filled.png"
-                  :class="attr['star-filled']"
-                />
-              </div>
-              <div 
-                :class="[
-                  attr['section__grid__item__texts__star'],
-                  attr['section__grid__item__texts__star--black'],
-                ]"
-                v-for="(rate, rate_key) in (5 - item.ratings)"
-                :key="rate_key"
-              >
-                <img 
-                  src="/images/icons/star-black.png"
-                  :class="[
-                    attr['star-filled'],
-                    attr['star-filled--black']
-                  ]"
-                />
-              </div>
-              <div :class="attr['section__grid__item__group']">
-                <label> Release Year:  </label>
-                <span> {{ item.release_year }} </span>
-              </div>
-              <div :class="attr['section__grid__item__group']">
-                <label> Genre:  </label>
-                <span> {{ item.genre }} </span>
-              </div>
-            </div>
-          </div>
+          <movie-text-section 
+            :payload="item"
+          />
         </nuxt-link>
       </div>
     </div>
@@ -67,6 +26,9 @@
 
 <script>
   export default {
+    components: {
+      MovieTextSection: () => import('~/components/general/layouts/MovieTextSection')
+    },  
     props: {
       payload: {
         type: Array,
@@ -81,11 +43,6 @@
 </script>
 
 <style lang="stylus" module="attr">
-  //for global icons
-  .star-filled
-    max-width: 20px
-    &--black
-      max-width: 17px
   .section
     padding: 0 10px
     &__wrapper
@@ -101,28 +58,9 @@
       &__item
         flex: 0 0 calc(100% / 5 - 20px)
         margin: 0 10px 20px
+        cursor: pointer
+        transition: .2s ease-in-out
         &:hover
-          & ^[0]__grid
-            &__item
-              &__texts-title
-                color: var(--theme_primary)
-        &__texts
-          color: var(--theme_black)
-        &__texts-title
-          display: inline-block
-          margin: 5px 0
-          font-size: 20px
-          transition: .2s ease-in-out
-          color: var(--theme_black)
-        &__star-container
-          display: flex
-          flex-flow: row wrap
-          align-items: center
-        &__group
-          display: flex
-          align-items: center
-          margin: 5px 0
-          span
-            display: inline-block
-            margin-left: 5px
+          a
+            color: var(--theme_primary)
 </style>

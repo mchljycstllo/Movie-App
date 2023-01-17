@@ -6,9 +6,11 @@
     <section
       :class="attr['nav__navbar-content']"
     >
+    <nuxt-link to="/">
       <h1 :class="attr['nav__brand']">
         Movie <b>Review</b>
       </h1>
+    </nuxt-link>
     </section>
   </nav>
 </template>
@@ -23,6 +25,7 @@
     top: 0
     left: 0
     right: 0
+    z-index: 999
     width: 100%
     background-color: var(--theme_black)
     padding: 20px 0

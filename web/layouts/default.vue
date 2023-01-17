@@ -22,7 +22,7 @@
               alt: 'fanta'
             },
             ratings: 4,
-            no_of_reviews: 10
+            no_of_ratings: 10
           },
           {
             title: 'Red Baloon',
@@ -35,7 +35,7 @@
               alt: 'fanta'
             },
             ratings: 2,
-            no_of_reviews: 5
+            no_of_ratings: 5
           },
           {
             title: 'Missing: The Other Side Season 2',
@@ -48,7 +48,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 20
+            no_of_ratings: 20
           },
           {
             title: 'Crash Course in Romance',
@@ -61,7 +61,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 20
+            no_of_ratings: 20
           },
           {
             title: 'The Interest of Love',
@@ -74,7 +74,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 13
+            no_of_ratings: 13
           },
           {
             title: 'Poong, the Joseon Psychiatrist Season 2',
@@ -87,7 +87,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 10
+            no_of_ratings: 10
           },
           {
             title: `Single's Inferno Season 2`,
@@ -100,7 +100,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 5
+            no_of_ratings: 5
           },
           {
             title: `The Forbidden Marriage`,
@@ -113,7 +113,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 20
+            no_of_ratings: 20
           },
           {
             title: `Payback`,
@@ -126,7 +126,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 10
+            no_of_ratings: 10
           },
           {
             title: `Eden Season 2`,
@@ -139,7 +139,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 5
+            no_of_ratings: 5
           },
           {
             title: `The Glory`,
@@ -152,7 +152,7 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 30
+            no_of_ratings: 30
           },
           {
             title: `Reborn Rich`,
@@ -165,9 +165,208 @@
               alt: 'fanta'
             },
             ratings: 5,
-            no_of_reviews: 25
+            no_of_ratings: 25
           },
-        ]
+        ],
+        single_movie_data: {
+            title: 'Fanta G Spot',
+            genre: 'K-Drama',
+            release_year: 2022,
+            description: `<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>`,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/01.webp',
+              alt: 'fanta'
+            },
+            ratings: 4,
+            no_of_ratings: 10,
+            trailer_link: 'https://www.youtube.com/embed/GP--HMACnO8',
+            comments: [
+              {
+                user: {
+                  username: 'user101',
+                  image: {
+                    src: '/images/profiles/zuck.jpeg',
+                    alt: 'user101 - image'
+                  }
+                },
+                comment: `This movie is nice`
+              },
+              {
+                user: {
+                  username: 'user101',
+                  image: {
+                    src: '/images/profiles/zuck.jpeg',
+                    alt: 'user101 - image'
+                  }
+                },
+                comment: `This movie is nice`
+              },
+              {
+                user: {
+                  username: 'user101',
+                  image: {
+                    src: '/images/profiles/zuck.jpeg',
+                    alt: 'user101 - image'
+                  }
+                },
+                comment: `This movie is nice`
+              },
+              {
+                user: {
+                  username: 'user101',
+                  image: {
+                    src: '/images/profiles/zuck.jpeg',
+                    alt: 'user101 - image'
+                  }
+                },
+                comment: `This movie is nice`
+              },
+              {
+                user: {
+                  username: 'user101',
+                  image: {
+                    src: '/images/profiles/zuck.jpeg',
+                    alt: 'user101 - image'
+                  }
+                },
+                comment: `This movie is nice`
+              }
+            ]
+        },
+        related_movies_data: [
+          {
+            title: 'Red Baloon',
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/02.webp',
+              alt: 'fanta'
+            },
+            ratings: 2,
+            no_of_ratings: 5
+          },
+          {
+            title: 'Missing: The Other Side Season 2',
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/03.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 20
+          },
+          {
+            title: 'Crash Course in Romance',
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/04.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 20
+          },
+          {
+            title: 'The Interest of Love',
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/05.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 13
+          },
+          {
+            title: 'Poong, the Joseon Psychiatrist Season 2',
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/06.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 10
+          },
+          {
+            title: `Single's Inferno Season 2`,
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/07.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 5
+          },
+          {
+            title: `The Forbidden Marriage`,
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/08.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 20
+          },
+          {
+            title: `Payback`,
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/09.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 10
+          },
+          {
+            title: `Eden Season 2`,
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/10.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 5
+          },
+          {
+            title: `The Glory`,
+            genre: 'K-Drama',
+            release_year: 2022,
+            casts: ['Simu Liu', 'Awkwafina'],
+            slug: '/fanta-g-spot',
+            image: {
+              src: '/images/movies/11.webp',
+              alt: 'fanta'
+            },
+            ratings: 5,
+            no_of_ratings: 30
+          }
+        ],
       }
     },
     methods: {
