@@ -16,7 +16,8 @@
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
     "@nuxtjs/google-fonts": "^3.0.0-0",
-    "webpack": "^4.46.0"
+    "webpack": "^4.46.0",
+    "vue-moment": "^4.1.0"
   },
   "devDependencies": {
     "stylus": "^0.59.0",
