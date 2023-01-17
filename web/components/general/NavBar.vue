@@ -1,6 +1,15 @@
 <template>
-  <nav :class="attr['nav']">
-    This is Nav
+  <nav 
+    :class="attr['nav']"
+    data-navbar
+  >
+    <section
+      :class="attr['nav__navbar-content']"
+    >
+      <h1 :class="attr['nav__brand']">
+        Movie <b>Review</b>
+      </h1>
+    </section>
   </nav>
 </template>
 
@@ -10,5 +19,27 @@
 
 <style lang="stylus" module="attr">
   .nav
-    opacity: 1
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    width: 100%
+    background-color: var(--theme_black)
+    padding: 20px 0
+    &__navbar-content
+      width: 100%
+      max-width: 1280px
+      margin: 0 auto
+      padding: 0 10px
+    &__brand
+      color: var(--theme_white)
+      cursor: pointer
+      transition: .2s ease-in-out
+      display: inline-block
+      b
+        color: var(--theme_primary)
+      &:hover
+        color: var(--theme_primary)
+        b
+          color: var(--theme_white)
 </style>
