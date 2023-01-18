@@ -15,7 +15,7 @@
           :key="rate_key"
         >
           <img 
-            src="/images/icons/star-filled.png"
+            src="/images/icons/star-orange.svg"
             :class="attr['star-filled']"
           />
         </div>
@@ -28,7 +28,7 @@
           :key="rate_key"
         >
           <img 
-            src="/images/icons/star-black.png"
+            src="/images/icons/star-black.svg"
             :class="[
               attr['star-filled'],
               attr['star-filled--black']
@@ -82,7 +82,7 @@
   .star-filled
     max-width: 20px
     &--black
-      max-width: 17px
+      max-width: 19px
   .section
     &__texts
       color: var(--theme_black)

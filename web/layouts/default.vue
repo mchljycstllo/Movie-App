@@ -391,6 +391,7 @@
   :root
     --theme_white: #fff
     --theme_black: #000
+    --theme_gray: #808080
     --theme_primary: #FF0073
     --theme_error: #D13744
     --roboto: 'Roboto'
