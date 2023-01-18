@@ -16,6 +16,22 @@
       <li>
         <nuxt-link
           custom
+          to="/"
+          v-slot="{ href, navigate, isActive, isExactActive }"
+          >
+          <a
+            :href="href"
+            @click="navigate"
+            :class="[
+            attr['nav__link-item'],
+              (isExactActive) && attr['nav__link-item--active']
+            ]"
+          >
+            Home
+          </a>
+        </nuxt-link>
+        <nuxt-link
+          custom
           to="/login"
           v-slot="{ href, navigate, isActive, isExactActive }"
           >
@@ -58,8 +74,11 @@
       width: 100%
       max-width: 1280px
     &__link-item
+      margin: 0 10px
       color: var(--theme_white)
       transition: .2s ease-in-out
+      &:last-child
+        margin: 0
       &:hover, &--active
         color: var(--theme_primary)
     &__brand

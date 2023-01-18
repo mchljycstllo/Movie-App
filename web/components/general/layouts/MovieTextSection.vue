@@ -25,7 +25,7 @@
             attr['section__texts__star--black'],
           ]"
           v-for="(rate, rate_key) in (5 - payload.ratings)"
-          :key="rate_key"
+          :key="rate_key + 100"
         >
           <img 
             src="/images/icons/star-black.svg"
