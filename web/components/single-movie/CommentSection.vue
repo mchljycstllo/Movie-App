@@ -113,7 +113,7 @@
         max-width: 500px
         margin: 10px auto
         border-bottom: 2px solid var(--theme_gray)
-        font-family: var(--roboto)
+        font-family: sans-serif
       &__submit
         padding: 10px 20px
         border-radius: 20px

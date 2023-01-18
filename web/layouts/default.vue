@@ -493,7 +493,7 @@
     box-shadow: none
     user-select: initial
     background-color: transparent
-    font-family: var(--roboto)
+    //font-family: var(--roboto)
 
   ::-webkit-input-placeholder
     color: #B1B1B1

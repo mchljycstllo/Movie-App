@@ -11,6 +11,27 @@
         Movie <b>Review</b>
       </h1>
     </nuxt-link>
+
+    <ul :class="attr['nav__links']">
+      <li>
+        <nuxt-link
+          custom
+          to="/login"
+          v-slot="{ href, navigate, isActive, isExactActive }"
+          >
+          <a
+            :href="href"
+            @click="navigate"
+            :class="[
+            attr['nav__link-item'],
+              (isActive || isExactActive) && attr['nav__link-item--active']
+            ]"
+          >
+            Login
+          </a>
+        </nuxt-link>
+      </li>
+    </ul>
     </section>
   </nav>
 </template>
@@ -30,10 +51,17 @@
     background-color: var(--theme_black)
     padding: 20px 0
     &__navbar-content
+      display: flex
+      justify-content: space-between
+      margin: 0 auto
+      padding: 0 20px
       width: 100%
       max-width: 1280px
-      margin: 0 auto
-      padding: 0 10px
+    &__link-item
+      color: var(--theme_white)
+      transition: .2s ease-in-out
+      &:hover, &--active
+        color: var(--theme_primary)
     &__brand
       color: var(--theme_white)
       cursor: pointer
