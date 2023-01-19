@@ -69,6 +69,40 @@ INSERT INTO `genres` VALUES (1,'Action',0,'2023-01-19 07:00:38.540165','2023-01-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `movies`
+--
+
+DROP TABLE IF EXISTS `movies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `movies` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `genre_id` bigint NOT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `release_year` int DEFAULT NULL,
+  `description` text,
+  `casts` text,
+  `deleted` tinyint(1) DEFAULT '0',
+  `image_src` text,
+  `image_alt` text,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_movies_on_genre_id` (`genre_id`),
+  CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movies`
+--
+
+LOCK TABLES `movies` WRITE;
+/*!40000 ALTER TABLE `movies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `schema_migrations`
 --
 
@@ -87,7 +121,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -100,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-19 15:02:31
+-- Dump completed on 2023-01-19 17:21:56
