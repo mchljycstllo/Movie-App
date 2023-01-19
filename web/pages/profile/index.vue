@@ -11,9 +11,23 @@
     components: {
       PageContent: () => import('~/components/profile/PageContent')
     },
+    methods: {
+      initialization () {
+        this.$axios.get('test-route').then(res => {
+          console.log(res)
+        })
+        this.hideLoader()
+      }
+    },  
     mounted () {
-      this.$axios.get('test-route').then(res => {
-        console.log(res)
+      setTimeout(() => {
+        this.initialization()
+      }, 200)
+    },
+    asyncData({ $axios, store, error }) {
+      store.commit('global/content-loader/toggleContentLoaderStatus', {
+        type: 'loader',
+        status: true
       })
     }
   }

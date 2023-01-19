@@ -30,12 +30,16 @@ export default {
   plugins: [
     {
       src: '~/plugins/vue-moment'
+    },
+    {
+      src: '~/plugins/mixins'
     }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
-    '~/components/general'
+    '~/components/general',
+    '~/components/general/modal'
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

@@ -3,6 +3,13 @@
     <nav-bar />
     <Nuxt />
     <Footer />
+
+    <!-- Content Loader -->
+    <transition name="fade">
+      <template v-if="getContentLoaderStatus('loader')">
+        <content-loader />
+      </template>
+    </transition>
   </div>
 </template>
 
