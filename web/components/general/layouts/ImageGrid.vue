@@ -7,6 +7,7 @@
       <div :class="attr['section__grid']">
         <nuxt-link
           :class="attr['section__grid__item']"
+          :style="`--col_no: ${number_of_columns}`"
           v-for="(item, key) in payload"
           :key="key"
           :to="item.slug"
@@ -37,6 +38,10 @@
       title: {
         type: String,
         default: 'Default Title'
+      },
+      number_of_columns: {
+        type: Number,
+        default: 5
       }
     }
   }
@@ -56,7 +61,7 @@
       flex-flow: row wrap
       margin: 0 -20px
       &__item
-        flex: 0 0 calc(100% / 5 - 20px)
+        flex: 0 0 calc(100% / var(--col_no) - 20px)
         margin: 0 10px 20px
         cursor: pointer
         transition: .2s ease-in-out

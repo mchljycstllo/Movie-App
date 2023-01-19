@@ -5,7 +5,9 @@
         <Sidebar />
       </div>
       <div :class="attr['page__content-container']">
-        <user-info />
+        <main-content 
+          :payload="related_movies_data"
+        />
       </div>
    </div>
   </div>
@@ -15,8 +17,9 @@
   export default {
     components: {
       Sidebar: () => import('~/components/profile/Sidebar.vue'),
-      UserInfo: () => import('~/components/profile/UserInfo')
-    }
+      MainContent: () => import('~/components/profile/favorites/MainContent')
+    },
+    inject: ['related_movies_data']
   }
 </script>
 
@@ -29,6 +32,4 @@
       margin: 0 auto
     &__content-container
       width: 100%
-      max-width: 500px
-      margin: 0 auto
 </style>
