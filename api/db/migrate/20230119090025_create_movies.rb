@@ -7,7 +7,7 @@ class CreateMovies < ActiveRecord::Migration[6.0]
       t.text :description
       t.text :casts
       t.boolean :deleted, default: false
-      t.text :image_src
+      t.text :image
       t.text :image_alt
 
       t.timestamps

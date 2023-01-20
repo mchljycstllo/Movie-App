@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     
     scope '/cms' do
       resources :genre
-      resources :movie
+      resources :movies
     end
 
     scope '/user' do
