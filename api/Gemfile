@@ -43,3 +43,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'mysql2'
 
 gem 'carrierwave', '~> 0.9'
+gem 'devise'
