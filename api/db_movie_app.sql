@@ -83,14 +83,14 @@ CREATE TABLE `movies` (
   `description` text,
   `casts` text,
   `deleted` tinyint(1) DEFAULT '0',
-  `image_src` text,
+  `image` text,
   `image_alt` text,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_movies_on_genre_id` (`genre_id`),
   CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,6 +99,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
+INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 04:17:45.331937'),(2,1,'Spider Man',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-01-20 01:52:40.463383'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -134,4 +135,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-19 17:21:56
+-- Dump completed on 2023-01-20 12:18:23

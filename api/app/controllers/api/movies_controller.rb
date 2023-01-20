@@ -27,10 +27,15 @@ module Api
 
     # PATCH/PUT /movies/1
     def update
-      if @movie.update(movie_params)
-        render json: @movie
-      else
-        render json: @movie.errors, status: :unprocessable_entity
+      begin
+        movie = Movie.find(params[:id])
+        if movie.update_attributes(movie_params)
+          render json: {status: 'SUCCESS', msg: 'Updated movie', data: movie}, status: :ok
+        else
+          render json: {status: 'ERROR', msg: 'movie not saved', data: movie.errors}, status: :unprocessable_entity
+        end
+      rescue ActiveRecord::RecordNotFound
+        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
       end
     end
 

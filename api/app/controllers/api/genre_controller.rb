@@ -26,7 +26,7 @@ module Api
 
     def update
       begin
-        genres = Genre.find(params[:id])
+        genre = Genre.find(params[:id])
         if genre.update_attributes(genre_params)
           render json: {status: 'SUCCESS', msg: 'Updated genre', data: genre}, status: :ok
         else
