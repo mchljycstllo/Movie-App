@@ -4,14 +4,19 @@ module Api
 
     # GET /movies
     def index
-      @movies = Movie.all
+      @movies = Movie.all.where(:deleted => false)
 
       render json: @movies
     end
 
     # GET /movies/1
     def show
-      render json: @movie
+      begin
+        movie = Movie.find(params[:id])
+        render json: {status: 'SUCCESS', msg: 'Loaded movie', data: movie}, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
+      end
     end
 
     # POST /movies
@@ -41,7 +46,13 @@ module Api
 
     # DELETE /movies/1
     def destroy
-      @movie.destroy
+      begin
+        movie = Movie.where("id", params[:id], :deleted, false).first
+        movie.update_attribute(:deleted, true)
+        render json: {status: 'SUCCESS', msg: 'Deleted movie', data: movie}, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
+      end
     end
 
     private
@@ -52,7 +63,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def movie_params
-        params.permit(:title, :release_year, :genre_id, :casts, :image, :image_alt)
+        params.permit(:title, :release_year, :movie_id, :casts, :image, :image_alt)
       end
   end
 end

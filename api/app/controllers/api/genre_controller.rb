@@ -17,7 +17,7 @@ module Api
 
     def show
       begin
-        genres = Genre.find(params[:id])
+        genre = Genre.find(params[:id])
         render json: {status: 'SUCCESS', msg: 'Loaded genre', data: genre}, status: :ok
       rescue ActiveRecord::RecordNotFound
         render json: {status: 'ERROR', msg: 'No genre found', data: nil}, status: :unprocessable_entity
@@ -39,7 +39,7 @@ module Api
 
     def destroy
       begin
-        genres = Genre.where("id", params[:id], :deleted, false).first
+        genre = Genre.where("id", params[:id], :deleted, false).first
         genre.update_attribute(:deleted, true)
         render json: {status: 'SUCCESS', msg: 'Deleted genre', data: genre}, status: :ok
       rescue ActiveRecord::RecordNotFound
