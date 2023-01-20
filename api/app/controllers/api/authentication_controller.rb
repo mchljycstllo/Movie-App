@@ -4,7 +4,7 @@ module Api
       user = User.where(email: params[:email]).first
       #render json: {status: 'SUCCESS', msg: 'User exists', data: user}, status: :ok
 
-      if user.valid_password?(params[:password])
+      if user&.valid_password?(params[:password])
         render json: {status: 'SUCCESS', msg: 'User exists', data: user}, status: :ok
       else
         render json: {status: 'ERROR', msg: 'User does not exist', data: nil}, status: :unprocessable_entity
