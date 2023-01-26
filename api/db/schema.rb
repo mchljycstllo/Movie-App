@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "authentication_token", limit: 30
+    t.string "first_name", limit: 50
+    t.string "last_name", limit: 50
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

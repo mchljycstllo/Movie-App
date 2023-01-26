@@ -122,7 +122,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,11 +146,13 @@ CREATE TABLE `users` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   `authentication_token` varchar(30) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_authentication_token` (`authentication_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +161,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'admin@admin.com','$2a$12$dvDEhICKJXE4vyysf2.4DeAH1k7/xVk/.lxgoCZ/phxtJoij76sji',NULL,NULL,NULL,'admin','admin',0,'2023-01-20 09:41:34.093779','2023-01-20 09:41:34.093779','rpQASEwSwPbNT6xhBqaV');
+INSERT INTO `users` VALUES (3,'admin@admin.com','$2a$12$dvDEhICKJXE4vyysf2.4DeAH1k7/xVk/.lxgoCZ/phxtJoij76sji',NULL,NULL,NULL,'admin','admin',0,'2023-01-20 09:41:34.093779','2023-01-20 09:41:34.093779','rpQASEwSwPbNT6xhBqaV','admin','admin'),(4,'jaycastillo@movieapp.com','$2a$12$P93Y4bQhO/05lzoXwFYzU.eAmOG2BuWy8S/Zu0JYrwPpkvB85Irim',NULL,NULL,NULL,'user','jaycastillo',0,'2023-01-26 02:24:26.114690','2023-01-26 02:24:26.114690','miGzAjyzyRJcCLHvfjDd','Michael','Castillo');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -172,4 +174,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-01-20 17:42:39
+-- Dump completed on 2023-01-26 10:26:16

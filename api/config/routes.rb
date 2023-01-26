@@ -8,6 +8,10 @@ Rails.application.routes.draw do
       post 'login' => 'authentication#login'
       post 'logout' => 'authentication#logout'
     end
+
+    scope '/user' do
+      post 'register' => 'user#create'
+    end
     
     scope '/cms' do
       resources :genre
