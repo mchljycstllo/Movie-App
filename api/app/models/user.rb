@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, uniqueness: false
-  validates :username, presence: true, uniqueness: false
+  validates :username, presence: true, uniqueness: false, allow_blank: false, format: { with: /\A[a-zA-Z0-9]+\z/ }
   validates :password, presence: true, confirmation: true
   validates :password_confirmation, presence: true
   validates :role, presence: true

@@ -2,7 +2,6 @@ module Api
   class AuthenticationController < ApplicationController
     def login
       user = User.where(email: params[:email]).first
-      #render json: {status: 'SUCCESS', msg: 'User exists', data: user}, status: :ok
 
       if user&.valid_password?(params[:password])
         render json: {status: 'SUCCESS', msg: 'User exists', data: user}, status: :ok
