@@ -3,10 +3,20 @@ module Api
     before_action :set_movie, only: [:show, :update, :destroy]
 
     # GET /movies
+    # GET /movies
     def index
+      records = []
       @movies = Movie.all.where(:deleted => false)
+      
+      @movies.each do |movie|
+        movie_obj = {
+          :movie => movie,
+          :genre => Genre.find(movie.genre_id)
+        }
+        records.push(movie_obj)
+      end
 
-      render json: @movies
+      render json: {status: 'SUCCESS', msg: 'Loaded movies', data: records}, status: :ok
     end
 
     # GET /movies/1
