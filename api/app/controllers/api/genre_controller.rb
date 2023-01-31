@@ -1,5 +1,7 @@
 module Api
   class GenreController < ApplicationController
+    before_action :authenticate_user!
+
     def index
       genres = Genre.all().where(:deleted => false)
       render json: {status: 'SUCCESS', msg: 'Loaded data', data: genres}, status: :ok
