@@ -28,15 +28,23 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    {
+      src: '~/plugins/vue-moment'
+    },
+    {
+      src: '~/plugins/mixins'
+    }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
-    '~/components/general'
+    '~/components/general',
+    '~/components/general/modal'
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/auth-next'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -44,7 +52,22 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
+  auth: {
+    strategies: {
+      local: {
+        tokenRequired: true,
+        tokenType: 'Bearer',
+        user: {
+          property: 'user'
+        },
+        endpoints: {
+          login: { url: `${process.env.APP_URL}/auth/sign_in`, method: 'post' },
+          logout: { url: `${process.env.APP_URL}/auth/sign_out`, method: 'post' },
+          user: { url: `${process.env.API_URL}/user-data`, method: 'get' }
+        }
+      }
+    }
+  },
   googleFonts: {
     download: true,
     inject: true,

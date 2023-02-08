@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :movies
   namespace 'api' do
     get 'test-route' => 'dummy#test'
+    get 'user-data' => 'session#show'
     
     scope '/cms' do
       resources :genre

@@ -30,6 +30,8 @@
             Home
           </a>
         </nuxt-link>
+      </li>
+      <li>
         <nuxt-link
           custom
           to="/login"
@@ -92,4 +94,13 @@
         color: var(--theme_primary)
         b
           color: var(--theme_white)
+    &__links
+      display: flex
+      list-style-type: none
+      padding: 0
+      li
+        display: inline-block
+        margin: 0 10px
+        &:last-child
+          margin-right: 0
 </style>

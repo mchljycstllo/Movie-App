@@ -1,13 +1,25 @@
 <template>
   <div>
     <nav-bar />
+    <Sidebar />
     <Nuxt />
     <Footer />
+
+    <!-- Content Loader -->
+    <transition name="fade">
+      <template v-if="getContentLoaderStatus('loader')">
+        <content-loader />
+      </template>
+    </transition>
   </div>
 </template>
 
 <style lang="stylus">
   :root
+    --theme_white: #fff
+    --theme_black: #000
+    --theme_gray: #808080
+    --theme_primary: #FF0073
     --theme_error: #D13744
     --roboto: 'Roboto'
     --light: 300
@@ -16,7 +28,7 @@
     --semi: 600
     --bold: 700
     --max_width: 1180px
-  #__ahc
+  #__movie4pp
     transition: .4s ease-in-out
 
   html
@@ -108,7 +120,7 @@
     box-shadow: none
     user-select: initial
     background-color: transparent
-    font-family: var(--roboto)
+    //font-family: var(--roboto)
 
   ::-webkit-input-placeholder
     color: #B1B1B1

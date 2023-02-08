@@ -158,6 +158,7 @@
     }),
     methods: {
       login () {
+        this.showLoader()
         console.log('login', this.login_form)
       },
       register () {

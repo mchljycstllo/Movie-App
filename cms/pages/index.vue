@@ -1,14 +1,33 @@
 <template>
   <div :class="attr['page']">
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, praesentium blanditiis? Sapiente eos recusandae atque vitae magnam. Vel nostrum ut, ipsam nisi impedit quis recusandae officia sint iure facilis assumenda?
+    <page-content 
+      
+    />
   </div>
 </template>
 
 <script>
   export default {
+    components: {
+      PageContent: () => import('~/components/authentication/PageContent')
+    },
+    methods: {
+      initialization () {
+        this.$axios.get('test-route').then(res => {
+          console.log(res)
+        })
+        this.hideLoader()
+      }
+    },  
     mounted () {
-      this.$axios.get('test-route').then(res => {
-        console.log(res)
+      setTimeout(() => {
+        this.initialization()
+      }, 200)
+    },
+    asyncData({ $axios, store, error }) {
+      store.commit('global/content-loader/toggleContentLoaderStatus', {
+        type: 'loader',
+        status: true
       })
     }
   }

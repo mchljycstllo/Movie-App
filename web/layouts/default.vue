@@ -407,8 +407,8 @@
     --med: 500
     --semi: 600
     --bold: 700
-    --max_width: 1180px
-  #__ahc
+    --max_width: 100%
+  #__movie4pp
     transition: .4s ease-in-out
 
   html
