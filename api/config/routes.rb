@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   mount_devise_token_auth_for 'User', at: 'auth'
   resources :movies
 
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
     end
 
     scope '/user' do
-      #
+      resources :comments
     end
   end
 end

@@ -15,12 +15,24 @@ module Api
       begin
         movie = Movie.find(params[:id])
         genre = movie.genre
+        comments = movie.comments
+
+        fetched_comments = []
+        comments.each do |comment|
+          comment_obj = {
+            comment: comment,
+            user: comment.user
+          }
+          fetched_comments.push(comment_obj)
+        end
+
         render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
           movie: movie,
-          genre: genre
+          genre: genre,
+          comments: fetched_comments
         }}, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
       end
     end
 
@@ -42,10 +54,10 @@ module Api
         if movie.update_attributes(movie_params)
           render json: {status: 'SUCCESS', msg: 'Updated movie', data: movie}, status: :ok
         else
-          render json: {status: 'ERROR', msg: 'movie not saved', data: movie.errors}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['movie not saved']}, status: :unprocessable_entity
         end
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errros: ['No movie found']}, status: :unprocessable_entity
       end
     end
 
@@ -56,7 +68,7 @@ module Api
         movie.update_attribute(:deleted, true)
         render json: {status: 'SUCCESS', msg: 'Deleted movie', data: movie}, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
       end
     end
 

@@ -23,7 +23,7 @@ module Api
       if genre.save
         render json: {status: 'SUCCESS', msg: 'Saved genre', data: genre}, status: :ok
       else
-        render json: {status: 'ERROR', msg: 'genre not saved', data: genre.errors}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['genre not saved']}, status: :unprocessable_entity
       end
     end
 
@@ -32,7 +32,7 @@ module Api
         genre = Genre.find(params[:id])
         render json: {status: 'SUCCESS', msg: 'Loaded genre', data: genre}, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No genre found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
       end
     end
 
@@ -42,10 +42,10 @@ module Api
         if genre.update_attributes(genre_params)
           render json: {status: 'SUCCESS', msg: 'Updated genre', data: genre}, status: :ok
         else
-          render json: {status: 'ERROR', msg: 'genre not saved', data: genre.errors}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: genre.errors}, status: :unprocessable_entity
         end
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No genre found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
       end
     end
 
@@ -55,7 +55,7 @@ module Api
         genre.update_attribute(:deleted, true)
         render json: {status: 'SUCCESS', msg: 'Deleted genre', data: genre}, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', msg: 'No genre found', data: nil}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
       end
     end
 

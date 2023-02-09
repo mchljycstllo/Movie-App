@@ -42,6 +42,39 @@ INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2023-01-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comments` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL,
+  `movie_id` bigint NOT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `content` text,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `index_comments_on_user_id` (`user_id`),
+  KEY `index_comments_on_movie_id` (`movie_id`),
+  CONSTRAINT `fk_rails_03de2dc08c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  CONSTRAINT `fk_rails_56963e5c80` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (5,2,2,1,'test comment 1','2023-02-09 06:44:49.697909','2023-02-09 07:24:47.682905');
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `genres`
 --
 
@@ -122,7 +155,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +192,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +201,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'email','jaycastillo@movieapp.com','$2a$12$PUWXb0P6U8ZjgoIeg/apWebzZWk4H8SVpGuzeYR1prcRBHRAWrfrS',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo',NULL,'jaycastillo@movieapp.com','admin','{\"ylahsun9GIvlr0s8iS1Cng\":{\"token\":\"$2a$10$JzCMRF144Z61dqPLCwfXNuClnCOndWZtdFaSJSA43LsnsyFZEcLfa\",\"expiry\":1677112903},\"RMyF1oQiz7RLbCwDUtf7zA\":{\"token\":\"$2a$10$.l/qZY2aKCAJFnP18NynY.VQcuzvHJ.iqrj9YnxysUIE289RmYZkm\",\"expiry\":1677112923},\"WMWBtDC_J5OEW6V-L10hiw\":{\"token\":\"$2a$10$MNHCqZZ9pRMNrZL0DWdeIOPYziTTym.F7HJ.UwsDD0jgmB9ggSNHK\",\"expiry\":1677113037},\"_6ul1FHTjU4A6iJ03sQixw\":{\"token\":\"$2a$10$HQd1Y4AsAJ5o6ac.5OP54ujMub.RJJW.qp1IS2SJFytdYEoEJJFNu\",\"expiry\":1677113038},\"IabaCLbGJgmKnMzjf284-A\":{\"token\":\"$2a$10$RvIEU/JQH4Gx78jGgubiw.pxZWr3OUqIAuMAiozWoArzUqmEYcdPa\",\"expiry\":1677113208},\"5s16s1PEVv43KL2aMPq1Qg\":{\"token\":\"$2a$10$YB52KJoQSXx0OwSIiM8Yq.h2MBHwRnmxhSW7swAPmygMe6KNCTu8u\",\"expiry\":1677113210},\"EKU-H_WX7wzpD_yRWsEPdw\":{\"token\":\"$2a$10$AOGLKzKjUWsZS72hqLnfHO3zu8Yp2sbwczvNHe0MGAFhtOF74JN1y\",\"expiry\":1677113213},\"f7mak4JCVFZW1IzXkmO9ww\":{\"token\":\"$2a$10$HzPIvQd69eOtReAqWPXkwOTd2szoyKnfOJDHXAf81iPtpC0l6yqv.\",\"expiry\":1677113218},\"BZ5YVfhPYEMI8H0ng_L6xA\":{\"token\":\"$2a$10$uFcmrrOhELmw1Yjkgar0xecBX7/U06tOgzZIj.S3HPiPFimrUqHIa\",\"expiry\":1677117024},\"Knhlqr8BE-XCCk5UQlPf-w\":{\"token\":\"$2a$10$p/zTKMEvoPop2f31VQ/jru4/BzDS.EfREj6/GFQ1EAXlSM7IMch3i\",\"expiry\":1677124464}}','2023-01-30 14:58:13.041444','2023-02-09 03:54:24.694001');
+INSERT INTO `users` VALUES (1,'email','jaycastillo@movieapp.com','$2a$12$PUWXb0P6U8ZjgoIeg/apWebzZWk4H8SVpGuzeYR1prcRBHRAWrfrS',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo',NULL,'jaycastillo@movieapp.com','admin','{\"ylahsun9GIvlr0s8iS1Cng\":{\"token\":\"$2a$10$JzCMRF144Z61dqPLCwfXNuClnCOndWZtdFaSJSA43LsnsyFZEcLfa\",\"expiry\":1677112903},\"RMyF1oQiz7RLbCwDUtf7zA\":{\"token\":\"$2a$10$.l/qZY2aKCAJFnP18NynY.VQcuzvHJ.iqrj9YnxysUIE289RmYZkm\",\"expiry\":1677112923},\"WMWBtDC_J5OEW6V-L10hiw\":{\"token\":\"$2a$10$MNHCqZZ9pRMNrZL0DWdeIOPYziTTym.F7HJ.UwsDD0jgmB9ggSNHK\",\"expiry\":1677113037},\"_6ul1FHTjU4A6iJ03sQixw\":{\"token\":\"$2a$10$HQd1Y4AsAJ5o6ac.5OP54ujMub.RJJW.qp1IS2SJFytdYEoEJJFNu\",\"expiry\":1677113038},\"IabaCLbGJgmKnMzjf284-A\":{\"token\":\"$2a$10$RvIEU/JQH4Gx78jGgubiw.pxZWr3OUqIAuMAiozWoArzUqmEYcdPa\",\"expiry\":1677113208},\"5s16s1PEVv43KL2aMPq1Qg\":{\"token\":\"$2a$10$YB52KJoQSXx0OwSIiM8Yq.h2MBHwRnmxhSW7swAPmygMe6KNCTu8u\",\"expiry\":1677113210},\"EKU-H_WX7wzpD_yRWsEPdw\":{\"token\":\"$2a$10$AOGLKzKjUWsZS72hqLnfHO3zu8Yp2sbwczvNHe0MGAFhtOF74JN1y\",\"expiry\":1677113213},\"f7mak4JCVFZW1IzXkmO9ww\":{\"token\":\"$2a$10$HzPIvQd69eOtReAqWPXkwOTd2szoyKnfOJDHXAf81iPtpC0l6yqv.\",\"expiry\":1677113218},\"BZ5YVfhPYEMI8H0ng_L6xA\":{\"token\":\"$2a$10$uFcmrrOhELmw1Yjkgar0xecBX7/U06tOgzZIj.S3HPiPFimrUqHIa\",\"expiry\":1677117024},\"Knhlqr8BE-XCCk5UQlPf-w\":{\"token\":\"$2a$10$p/zTKMEvoPop2f31VQ/jru4/BzDS.EfREj6/GFQ1EAXlSM7IMch3i\",\"expiry\":1677124464}}','2023-01-30 14:58:13.041444','2023-02-09 03:54:24.694001'),(2,'email','jaycastillo_user@movieapp.com','$2a$12$BKLkinijRlzvq/7QcZVZr.oz1NKIl3FzHlUBsj3t9FHV9kfniqFhm',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo',NULL,'jaycastillo_user@movieapp.com','user','{\"gGAQz_guVR0tbkkUWNSKLw\":{\"token\":\"$2a$10$okn9St8p8zrcW1Zf7UIu6eSMt7RbE6sP3ICJHOnOmyFwcC7eWZ0ne\",\"expiry\":1677126753},\"DLJF88EzdoKlTsqIff6LCg\":{\"token\":\"$2a$10$P9LDSYKfjSdV5Bi0oisr0eIVLZUauh3RG9HklIV1SSJAjAz/n8/FC\",\"expiry\":1677126787}}','2023-02-09 04:32:33.359087','2023-02-09 04:33:07.715548');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -181,4 +214,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-09 12:10:55
+-- Dump completed on 2023-02-09 15:39:58
