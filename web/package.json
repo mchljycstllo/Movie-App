@@ -20,6 +20,8 @@
     "vue-moment": "^4.1.0"
   },
   "devDependencies": {
+    "@nuxt/image": "^0.7.1",
+    "nuxt-compress": "^5.0.0",
     "stylus": "^0.59.0",
     "stylus-loader": "^4.3.3"
   }

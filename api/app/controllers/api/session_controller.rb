@@ -6,8 +6,9 @@ module Api
       user = current_user
       render json: {
         message: 'user data',
-        user: user
-      }
+        user: user,
+        token: @token
+      }.to_json and return
     end
   end
 end

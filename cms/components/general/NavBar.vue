@@ -16,7 +16,7 @@
       <li>
         <nuxt-link
           custom
-          to="/login"
+          to="/"
           v-slot="{ href, navigate, isActive, isExactActive }"
           >
           <a

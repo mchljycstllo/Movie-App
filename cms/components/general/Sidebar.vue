@@ -7,7 +7,7 @@
       >
       <nuxt-link
           custom
-          to="/login"
+          :to="item.slug"
           v-slot="{ href, navigate, isActive, isExactActive }"
           >
           <a
@@ -61,7 +61,7 @@
 <style lang="stylus" module="attr">
   .sidebar
     position: fixed
-    top: 100px
+    top: 70px
     ul
       list-style-type: none
       padding: 0

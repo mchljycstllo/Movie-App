@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-bar />
-    <Sidebar />
+    <Sidebar v-if="getAuthenticated" />
     <Nuxt />
     <Footer />
 
@@ -13,6 +13,17 @@
     </transition>
   </div>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+      ...mapGetters ({
+        getAuthenticated: 'global/settings/getAuthenticated'
+      })
+    },
+  }
+</script>
 
 <style lang="stylus">
   :root
@@ -368,4 +379,9 @@
   .page-leave-to
     opacity: 0
     transform: translateY(50px)
+
+  //cms
+  #cms-dashboard
+    padding-left: 155px
+    padding-top: 85px
 </style>

@@ -33,6 +33,9 @@ export default {
     },
     {
       src: '~/plugins/mixins'
+    },
+    {
+      src: '~/plugins/axios'
     }
   ],
 
@@ -51,12 +54,31 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxt/image',
+    [
+      'nuxt-compress', {
+        gzip: {
+          threshold: 8192
+        },
+        brotli: {
+          threshold: 8192
+        }
+      }
+    ]
   ],
+  router: {
+    middleware: ['authenticator']
+  },
   auth: {
     strategies: {
       local: {
-        tokenRequired: true,
-        tokenType: 'Bearer',
+        // tokenRequired: true,
+        // tokenType: 'Bearer',
+        token: {
+          property: 'token',
+          maxAge: 604800,
+          prefix: 'cms'
+        },
         user: {
           property: 'user'
         },

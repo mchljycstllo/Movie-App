@@ -48,8 +48,6 @@
     }),
     methods: {
       initialization () {
-        this.$nuxt.$emit('toggle-footer', 'image', false)
-
         switch (this.error.statusCode) {
           case 404:
             this.page_title = 'Movie Review | Page Not Found'
@@ -110,7 +108,7 @@
 
         setTimeout( () => {
           this.loaded = true
-          this.toggleModalStatus({ type: 'loader', status: true, item: { start: false } })
+          this.hideLoader()
         }, 500)
       }
     },
