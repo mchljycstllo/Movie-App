@@ -3,8 +3,18 @@ module Api
     before_action :authenticate_user!
 
     def index
+      to_return = []
+
       genres = Genre.all().where(:deleted => false)
-      render json: {status: 'SUCCESS', msg: 'Loaded data', data: genres}, status: :ok
+      genres.each do |genre|
+        genre_obj = {
+          genre: genre,
+          movies: genre.movies.count
+        }
+        to_return.push(genre_obj)
+      end
+
+      render json: {status: 'SUCCESS', msg: 'Loaded data', data: to_return}, status: :ok
     end
 
     def create

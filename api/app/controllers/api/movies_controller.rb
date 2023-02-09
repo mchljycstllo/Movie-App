@@ -14,7 +14,11 @@ module Api
     def show
       begin
         movie = Movie.find(params[:id])
-        render json: {status: 'SUCCESS', msg: 'Loaded movie', data: movie}, status: :ok
+        genre = movie.genre
+        render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
+          movie: movie,
+          genre: genre
+        }}, status: :ok
       rescue ActiveRecord::RecordNotFound
         render json: {status: 'ERROR', msg: 'No movie found', data: nil}, status: :unprocessable_entity
       end
