@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.index ["genre_id"], name: "index_movies_on_genre_id"
   end
 
+  create_table "ratings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "movie_id", null: false
+    t.boolean "deleted", default: false
+    t.integer "score", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["movie_id"], name: "index_ratings_on_movie_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
+
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "provider", default: "email", null: false
     t.string "uid", default: "", null: false
@@ -73,4 +84,6 @@ ActiveRecord::Schema.define(version: 202301200733191) do
   add_foreign_key "comments", "movies"
   add_foreign_key "comments", "users"
   add_foreign_key "movies", "genres"
+  add_foreign_key "ratings", "movies"
+  add_foreign_key "ratings", "users"
 end
