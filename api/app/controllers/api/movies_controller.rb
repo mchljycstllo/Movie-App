@@ -5,35 +5,38 @@ module Api
 
     # GET /movies
     def index
-      @movies = Movie.all.where(:deleted => false)
+      to_return = []
+      @movies = Movie.includes(:genre).where(:deleted => false)
 
-      render json: @movies
+      @movies.each do |movie|
+        movie_obj = {
+          movie: movie,
+          genre: movie.genre
+        }
+        to_return.push(movie_obj)
+      end
+      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: to_return}, status: :ok
     end
 
     # GET /movies/1
     def show
-      begin
-        movie = Movie.find(params[:id])
-        genre = movie.genre
-        comments = movie.comments
+      genre = @movie.genre
+      comments = @movie.comments.includes(:user)
 
-        fetched_comments = []
-        comments.each do |comment|
-          comment_obj = {
-            comment: comment,
-            user: comment.user
-          }
-          fetched_comments.push(comment_obj)
-        end
-
-        render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
-          movie: movie,
-          genre: genre,
-          comments: fetched_comments
-        }}, status: :ok
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+      fetched_comments = []
+      comments.each do |comment|
+        comment_obj = {
+          comment: comment,
+          user: comment.user
+        }
+        fetched_comments.push(comment_obj)
       end
+
+      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
+        movie: @movie,
+        genre: genre,
+        comments: fetched_comments
+      }}, status: :ok
     end
 
     # POST /movies
@@ -49,33 +52,28 @@ module Api
 
     # PATCH/PUT /movies/1
     def update
-      begin
-        movie = Movie.find(params[:id])
-        if movie.update_attributes(movie_params)
-          render json: {status: 'SUCCESS', msg: 'Updated movie', data: movie}, status: :ok
-        else
-          render json: {status: 'ERROR', errors: ['movie not saved']}, status: :unprocessable_entity
-        end
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errros: ['No movie found']}, status: :unprocessable_entity
+      if @movie.update_attributes(movie_params)
+        render json: {status: 'SUCCESS', msg: 'Updated movie', data: @movie}, status: :ok
+      else
+        render json: {status: 'ERROR', errors: ['movie not saved']}, status: :unprocessable_entity
       end
     end
 
     # DELETE /movies/1
     def destroy
-      begin
-        movie = Movie.where("id", params[:id], :deleted, false).first
-        movie.update_attribute(:deleted, true)
-        render json: {status: 'SUCCESS', msg: 'Deleted movie', data: movie}, status: :ok
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
-      end
+      @movie.update_attribute(:deleted, true)
+      render json: {status: 'SUCCESS', msg: 'Deleted movie', data: @movie}, status: :ok
+      
     end
 
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_movie
-        @movie = Movie.find(params[:id])
+        begin
+          @movie = Movie.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+        end
       end
 
       # Only allow a trusted parameter "white list" through.

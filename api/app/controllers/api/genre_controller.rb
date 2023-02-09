@@ -1,6 +1,7 @@
 module Api
   class GenreController < ApplicationController
     before_action :authenticate_user!
+    before_action :set_genre, only: [:show, :update, :destroy]
 
     def index
       to_return = []
@@ -28,40 +29,34 @@ module Api
     end
 
     def show
-      begin
-        genre = Genre.find(params[:id])
-        render json: {status: 'SUCCESS', msg: 'Loaded genre', data: genre}, status: :ok
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
-      end
+      render json: {status: 'SUCCESS', msg: 'Loaded genre', data: @genre}, status: :ok
     end
 
     def update
-      begin
-        genre = Genre.find(params[:id])
-        if genre.update_attributes(genre_params)
-          render json: {status: 'SUCCESS', msg: 'Updated genre', data: genre}, status: :ok
-        else
-          render json: {status: 'ERROR', errors: genre.errors}, status: :unprocessable_entity
-        end
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
+      if @genre.update_attributes(genre_params)
+        render json: {status: 'SUCCESS', msg: 'Updated genre', data: @genre}, status: :ok
+      else
+        render json: {status: 'ERROR', errors: @genre.errors}, status: :unprocessable_entity
       end
     end
 
     def destroy
-      begin
-        genre = Genre.where("id", params[:id], :deleted, false).first
-        genre.update_attribute(:deleted, true)
-        render json: {status: 'SUCCESS', msg: 'Deleted genre', data: genre}, status: :ok
-      rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
-      end
+      genre = Genre.where("id", params[:id], :deleted, false).first
+      genre.update_attribute(:deleted, true)
+      render json: {status: 'SUCCESS', msg: 'Deleted genre', data: @genre}, status: :ok
     end
 
     private 
       def genre_params
         params.permit(:title)
+      end
+
+      def set_genre
+        begin
+          @genre = Genre.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
+        end
       end
 
   end
