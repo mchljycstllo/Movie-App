@@ -1,5 +1,7 @@
 module MovieConcern
   private
+    @fetch_related = false
+
     def set_movie
       begin
         @movie = Movie.find(params[:movie_id])
@@ -9,19 +11,8 @@ module MovieConcern
     end
 
     def fetch_all_movies
-      to_return = []
       @movies = Movie.includes(:genre).where(deleted: false)
-
-      @movies.each do |movie|
-        movie_obj = {
-          movie: movie,
-          genre: movie.genre,
-          favorite: check_if_favorite(movie)
-        }
-
-        to_return.push(movie_obj)
-      end
-      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: to_return}, status: :ok
+      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: manipulate_movies(@movies)}, status: :ok
     end
 
     #for fetching current movie
@@ -44,12 +35,18 @@ module MovieConcern
         rating.deleted == false ? fetched_ratings.push(rating) : nil
       end
 
+      related_movies = []
+      if @fetch_related
+        related_movies = fetch_related_movies(@movie)
+      end
+
       render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
         movie: @movie,
         genre: genre,
         comments: comments,
         ratings: fetched_ratings,
-        favorite: check_if_favorite(@movie)
+        favorite: check_if_favorite(@movie),
+        related_movies: manipulate_movies(related_movies)
       }}, status: :ok
     end
 
@@ -62,5 +59,30 @@ module MovieConcern
         
         favorite ? favorite.id : false
       end
+    end
+
+    def manipulate_movies(movies)
+      to_return = []
+      movies.each do |movie|
+        movie_obj = {
+          movie: movie,
+          genre: movie.genre,
+          favorite: check_if_favorite(movie)
+        }
+
+        to_return.push(movie_obj)
+      end
+
+      return to_return
+    end
+
+
+    def fetch_related_movies(movie)
+      related_movies = Movie.where(
+        genre_id: movie.genre.id,
+        deleted: false
+      ).where.not(
+        id: movie.id
+      )
     end
 end
