@@ -22,7 +22,10 @@ module Api
     def create
       @comment = Comment.new(comment_params)
 
-      @existing_comment = Comment.where(user_id: params[:user_id]).where(movie_id: params[:movie_id]).where(deleted: 0).first
+      @existing_comment = Comment.where(
+        user_id: params[:user_id], 
+        movie_id: params[:movie_id]
+      ).first
       
       if @existing_comment
         render json: {status: 'ERROR', errors: ['cannot add another comment']}, status: :unprocessable_entity

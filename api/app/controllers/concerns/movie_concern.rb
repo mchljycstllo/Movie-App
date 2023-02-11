@@ -10,15 +10,13 @@ module MovieConcern
 
     def fetch_all_movies
       to_return = []
-      @movies = Movie.includes(:genre).where(:deleted => false)
-
-      
+      @movies = Movie.includes(:genre).where(deleted: false)
 
       @movies.each do |movie|
         movie_obj = {
           movie: movie,
           genre: movie.genre,
-          favorite: check_if_favorite
+          favorite: check_if_favorite(movie)
         }
 
         to_return.push(movie_obj)
@@ -29,7 +27,7 @@ module MovieConcern
     #for fetching current movie
     def fetch_current_movie
       genre = @movie.genre
-      comments = @movie.comments.includes(:user)
+      comments = @movie.comments.where(deleted: false).includes(:user)
       ratings = @movie.ratings
 
       fetched_comments = []
@@ -49,19 +47,20 @@ module MovieConcern
       render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
         movie: @movie,
         genre: genre,
-        comments: fetched_comments,
-        ratings: fetched_ratings
+        comments: comments,
+        ratings: fetched_ratings,
+        favorite: check_if_favorite(@movie)
       }}, status: :ok
     end
 
     private 
-    def check_if_favorite
-      # favorite_movie = Favorite.where(:movie_id, @movie.id).where(:user_id, current_user.id)
-      # return favorite_movie
+    def check_if_favorite(movie)
       if !current_user
         return false
-      else
-        return true
+      else  
+        favorite = Favorite.where(movie_id: movie.id, user_id: current_user.id, deleted: false).first
+        
+        favorite ? favorite.id : false
       end
     end
 end

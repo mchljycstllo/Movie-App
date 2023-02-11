@@ -22,7 +22,11 @@ module Api
     def create
       @favorite = Favorite.new(favorite_params)
 
-      @existing_favorite = Favorite.where(user_id: params[:user_id]).where(movie_id: params[:movie_id]).where(deleted: 0).first
+      @existing_favorite = Favorite.where(
+        user_id: params[:user_id],
+        movie_id: params[:movie_id],
+        deleted: false
+      ).first
 
 
       if @existing_favorite
@@ -39,7 +43,7 @@ module Api
     # DELETE /favorites/1
     def destroy
       if check_user == 1
-        @favorite.update_attribute(:deleted, true)
+        @favorite.update_attribute(:deleted, 1)
         render json: {status: 'SUCCESS', msg: 'Deleted favorite', data: @favorite}, status: :ok
       else
         render json: {status: 'ERROR', errors: ["You don't have the right to remove from favorite"]}, status: :unprocessable_entity

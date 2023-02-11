@@ -6,7 +6,7 @@ module Api
     def index
       to_return = []
 
-      genres = Genre.all().where(:deleted => false)
+      genres = Genre.all().where(deleted: false)
       genres.each do |genre|
         genre_obj = {
           genre: genre,
@@ -41,9 +41,17 @@ module Api
     end
 
     def destroy
-      genre = Genre.where("id", params[:id], :deleted, false).first
-      genre.update_attribute(:deleted, true)
-      render json: {status: 'SUCCESS', msg: 'Deleted genre', data: @genre}, status: :ok
+      genre = Genre.where(
+        id: params[:id], 
+        deleted: false
+      ).first
+
+      if genre
+        genre.update_attribute(:deleted, true)
+        render json: {status: 'SUCCESS', msg: 'Deleted genre', data: @genre}, status: :ok
+      else
+        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
+      end
     end
 
     private 

@@ -21,5 +21,9 @@ Rails.application.routes.draw do
       resources :ratings
       resources :favorites
     end
+
+    scope '/frontend' do
+      get 'all-movies' => 'frontend#all_movies'
+    end
   end
 end
