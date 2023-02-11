@@ -3,7 +3,7 @@ module Api
     before_action :set_rating, only: [:show, :update, :destroy]
     before_action :set_movie, only: [:create]
 
-    include CurrentMovie
+    include MovieConcern
 
     # GET /ratings
     def index

@@ -4,7 +4,7 @@ module Api
     before_action :set_movie, only: [:create]
     before_action :authenticate_user!, only: [:create, :destroy]
 
-    include CurrentMovie
+    include MovieConcern
 
     # GET /comments
     def index

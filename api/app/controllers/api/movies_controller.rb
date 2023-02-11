@@ -3,21 +3,11 @@ module Api
     before_action :set_current_movie, only: [:show, :update, :destroy]
     before_action :authenticate_user!
 
-    include CurrentMovie
+    include MovieConcern
 
     # GET /movies
     def index
-      to_return = []
-      @movies = Movie.includes(:genre).where(:deleted => false)
-
-      @movies.each do |movie|
-        movie_obj = {
-          movie: movie,
-          genre: movie.genre
-        }
-        to_return.push(movie_obj)
-      end
-      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: to_return}, status: :ok
+      fetch_all_movies
     end
 
     # GET /movies/1
