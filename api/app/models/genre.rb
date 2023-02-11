@@ -6,9 +6,6 @@ class Genre < ApplicationRecord
 
   private
     def ensure_not_referenced_by_any_movie
-      unless movies.empty?
-        errors.add(:base, 'Movies Present')
-        throw :abort
-      end
+      return false if movies.any?
     end
 end

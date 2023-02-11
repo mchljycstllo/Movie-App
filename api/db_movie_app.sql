@@ -61,7 +61,7 @@ CREATE TABLE `comments` (
   KEY `index_comments_on_movie_id` (`movie_id`),
   CONSTRAINT `fk_rails_03de2dc08c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_rails_56963e5c80` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-INSERT INTO `comments` VALUES (5,2,2,1,'test comment 1','2023-02-09 06:44:49.697909','2023-02-09 07:24:47.682905');
+INSERT INTO `comments` VALUES (5,2,2,1,'test comment 1','2023-02-09 06:44:49.697909','2023-02-09 07:24:47.682905'),(7,2,2,1,'test comment 2','2023-02-11 14:39:10.579974','2023-02-11 14:39:10.579974');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,7 +93,7 @@ CREATE TABLE `favorites` (
   KEY `index_favorites_on_movie_id` (`movie_id`),
   CONSTRAINT `fk_rails_2f96619ba3` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
   CONSTRAINT `fk_rails_d15744e438` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `favorites` (
 
 LOCK TABLES `favorites` WRITE;
 /*!40000 ALTER TABLE `favorites` DISABLE KEYS */;
-INSERT INTO `favorites` VALUES (1,2,2,1,'2023-02-11 12:54:23.806529','2023-02-11 12:58:03.375378');
+INSERT INTO `favorites` VALUES (1,2,2,1,'2023-02-11 12:54:23.806529','2023-02-11 14:56:26.131178'),(3,2,3,1,'2023-02-11 14:36:15.914627','2023-02-11 14:56:31.587857'),(4,2,3,1,'2023-02-11 14:49:54.778915','2023-02-11 14:53:33.944768'),(5,2,3,0,'2023-02-11 14:56:37.543390','2023-02-11 14:56:37.543390');
 /*!40000 ALTER TABLE `favorites` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +129,7 @@ CREATE TABLE `genres` (
 
 LOCK TABLES `genres` WRITE;
 /*!40000 ALTER TABLE `genres` DISABLE KEYS */;
-INSERT INTO `genres` VALUES (1,'Action',0,'2023-01-19 07:00:38.540165','2023-01-19 07:00:38.540165'),(2,'Bollywood',0,'2023-01-19 07:00:49.493984','2023-01-19 07:00:49.493984'),(3,'Comedy',0,'2023-01-19 07:00:54.360782','2023-01-19 07:00:54.360782'),(4,'Documentary',0,'2023-01-19 07:01:00.422084','2023-01-19 07:01:00.422084'),(5,'Fantasy',0,'2023-01-19 07:01:10.564839','2023-01-19 07:01:10.564839'),(6,'Horror',0,'2023-01-19 07:01:24.429924','2023-01-19 07:01:24.429924'),(7,'K-Drama',0,'2023-01-19 07:01:29.836046','2023-01-19 07:01:29.836046');
+INSERT INTO `genres` VALUES (1,'Action',0,'2023-01-19 07:00:38.540165','2023-02-11 14:44:14.511264'),(2,'Bollywood',0,'2023-01-19 07:00:49.493984','2023-02-11 15:37:33.219248'),(3,'Comedy',0,'2023-01-19 07:00:54.360782','2023-02-11 15:39:45.441112'),(4,'Documentary',0,'2023-01-19 07:01:00.422084','2023-01-19 07:01:00.422084'),(5,'Fantasy',0,'2023-01-19 07:01:10.564839','2023-01-19 07:01:10.564839'),(6,'Horror',0,'2023-01-19 07:01:24.429924','2023-01-19 07:01:24.429924'),(7,'K-Drama',0,'2023-01-19 07:01:29.836046','2023-01-19 07:01:29.836046');
 /*!40000 ALTER TABLE `genres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,6 +152,7 @@ CREATE TABLE `movies` (
   `image_alt` text,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `index_movies_on_genre_id` (`genre_id`),
   CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
@@ -164,7 +165,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
-INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610'),(2,2,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-01-26 22:39:47.832234'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038');
+INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610','spiderman-5'),(2,2,'Spider Man 6',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-01-26 22:39:47.832234','spiderman-6'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406','spiderman-2'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000','spiderman-3'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038','spiderman-7');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +189,7 @@ CREATE TABLE `ratings` (
   KEY `index_ratings_on_movie_id` (`movie_id`),
   CONSTRAINT `fk_rails_62d9686c7c` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`),
   CONSTRAINT `fk_rails_a7dfeb9f5f` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -197,6 +198,7 @@ CREATE TABLE `ratings` (
 
 LOCK TABLES `ratings` WRITE;
 /*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
+INSERT INTO `ratings` VALUES (1,2,2,0,5,'2023-02-11 14:47:02.110856','2023-02-11 14:47:02.110856');
 /*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,7 +221,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255'),('20230211154559');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -278,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-11 21:03:51
+-- Dump completed on 2023-02-11 23:49:32

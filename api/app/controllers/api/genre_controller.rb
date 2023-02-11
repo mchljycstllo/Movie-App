@@ -47,8 +47,12 @@ module Api
       ).first
 
       if genre
-        genre.update_attribute(:deleted, true)
-        render json: {status: 'SUCCESS', msg: 'Deleted genre', data: @genre}, status: :ok
+        if deletable(genre) == 1
+          @genre.update_attribute(:deleted, true)
+          render json: {status: 'SUCCESS', msg: 'Deleted genre', data: genre}, status: :ok
+        else
+          render json: {status: 'ERROR', errors: ['Genre contains movies. Cannot be deleted']}, status: :unprocessable_entity
+        end
       else
         render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
       end
@@ -65,6 +69,11 @@ module Api
         rescue ActiveRecord::RecordNotFound
           render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
         end
+      end
+
+      def deletable(genre)
+        #count if genre contains movies. return 0 if contains movies. return 1 if not
+        return genre.movies.count > 0 ? 0 : 1
       end
 
   end

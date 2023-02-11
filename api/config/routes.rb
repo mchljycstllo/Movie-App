@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :ratings
   resources :comments
   mount_devise_token_auth_for 'User', at: 'auth'
-  resources :movies
 
   namespace 'api' do
     get 'test-route' => 'dummy#test'
@@ -24,6 +23,7 @@ Rails.application.routes.draw do
 
     scope '/frontend' do
       get 'all-movies' => 'frontend#all_movies'
+      get 'single-movie' => 'frontend#single_movie'
     end
   end
 end
