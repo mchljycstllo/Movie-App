@@ -12,7 +12,10 @@
     components: {
       ImageGrid: () => import('~/components/general/layouts/Imagegrid.vue')
     },
-    inject: ['movies_data']
+    inject: [
+      'movies_data',
+      'movies_data_old'
+    ]
   }
 </script>
 

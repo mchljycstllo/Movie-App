@@ -18,9 +18,16 @@ module Api
     # POST /movies
     def create
       @movie = Movie.new(movie_params)
-
+      slug = movie_params[:title].parameterize
+      existing_movie = Movie.where(slug: slug).order('id DESC')
+      
+      if existing_movie
+        @movie.slug = "#{movie_params[:title].parameterize}-v-#{rand(1-100)}"
+      else
+        @movie.slug = movie_params[:title].parameterize
+      end
       if @movie.save
-        render json: @movie, status: :created, location: @movie
+        render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
       else
         render json: @movie.errors, status: :unprocessable_entity
       end
@@ -54,7 +61,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def movie_params
-        params.permit(:title, :release_year, :movie_id, :casts, :image, :image_alt)
+        params.permit(:title, :release_year, :movie_id, :genre_id, :casts, :image, :image_alt)
       end
   end
 end

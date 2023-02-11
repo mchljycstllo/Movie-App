@@ -8,32 +8,37 @@
       >
         {{  payload.title  }}
       </nuxt-link>
-      <div :class="attr['section__star-container']">
-        <div 
-          :class="attr['section__star']"
-          v-for="(rate, rate_key) in payload.ratings"
-          :key="rate_key"
-        >
-          <img 
-            src="/images/icons/star-orange.svg"
-            :class="attr['star-filled']"
-          />
-        </div>
-        <div 
-          :class="[
-            attr['section__texts__star'],
-            attr['section__texts__star--black'],
-          ]"
-          v-for="(rate, rate_key) in (5 - payload.ratings)"
-          :key="rate_key + 100"
-        >
-          <img 
-            src="/images/icons/star-black.svg"
+      <div :class="attr['section__group']">
+        <div :class="attr['section__star-container']">
+          <div 
+            :class="attr['section__star']"
+            v-for="(rate, rate_key) in payload.ratings"
+            :key="rate_key"
+          >
+            <img 
+              src="/images/icons/star-orange.svg"
+              :class="attr['star-filled']"
+            />
+          </div>
+          <div 
             :class="[
-              attr['star-filled'],
-              attr['star-filled--black']
+              attr['section__texts__star'],
+              attr['section__texts__star--black'],
             ]"
-          />
+            v-for="(rate, rate_key) in (5 - payload.ratings)"
+            :key="rate_key + 100"
+          >
+            <img 
+              src="/images/icons/star-black.svg"
+              :class="[
+                attr['star-filled'],
+                attr['star-filled--black']
+              ]"
+            />
+          </div>
+        </div>
+        <div :class="attr['section__ratings-counter']">
+          <span> ({{ payload.no_of_ratings }}) </span>
         </div>
       </div>
       <div :class="attr['section__group']">

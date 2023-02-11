@@ -5,7 +5,8 @@ import moment from 'moment'
 Vue.mixin({
   computed: {
     ...mapGetters({
-      getContentLoaderStatus: 'global/content-loader/getContentLoaderStatus'
+      getContentLoaderStatus: 'global/content-loader/getContentLoaderStatus',
+      image_url: 'settings/getImageURL'
     })
   },
   methods: {

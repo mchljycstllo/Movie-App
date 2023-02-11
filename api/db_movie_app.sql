@@ -156,7 +156,7 @@ CREATE TABLE `movies` (
   PRIMARY KEY (`id`),
   KEY `index_movies_on_genre_id` (`genre_id`),
   CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +165,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
-INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610','spiderman-5'),(2,2,'Spider Man 6',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-01-26 22:39:47.832234','spiderman-6'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406','spiderman-2'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000','spiderman-3'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038','spiderman-7');
+INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610','spiderman-5'),(2,2,'Spider Man 6',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-01-26 22:39:47.832234','spiderman-6'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406','spiderman-2'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000','spiderman-3'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038','spiderman-7'),(6,3,'Spider Man 8',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:28:23.738065','2023-02-11 17:28:23.738065','spider-man-8'),(7,3,'Spider Man 8',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:29:07.673931','2023-02-11 17:29:07.673931','spider-man-8'),(8,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:29:16.857785','2023-02-11 17:29:16.857785','spider-man-9'),(13,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:37:39.206756','2023-02-11 17:37:39.206756','spider-man-9-v-8'),(14,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:46.653660','2023-02-11 17:42:46.653660','spider-man-9-v-89'),(15,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:50.312028','2023-02-11 17:42:50.312028','spider-man-9-v-90'),(16,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:52.872885','2023-02-11 17:42:52.872885','spider-man-9-v-4'),(17,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:55.213232','2023-02-11 17:42:55.213232','spider-man-9-v-71'),(18,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:57.388750','2023-02-11 17:42:57.388750','spider-man-9-v-59'),(19,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:59.422136','2023-02-11 17:42:59.422136','spider-man-9-v-44'),(20,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:43:01.452262','2023-02-11 17:43:01.452262','spider-man-9-v-47'),(21,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:43:03.544462','2023-02-11 17:43:03.544462','spider-man-9-v-82');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -280,4 +280,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-11 23:49:32
+-- Dump completed on 2023-02-12  1:43:48
