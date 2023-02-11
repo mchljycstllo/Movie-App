@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :favorites
   resources :ratings
   resources :comments
   mount_devise_token_auth_for 'User', at: 'auth'
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
     scope '/user' do
       resources :comments
       resources :ratings
+      resources :favorites
     end
   end
 end

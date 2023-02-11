@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :comments, through: :movies
+  has_many :favorites, through: :movies
 end
