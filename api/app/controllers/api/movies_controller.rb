@@ -1,7 +1,9 @@
 module Api
   class MoviesController < ApplicationController
-    before_action :set_movie, only: [:show, :update, :destroy]
+    before_action :set_current_movie, only: [:show, :update, :destroy]
     before_action :authenticate_user!
+
+    include CurrentMovie
 
     # GET /movies
     def index
@@ -20,23 +22,7 @@ module Api
 
     # GET /movies/1
     def show
-      genre = @movie.genre
-      comments = @movie.comments.includes(:user)
-
-      fetched_comments = []
-      comments.each do |comment|
-        comment_obj = {
-          comment: comment,
-          user: comment.user
-        }
-        fetched_comments.push(comment_obj)
-      end
-
-      render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
-        movie: @movie,
-        genre: genre,
-        comments: fetched_comments
-      }}, status: :ok
+      fetch_current_movie
     end
 
     # POST /movies
@@ -68,7 +54,7 @@ module Api
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_movie
+      def set_current_movie
         begin
           @movie = Movie.find(params[:id])
         rescue ActiveRecord::RecordNotFound

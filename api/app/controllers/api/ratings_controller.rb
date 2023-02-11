@@ -45,13 +45,18 @@ module Api
 
     # DELETE /ratings/1
     def destroy
-      @rating.destroy
+      #@rating.destroy
+      rating.update_attribute(:deleted, true)
     end
 
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_rating
-        @rating = Rating.find(params[:id])
+        begin
+          @rating = Rating.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+        end
       end
 
       # Only allow a trusted parameter "white list" through.
