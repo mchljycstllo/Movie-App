@@ -1,8 +1,6 @@
 <template>
   <div :class="attr['page']">
-    <page-content 
-      
-    />
+    <page-content />
   </div>
 </template>
 
@@ -11,23 +9,66 @@
     components: {
       PageContent: () => import('~/components/single-movie/PageContent')
     },
+    provide () {
+      return {
+        single_movie_data: {
+          ...this.data.movie,
+          genre: this.data.genre.title,
+          casts: ['Simu Liu', 'Awkwafina'],
+          image: {
+            src: `${this.image_url}${this.data.movie.image.url}`,
+            alt: this.data.movie.image_alt
+          },
+          ratings: this.data.ratings_score,
+          no_of_ratings: this.data.no_of_ratings,
+          trailer_link: `https://www.youtube.com/embed/${this.data.movie.trailer_link}`,
+          comments: this.data.comments?.map((item) => ({
+            ...item.comment,
+            comment: item.comment.content,
+            user: {
+              ...item.user,
+              image: {
+                src: '/images/profiles/zuck.jpeg',
+                alt: 'user101 - image'
+              }
+            }
+          }))
+        },
+        related_movies_data: this.data.related_movies?.map((item, key) => ({
+          ...item.movie,
+          genre: item.genre.title,
+          image: {
+            src: `${this.image_url}${item.movie.image.url}`,
+            alt: item.movie.image_alt
+          },
+          ratings: item.ratings_score,
+          no_of_ratings: item.no_of_ratings
+        }))
+      }
+    },
     methods: {
       initialization () {
-        this.$axios.get('test-route').then(res => {
-          console.log(res)
-        })
+        console.log(this.data)
         this.hideLoader()
       }
-    },  
+    },
     mounted () {
       setTimeout(() => {
         this.initialization()
       }, 200)
     },
-    asyncData({ $axios, store, error }) {
+    asyncData({ $axios, store, error, params }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {
         type: 'loader',
         status: true
+      })
+
+      return $axios.$get(`frontend/${params.slug}`)
+      .then(({ data }) => {
+        return { data }
+      })
+      .catch(() => {
+        error({ statusCode: 500 })
       })
     }
   }

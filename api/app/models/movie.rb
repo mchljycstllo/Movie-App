@@ -11,5 +11,6 @@ class Movie < ApplicationRecord
   validates :casts, presence: true
   validates :image, presence: true
   validates :image_alt, presence: true, uniqueness: false, length: { maximum: 50 }
+  validates :trailer_link, presence: true
   
 end

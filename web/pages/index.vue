@@ -1,8 +1,6 @@
 <template>
   <div :class="attr['page']">
-    <page-content 
-      
-    />
+    <page-content />
   </div>
 </template>
 

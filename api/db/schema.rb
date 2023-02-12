@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "slug", null: false
+    t.string "trailer_link", null: false
     t.index ["genre_id"], name: "index_movies_on_genre_id"
   end
 
