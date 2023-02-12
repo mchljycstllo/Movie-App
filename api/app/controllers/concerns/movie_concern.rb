@@ -67,7 +67,9 @@ module MovieConcern
         movie_obj = {
           movie: movie,
           genre: movie.genre,
-          favorite: check_if_favorite(movie)
+          favorite: check_if_favorite(movie),
+          no_of_ratings: movie.ratings.count,
+          ratings_score: get_ratings_score(movie)
         }
 
         to_return.push(movie_obj)
@@ -84,5 +86,22 @@ module MovieConcern
       ).where.not(
         id: movie.id
       )
+    end
+
+    def get_ratings_score(movie)
+      total_score = 0
+      ratings_count = movie.ratings.count
+      ratings = movie.ratings
+
+      ratings.each do |rating|
+        total_score += rating.score
+      end
+
+      if total_score != 0 || ratings_count != 0
+        return total_score / ratings_count
+      else
+        return 0
+      end
+      
     end
 end

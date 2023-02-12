@@ -174,13 +174,12 @@
         movies_data: this.data?.map((item, key) => ({
           ...item.movie,
           genre: item.genre.title,
-          casts: ['Sam Liu', 'Awkwafina'],
           image: {
             src: `${this.image_url}${item.movie.image.url}`,
             alt: item.movie.image_alt
           },
-          ratings: 5,
-          no_of_ratings: 100
+          ratings: item.ratings_score,
+          no_of_ratings: item.no_of_ratings
         }))
       }
     },  
