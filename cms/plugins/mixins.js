@@ -14,7 +14,8 @@ Vue.mixin({
   methods: {
     ...mapMutations({
       toggleContentLoaderStatus: 'global/content-loader/toggleContentLoaderStatus',
-      setAuth: 'global/settings/SET_AUTH_USER'
+      setAuth: 'global/settings/SET_AUTH_USER',
+      logout_user: 'global/settings/LOGOUT_USER'
     }),
     hideLoader () {
       this.$store.commit('global/content-loader/toggleContentLoaderStatus', {
@@ -42,6 +43,11 @@ Vue.mixin({
         default:
           break
       }
+    },
+    logout () {
+      localStorage.removeItem('current_user')
+      this.logout_user()
+      window.open('/', '_SELF')
     }
   }
 })

@@ -13,7 +13,7 @@
     </nuxt-link>
 
     <ul :class="attr['nav__links']">
-      <li>
+      <li v-if="!auth_status">
         <nuxt-link
           custom
           to="/"
@@ -30,6 +30,14 @@
             Login
           </a>
         </nuxt-link>
+      </li>
+      <li v-else>
+        <span
+          :class="attr['nav__link-item']" 
+          @click="logout()"
+        >
+          Logout
+        </span>
       </li>
     </ul>
     </section>
@@ -61,6 +69,7 @@
       margin: 0 10px
       color: var(--theme_white)
       transition: .2s ease-in-out
+      cursor: pointer
       &:last-child
         margin: 0
       &:hover, &--active

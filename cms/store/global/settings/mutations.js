@@ -16,5 +16,9 @@ export default {
             state.auth_status = false
         }
 
+    },
+    LOGOUT_USER (state) {
+        state.auth_user = null
+        state.auth_status = false
     }
 }
