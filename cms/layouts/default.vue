@@ -22,13 +22,16 @@
         getAuthenticated: 'global/settings/getAuthenticated'
       })
     },
-    methods:  {
-      setAuth () {
-        this.$store.commit('global/settings/SET_AUTH_USER')
+    watch:{
+      $route (to, from){
+        this.runMiddleware()
       }
-    },  
+    },
     mounted () {
       this.setAuth()
+      setTimeout(() => {
+        this.runMiddleware()
+      }, 100)
     }
   }
 </script>

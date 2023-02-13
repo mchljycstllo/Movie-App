@@ -1,4 +1,4 @@
 export default () => ({
-    auth_status: false,
+    auth_status: true,
     auth_user: null
 })
