@@ -51,13 +51,13 @@
       </div>
       <div 
         :class="attr['section__group']"
-        v-if="show_casts"
+        v-if="show_casts && payload.casts.length"
       >
         <label> Casts:  </label>
         <span
           v-for="(cast, cast_key) in payload.casts"
           :key="cast_key"
-        > {{ cast }} <b v-if="(cast_key + 1) < payload.casts.length">, </b> </span>
+        > {{ cast.full_name }} <b v-if="(cast_key + 1) < payload.casts.length">, </b> </span>
       </div>
     </div>
   </div>

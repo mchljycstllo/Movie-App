@@ -12,6 +12,13 @@
 
 ActiveRecord::Schema.define(version: 202301200733191) do
 
+  create_table "artists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "full_name"
+    t.boolean "deleted", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "movie_id", null: false
@@ -45,7 +52,7 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.string "title"
     t.integer "release_year"
     t.text "description"
-    t.text "casts"
+    t.text "artists_id"
     t.boolean "deleted", default: false
     t.text "image"
     t.text "image_alt"

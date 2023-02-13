@@ -14,7 +14,9 @@
         single_movie_data: {
           ...this.data.movie,
           genre: this.data.genre.title,
-          casts: ['Simu Liu', 'Awkwafina'],
+          casts: this.data.artists?.map(item => ({
+            ...item
+          })),
           image: {
             src: `${this.image_url}${this.data.movie.image.url}`,
             alt: this.data.movie.image_alt
@@ -53,6 +55,17 @@
       }
     },
     mounted () {
+      let ids = [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        }
+      ]
+      console.log('asdasd')
+      console.log(ids, JSON.stringify(ids))
+
       setTimeout(() => {
         this.initialization()
       }, 200)

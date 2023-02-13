@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :artists
   resources :favorites
   resources :ratings
   resources :comments
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
       resources :genre
       resources :movies
       resources :ratings
+      resources :artists
     end
 
     scope '/user' do

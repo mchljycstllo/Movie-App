@@ -42,6 +42,33 @@ INSERT INTO `ar_internal_metadata` VALUES ('environment','development','2023-01-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `artists`
+--
+
+DROP TABLE IF EXISTS `artists`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `artists` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `full_name` varchar(255) DEFAULT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `artists`
+--
+
+LOCK TABLES `artists` WRITE;
+/*!40000 ALTER TABLE `artists` DISABLE KEYS */;
+INSERT INTO `artists` VALUES (1,'Juan Dela Cruz',0,'2023-02-13 00:45:20.753197','2023-02-13 00:45:20.753197'),(2,'John Doe',0,'2023-02-13 00:45:31.469452','2023-02-13 00:45:31.469452');
+/*!40000 ALTER TABLE `artists` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comments`
 --
 
@@ -146,7 +173,7 @@ CREATE TABLE `movies` (
   `title` varchar(255) DEFAULT NULL,
   `release_year` int DEFAULT NULL,
   `description` text,
-  `casts` text,
+  `artists_id` text,
   `deleted` tinyint(1) DEFAULT '0',
   `image` text,
   `image_alt` text,
@@ -157,7 +184,7 @@ CREATE TABLE `movies` (
   PRIMARY KEY (`id`),
   KEY `index_movies_on_genre_id` (`genre_id`),
   CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -166,7 +193,7 @@ CREATE TABLE `movies` (
 
 LOCK TABLES `movies` WRITE;
 /*!40000 ALTER TABLE `movies` DISABLE KEYS */;
-INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610','spiderman-5','GP--HMACnO8'),(2,2,'Spider Man 6',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-02-12 21:39:14.223202','spiderman-6','GP--HMACnO8'),(3,1,'Spider Man 2',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406','spiderman-2','GP--HMACnO8'),(4,1,'Spider Man 3',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000','spiderman-3','GP--HMACnO8'),(5,1,'Spider Man 7',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038','spiderman-7','GP--HMACnO8'),(6,3,'Spider Man 8',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:28:23.738065','2023-02-11 17:28:23.738065','spider-man-8','GP--HMACnO8'),(7,3,'Spider Man 8',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:29:07.673931','2023-02-11 17:29:07.673931','spider-man-8','GP--HMACnO8'),(8,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:29:16.857785','2023-02-11 17:29:16.857785','spider-man-9','GP--HMACnO8'),(13,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:37:39.206756','2023-02-11 17:37:39.206756','spider-man-9-v-8','GP--HMACnO8'),(14,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:46.653660','2023-02-11 17:42:46.653660','spider-man-9-v-89','GP--HMACnO8'),(15,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:50.312028','2023-02-11 17:42:50.312028','spider-man-9-v-90','GP--HMACnO8'),(16,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:52.872885','2023-02-11 17:42:52.872885','spider-man-9-v-4','GP--HMACnO8'),(17,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:55.213232','2023-02-11 17:42:55.213232','spider-man-9-v-71','GP--HMACnO8'),(18,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:57.388750','2023-02-11 17:42:57.388750','spider-man-9-v-59','GP--HMACnO8'),(19,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:42:59.422136','2023-02-11 17:42:59.422136','spider-man-9-v-44','GP--HMACnO8'),(20,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:43:01.452262','2023-02-11 17:43:01.452262','spider-man-9-v-47','GP--HMACnO8'),(21,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-11 17:43:03.544462','2023-02-11 17:43:03.544462','spider-man-9-v-82','GP--HMACnO8'),(22,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-12 21:17:42.134638','2023-02-12 21:17:42.134638','spider-man-9-v-97','GP--HMACnO8'),(23,3,'Spider Man 9',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-12 21:52:21.966406','2023-02-12 21:52:21.966406','spider-man-9-v-39','GP--HMACnO8'),(24,3,'Spider Man 10',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-12 21:52:54.091026','2023-02-12 21:52:54.091026','spider-man-10-v-17','GP--HMACnO8'),(25,3,'Test Movie',2023,NULL,'\"{[\'SimuLiu\',\'Awkwafina\']}\"',0,'02.webp','movie cover','2023-02-12 21:54:28.017923','2023-02-12 21:54:28.017923','test-movie-v-78','GP--HMACnO8');
+INSERT INTO `movies` VALUES (1,1,'Spider Man 5',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',1,'05.webp','movie cover','2023-01-20 01:49:19.334286','2023-01-20 06:53:41.071610','spiderman-5','GP--HMACnO8'),(2,2,'Spider Man 6',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'01.webp','movie cover','2023-01-20 01:52:40.463383','2023-02-12 21:39:14.223202','spiderman-6','GP--HMACnO8'),(3,1,'Spider Man 2',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'01.webp','movie cover','2023-01-20 04:12:20.053406','2023-01-20 04:12:20.053406','spiderman-2','GP--HMACnO8'),(4,1,'Spider Man 3',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'01.webp','movie cover','2023-01-20 04:12:25.420000','2023-01-20 04:12:25.420000','spiderman-3','GP--HMACnO8'),(5,1,'Spider Man 7',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'01.webp','movie cover','2023-01-20 04:17:08.638038','2023-01-20 04:17:08.638038','spiderman-7','GP--HMACnO8'),(6,3,'Spider Man 8',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:28:23.738065','2023-02-11 17:28:23.738065','spider-man-8','GP--HMACnO8'),(7,3,'Spider Man 8',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:29:07.673931','2023-02-11 17:29:07.673931','spider-man-8','GP--HMACnO8'),(8,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:29:16.857785','2023-02-11 17:29:16.857785','spider-man-9','GP--HMACnO8'),(13,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:37:39.206756','2023-02-11 17:37:39.206756','spider-man-9-v-8','GP--HMACnO8'),(14,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:46.653660','2023-02-11 17:42:46.653660','spider-man-9-v-89','GP--HMACnO8'),(15,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:50.312028','2023-02-11 17:42:50.312028','spider-man-9-v-90','GP--HMACnO8'),(16,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:52.872885','2023-02-11 17:42:52.872885','spider-man-9-v-4','GP--HMACnO8'),(17,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:55.213232','2023-02-11 17:42:55.213232','spider-man-9-v-71','GP--HMACnO8'),(18,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:57.388750','2023-02-11 17:42:57.388750','spider-man-9-v-59','GP--HMACnO8'),(19,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:42:59.422136','2023-02-11 17:42:59.422136','spider-man-9-v-44','GP--HMACnO8'),(20,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:43:01.452262','2023-02-11 17:43:01.452262','spider-man-9-v-47','GP--HMACnO8'),(21,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-11 17:43:03.544462','2023-02-11 17:43:03.544462','spider-man-9-v-82','GP--HMACnO8'),(22,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-12 21:17:42.134638','2023-02-12 21:17:42.134638','spider-man-9-v-97','GP--HMACnO8'),(23,3,'Spider Man 9',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-12 21:52:21.966406','2023-02-12 21:52:21.966406','spider-man-9-v-39','GP--HMACnO8'),(24,3,'Spider Man 10',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-12 21:52:54.091026','2023-02-12 21:52:54.091026','spider-man-10-v-17','GP--HMACnO8'),(25,3,'Test Movie',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-12 21:54:28.017923','2023-02-12 21:54:28.017923','test-movie-v-78','GP--HMACnO8'),(26,3,'Test Movie Cast',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-13 01:17:38.185202','2023-02-13 01:17:38.185202','test-movie-cast-v-60','GP--HMACnO8'),(27,3,'Test Movie Cast',2023,NULL,'\"[{\"id\":1},{\"id\":2}]\"',0,'02.webp','movie cover','2023-02-13 01:23:24.096851','2023-02-13 01:23:24.096851','test-movie-cast-v-1','GP--HMACnO8');
 /*!40000 ALTER TABLE `movies` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -222,7 +249,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255'),('20230211154559'),('20230212213606');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255'),('20230211154559'),('20230212213606'),('20230213003548'),('20230213004855'),('20230213011406'),('20230213011407');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,4 +308,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-13  6:39:37
+-- Dump completed on 2023-02-13 10:09:58

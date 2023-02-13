@@ -1,4 +1,5 @@
 module MovieConcern
+  require 'json'
   private
     @fetch_related = false
 
@@ -42,11 +43,11 @@ module MovieConcern
         favorite: check_if_favorite(@movie),
         related_movies: manipulate_movies(related_movies),
         no_of_ratings: ratings.length,
-        ratings_score: get_ratings_score(@movie)
+        ratings_score: get_ratings_score(@movie),
+        artists: fetch_movie_artists(@movie)
       }}, status: :ok
     end
 
-    private 
     def check_if_favorite(movie)
       if !current_user
         return false
@@ -100,5 +101,26 @@ module MovieConcern
         return 0
       end
       
+    end
+
+    def fetch_movie_artists(movie)
+      artists_id = movie.artists_id
+      ids = [1, 2]
+      to_return = []
+      if ids && ids.length
+        ids.each do |artist_id|
+          artist = Artist.where(
+            id: artist_id,
+            deleted: false
+          ).first
+
+          if artist && artist.deleted == false
+            to_return.push(artist)
+          end
+          
+        end
+      end
+
+      return to_return
     end
 end
