@@ -10,10 +10,6 @@
   export default {
     methods: {
       initialization () {
-        this.$axios.get('test-route').then(res => {
-          console.log(res)
-          console.log(this.$auth)
-        })
         this.hideLoader()
       }
     },  

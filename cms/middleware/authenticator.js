@@ -3,12 +3,14 @@ export default async ({ app, redirect, route, error, store }) => {
 
   switch (route.name) {
     case 'dashboard':
-      if (token) {
-        redirect('/dashboard')
-      }
-      else {
-        redirect('/')
-      }
+      // if (token) {
+      //   redirect('/dashboard')
+      // }
+      // else {
+      //   redirect('/')
+      // }
+      break
+    default:
       break
   }
 

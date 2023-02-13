@@ -68,9 +68,10 @@
       login () {
         this.showLoader()
         this.$auth.loginWith('local', { data: this.login_form }).then(res => {
-          this.$router.push('/dashboard')
-          //console.log(res)
-          //console.log(this.$auth)
+          localStorage.setItem('current_user', JSON.stringify(res.data.data))
+          console.log(res.headers)
+          //this.$router.push('/dashboard')
+          
         }).catch(err => {
           console.log(err.response.data.errors)
         }).then(() => {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav-bar />
-    <Sidebar v-if="getAuthenticated" />
+    <Sidebar v-if="auth_status" />
     <Nuxt />
     <Footer />
 
@@ -22,6 +22,14 @@
         getAuthenticated: 'global/settings/getAuthenticated'
       })
     },
+    methods:  {
+      setAuth () {
+        this.$store.commit('global/settings/SET_AUTH_USER')
+      }
+    },  
+    mounted () {
+      this.setAuth()
+    }
   }
 </script>
 
