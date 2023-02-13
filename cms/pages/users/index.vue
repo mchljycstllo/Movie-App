@@ -1,7 +1,7 @@
 <template>
   <div :class="attr['page']">
     <div id="cms-dashboard">
-      
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem doloribus quidem sed beatae animi fuga dignissimos esse, eaque dolores minima tenetur non dolorem in quis sint nam quam veniam architecto.
     </div>
   </div>
 </template>

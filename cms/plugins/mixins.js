@@ -8,14 +8,16 @@ Vue.mixin({
       getContentLoaderStatus: 'global/content-loader/getContentLoaderStatus',
       getAuthenticated: 'global/settings/getAuthStatus',
       auth_status: 'global/settings/getAuthStatus',
-      auth_user: 'global/settings/getAuthUser'
+      auth_user: 'global/settings/getAuthUser',
+      modal_info: 'global/modal/getModalInfo'
     })
   },
   methods: {
     ...mapMutations({
       toggleContentLoaderStatus: 'global/content-loader/toggleContentLoaderStatus',
       setAuth: 'global/settings/SET_AUTH_USER',
-      logout_user: 'global/settings/LOGOUT_USER'
+      logout_user: 'global/settings/LOGOUT_USER',
+      set_modal: 'global/modal/SET_MODAL'
     }),
     hideLoader () {
       this.$store.commit('global/content-loader/toggleContentLoaderStatus', {
@@ -48,6 +50,26 @@ Vue.mixin({
       localStorage.removeItem('current_user')
       this.logout_user()
       window.open('/', '_SELF')
+    },
+    //modals
+    setSuccess (message=null) {
+      this.set_modal({
+        type: 'success',
+        show: true,
+        message: message ? messsage : 'Test modal success'
+      })
+    },
+    setError (message) {
+      this.set_modal({
+        type: 'error',
+        show: true,
+        message: message ? message : 'Test modal error'
+      })
+    },
+    hideModal () {
+      this.set_modal({
+        show: false
+      })
     }
   }
 })

@@ -7,7 +7,7 @@
         :class="attr['page__content-form']"
       >
         <h2 :class="attr['page__form-title']">
-          Login
+          Admin Login
         </h2>
         <div :class="attr['page__input-group']">
           <label>
@@ -68,11 +68,21 @@
       login () {
         this.showLoader()
         this.$auth.loginWith('local', { data: this.login_form }).then(res => {
-          localStorage.setItem('current_user', JSON.stringify(res.data.data))
-          window.open('/dashboard', '_SELF')
+          if (res.data.data.role != 'admin') {
+            this.hideLoader()
+            //alert('Invalid user')
+            //this.setError('Invalid user')
+            setTimeout(() => {
+              this.logout()
+            }, 1000)
+          }
+          else {
+            localStorage.setItem('current_user', JSON.stringify(res.data.data))
+            window.open('/dashboard', '_SELF')
+          }
           
         }).catch(err => {
-          console.log(err.response.data.errors)
+          this.setError(err.response.data.errors[0])
         }).then(() => {
           setTimeout( () => {
             this.hideLoader()

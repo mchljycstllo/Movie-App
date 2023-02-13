@@ -3,13 +3,19 @@
     <nav-bar />
     <Sidebar v-if="auth_status" />
     <Nuxt />
-    <Footer />
+    <Footer v-if="auth_status" />
 
     <!-- Content Loader -->
     <transition name="fade">
       <template v-if="getContentLoaderStatus('loader')">
         <content-loader />
       </template>
+    </transition>
+
+    <transition name="fade">
+      <Message 
+        v-if="modal_info.show && (modal_info.type == 'error' || modal_info.type == 'success')"
+      />
     </transition>
   </div>
 </template>
@@ -43,6 +49,8 @@
     --theme_gray: #808080
     --theme_primary: #FF0073
     --theme_error: #D13744
+    --theme_snow_white: #FFFAFA
+    --theme_modal_head: rgba(0,0,0,.05)
     --roboto: 'Roboto'
     --light: 300
     --reg: 400
@@ -393,6 +401,6 @@
 
   //cms
   #cms-dashboard
-    padding-left: 155px
+    padding-left: 160px
     padding-top: 85px
 </style>
