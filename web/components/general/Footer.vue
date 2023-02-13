@@ -1,7 +1,7 @@
 <template>
   <footer :class="attr['footer']">
     <div :class="attr['footer__content']">
-      <span :class="attr['footer__copyright']"> Copyright {{ $moment().format('Y') }}. Movie Review. All right reserved </span>
+      <span :class="attr['footer__copyright']"> Copyright {{ $moment().format('Y') }}. Movie App. All right reserved </span>
     </div>
   </footer>
 </template>

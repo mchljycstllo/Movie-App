@@ -6,6 +6,7 @@
       />
     </section>
     <image-grid 
+      v-if="related_movies_data.length"
       :payload="related_movies_data"
       :title="'Related Movies'"
     />

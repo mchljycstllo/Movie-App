@@ -82,6 +82,7 @@ module MovieConcern
       ).where.not(
         id: movie.id
       )
+      .limit(10)
     end
 
     def get_ratings_score(movie)

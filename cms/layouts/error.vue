@@ -36,7 +36,7 @@
     layout: 'error',
     data: () => ({
       loaded: false,
-      page_title: 'Movie Review | Home',
+      page_title: 'Movie App | Home',
       label: {
         title: '',
         subtitle: '',
@@ -50,7 +50,7 @@
       initialization () {
         switch (this.error.statusCode) {
           case 404:
-            this.page_title = 'Movie Review | Page Not Found'
+            this.page_title = 'Movie App | Page Not Found'
             this.label = {
               title: 'Oops!',
               subtitle: 'We can\'t seem to find the page you\'re looking for.',
@@ -62,7 +62,7 @@
             }
             break
           case 42069:
-            this.page_title = 'Movie Review | Coming Soon'
+            this.page_title = 'Movie App | Coming Soon'
             this.label = {
               title: 'Coming Soon',
               subtitle: 'We are going to launch this page very soon. Stay Tune!',
@@ -70,7 +70,7 @@
             }
             break
           case 403:
-            this.page_title = 'Movie Review | Access Denied'
+            this.page_title = 'Movie App | Access Denied'
             this.label = {
               title: 'Oops!',
               subtitle: 'You don\'t have permission to access this page.',
@@ -82,7 +82,7 @@
             }
             break
           case 401:
-            this.page_title = 'Movie Review | Unauthorized'
+            this.page_title = 'Movie App | Unauthorized'
             this.label = {
               title: 'Error 401',
               subtitle: 'Oops! Looks like your token has been expired!',
@@ -93,7 +93,7 @@
             }
             break
           default:
-            this.page_title = 'Movie Review | Something Went Wrong'
+            this.page_title = 'Movie App | Something Went Wrong'
             this.label = {
               title: 'Oops!',
               subtitle: 'Something Went Wrong.',

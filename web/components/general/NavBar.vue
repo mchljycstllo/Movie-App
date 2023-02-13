@@ -8,7 +8,7 @@
     >
     <nuxt-link to="/">
       <h1 :class="attr['nav__brand']">
-        Movie <b>Review</b>
+        Movie <b>App</b>
       </h1>
     </nuxt-link>
 
