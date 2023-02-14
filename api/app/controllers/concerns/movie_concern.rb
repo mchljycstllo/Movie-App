@@ -121,7 +121,7 @@ module MovieConcern
         end
       end
 
-      return artists_ids
-      #return to_return
+      #return artists_ids
+      return to_return
     end
 end
