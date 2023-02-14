@@ -1,10 +1,10 @@
 <template>
   <div :class="attr['page']">
-    <div id="cms-dashboard">
+    <div id="cms-dashboard" v-if="loaded">
       <div class="cms-header">
         <div class="cms-header__inner">
           <span class="cms-header__title">
-            {{ title }}
+            {{ title }} : {{ records.length }} {{ records.length == 1 ? 'item' : 'items' }}
           </span>
         </div>
       </div>
@@ -37,14 +37,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, key) in 10" :key="key">
+            <tr v-for="(item, key) in records" :key="key">
               <td class="cms__table-td">
-                <span class="cms__table__name">
-                  TEST
-                </span>
+                <nuxt-link 
+                  class="cms__table__name"
+                  :to="`/${buttons.entity}/${item.id}/update`"
+                >
+                  {{ item.title }}
+                </nuxt-link>
               </td>
               <td class="cms__table-td">
-                June 27, 1998
+                {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
               </td>
               <td class="cms__table-td">
                 <button class="cms__table-button cms__table-button--info">
@@ -65,9 +68,11 @@
 <script>
   export default {
     data: () => ({
-      title: 'Categories',
+      loaded: false,
+      title: 'Genres',
       buttons: {
-        add: '/categories/create'
+        add: '/genres/create',
+        entity: 'genre'
       },
       table_fields: [
         {
@@ -82,11 +87,29 @@
           name: 'actions',
           label: 'Actions'
         }
-      ]
+      ],
+      records: []
     }),
     methods: {
       initialization () {
+        this.fetchData()
         this.hideLoader()
+        this.loaded = true
+      },
+      fetchData () {
+        this.$axios.$get('cms/genre').then(({ data }) => {
+          this.manipulateData(data)
+        })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
+      },
+      manipulateData (records) {
+        let new_record = records.map((item, key) => ({
+          ...item.genre,
+          movies: item.movies
+        }))
+        this.records = new_record
       }
     },  
     mounted () {

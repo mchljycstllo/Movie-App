@@ -46,7 +46,7 @@
                     name="name" 
                     autocomplete="off" 
                     placeholder="Enter name" 
-                    v-model="form_data.name"
+                    v-model="form_data.title"
                   >
                   <transition name="slide">
                     <span 
@@ -88,7 +88,7 @@
         back_link: '/genres'
       },
       form_data: {
-        name: ''
+        title: ''
       }
     }),
     methods: {
@@ -102,18 +102,16 @@
             this.hideLoader()
             return
           } else {
-              // //call axips
-              // this.axios.post('').then(res => {
-              //   //show confirmation
-              //   //redirect to back link
-              //   //hide confirmation
-              // })
-              // .catch(err => {
-              //   this.setError(err.response.data.errors[0])
-              // })
-              // .then(() => {
-              //   this.hideLoader()
-              // })
+              this.$axios.post('cms/genre', this.form_data).then(res => {
+                this.setSuccess('Genre has been saved')
+                setTimeout(() => {
+                  this.$router.push(this.buttons.back_link)
+                  this.hideModal()
+                }, 1000)
+              })
+              .catch(err => {
+                this.setError(err.response.data.errors[0])
+              })
               this.hideLoader()
           }
           this.$nextTick(() => {

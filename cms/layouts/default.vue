@@ -14,20 +14,14 @@
 
     <transition name="slide-y">
       <Message 
-        v-if="modal_info.show && (modal_info.type == 'error' || modal_info.type == 'success')"
+        v-if="modal_info.show"
       />
     </transition>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   export default {
-    computed: {
-      ...mapGetters ({
-        getAuthenticated: 'global/settings/getAuthenticated'
-      })
-    },
     watch:{
       $route (to, from){
         this.runMiddleware()

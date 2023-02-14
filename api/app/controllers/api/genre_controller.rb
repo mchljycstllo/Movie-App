@@ -1,6 +1,6 @@
 module Api
   class GenreController < ApplicationController
-    before_action :authenticate_user!
+    #before_action :authenticate_user! TODO
     before_action :set_genre, only: [:show, :update, :destroy]
 
     def index
@@ -24,7 +24,8 @@ module Api
       if genre.save
         render json: {status: 'SUCCESS', msg: 'Saved genre', data: genre}, status: :ok
       else
-        render json: {status: 'ERROR', errors: ['genre not saved']}, status: :unprocessable_entity
+        errors = genre.errors[:title]
+        render json: {status: 'ERROR', errors: errors}, status: :unprocessable_entity
       end
     end
 

@@ -89,6 +89,13 @@
           background-color: var(--theme_error)
         h5
           color: var(--theme_error)
+      &--success
+        & ^[0]__close
+          background-color: var(--theme_success)
+        & ^[0]__footer-button--close
+          background-color: var(--theme_success)
+        h5
+          color: var(--theme_success)
     &__body
       padding: 10px 20px
     &__footer

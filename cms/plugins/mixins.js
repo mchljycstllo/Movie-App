@@ -37,6 +37,8 @@ Vue.mixin({
       let route_name = this.$route.name
       console.log(route_name)
       if (authenticated) {
+        // let token = `eyJhY2Nlc3MtdG9rZW4iOiJKSWpaS1JkZm1SZi0zYW1HekFsTThBIiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjlyOS1wdWxTRlo0X2NUZnFRY2ZneEEiLCJleHBpcnkiOiIxNjc3NTgyMTY2IiwidWlkIjoiamF5Y2FzdGlsbG9AbW92aWVhcHAuY29tIn0=`
+        // localStorage.setItem('bearer_token', token)
         if (route_name == 'index') {
           this.$router.push('/dashboard')
         }
@@ -50,11 +52,11 @@ Vue.mixin({
       window.open('/', '_SELF')
     },
     //modals
-    setSuccess (message=null) {
+    setSuccess (message) {
       this.set_modal({
         type: 'success',
         show: true,
-        message: message ? messsage : 'Test modal success'
+        message: message ? message : 'Test modal success'
       })
     },
     setError (message) {
