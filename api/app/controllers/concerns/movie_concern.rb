@@ -104,7 +104,6 @@ module MovieConcern
     end
 
     def fetch_movie_artists(movie)
-      artists_ids = movie.artists_id
       ids = [1, 2]
       to_return = []
       if ids && ids.length

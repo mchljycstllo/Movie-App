@@ -12,11 +12,23 @@
 
 ActiveRecord::Schema.define(version: 202301200733191) do
 
+  create_table "artist_movies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "artist_id", null: false
+    t.bigint "movie_id", null: false
+    t.boolean "deleted", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_artist_movies_on_artist_id"
+    t.index ["movie_id"], name: "index_artist_movies_on_movie_id"
+  end
+
   create_table "artists", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "full_name"
     t.boolean "deleted", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "image"
+    t.string "image_alt"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -52,7 +64,6 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.string "title"
     t.integer "release_year"
     t.text "description"
-    t.text "artists_id"
     t.boolean "deleted", default: false
     t.text "image"
     t.text "image_alt"
@@ -100,6 +111,8 @@ ActiveRecord::Schema.define(version: 202301200733191) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "artist_movies", "artists"
+  add_foreign_key "artist_movies", "movies"
   add_foreign_key "comments", "movies"
   add_foreign_key "comments", "users"
   add_foreign_key "favorites", "movies"

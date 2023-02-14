@@ -27,7 +27,8 @@ module Api
         @movie.slug = movie_params[:title].parameterize
       end
       if @movie.save
-        render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
+        save_movie_artists
+        #render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
       else
         render json: @movie.errors, status: :unprocessable_entity
       end
@@ -61,7 +62,24 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def movie_params
-        params.permit(:title, :release_year, :movie_id, :genre_id, :artists_id, :image, :image_alt, :trailer_link)
+        params.permit(:title, :release_year, :movie_id, :genre_id, :artist_ids, :image, :image_alt, :trailer_link)
       end
+
+      def save_movie_artists
+        artist_ids = params[:artist_ids]
+        to_render = []
+        artist_ids.each do |id|
+          artist_movie = ArtistMovie.new
+          artist_movie.movie_id = @movie.id
+          artist_movie.artist_id = id
+          artist_movie.save
+          to_render.push(artist_movie)
+        end
+
+        render json: {
+          ids: to_render
+        }
+      end
+
   end
 end
