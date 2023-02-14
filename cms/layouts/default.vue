@@ -425,7 +425,9 @@
       width: 100%
       background-color: var(--theme_primary)
     &__title
+      font-size: 20px
       color: var(--theme_white)
+      text-transform: uppercase
   .cms
     &__main-content
       padding: 50px 0 30px
@@ -496,4 +498,79 @@
       cursor: pointer
       &:hover
         transform: scale(1.1)
+    
+    //form
+    &__form-container
+      padding: 20px 5px 0
+    &__form-header
+      margin-bottom: 20px
+    &__form-row
+      display: flex
+      flex-flow: row wrap
+      margin: 0 -10px 20px
+      &--one
+        & ^[0]__form-group
+          flex: 0 0 calc((100% / 1) - 20px)
+      &--two
+        & ^[0]__form-group
+          flex: 0 0 calc((100% / 2) - 20px)
+      &--three
+        & ^[0]__form-group
+          flex: 0 0 calc((100% / 3) - 20px)
+    &__form-group
+      position: relative
+      display: flex
+      flex-direction: column
+      margin: 0 10px
+      width: 100%
+      &__input
+        border: 1px solid var(--theme_gray)
+        margin: 10px 0 0
+        padding: 10px 20px
+        font-size: 18px
+        transition: .2s ease-in-out
+        &--error
+          border: 1px solid var(--theme_error)
+        &:hover
+          border: 1px solid var(--theme_primary)
+      &__error
+        position: absolute
+        top: calc(100% + 5px)
+        background-color: var(--theme_error)
+        color: var(--theme_white)
+        font-size: 14px
+        z-index: 1
+        padding: 5px 10px
+        border-radius: 5px
+        user-select: none
+        right: 0
+        &::before
+          content: ""
+          position: absolute
+          bottom: calc(100% - 1px)
+          width: 0
+          height: 0
+          border-left: 7px solid transparent
+          border-right: 7px solid transparent
+          border-bottom: 7px solid var(--theme_error)
+          right: 17px
+          z-index: 1
+    &__form-buttons
+      position: fixed
+      display: flex
+      bottom: 55px
+      width: 100%
+      max-width: calc(100% - 175px)
+      & ^[0]__form-button
+        width: 50%
+        padding: 20px
+        text-align: center
+        color: var(--theme_white)
+        cursor: pointer
+        font-size: 18px
+        transition: .2s ease-in-out
+        &--cancel
+          background-color: var(--theme_error)
+        &--success
+          background-color: var(--theme_success)
 </style>

@@ -39,9 +39,9 @@
           slug: '/dashboard'
         },
         {
-          name: 'Categories',
+          name: 'Genres',
           icon: '/icons/category.png',
-          slug: '/categories'
+          slug: '/genres'
         },
         {
           name: 'Actors',
