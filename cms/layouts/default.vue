@@ -458,6 +458,8 @@
         font-weight: bold
       &-td
         text-align: left
+        &--buttons
+          display: flex
       &__name
         color: var(--theme_primary)
         text-decoration: underline
@@ -470,6 +472,7 @@
         border-radius: 10px
         color: var(--theme_white)
         cursor: pointer
+        text-align: center
         transition: .2s ease-in-out
         &:hover
           transform: scale(1.1)

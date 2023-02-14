@@ -52,10 +52,12 @@
               <td class="cms__table-td">
                 {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
               </td>
-              <td class="cms__table-td">
-                <button class="cms__table-button cms__table-button--info">
+              <td class="cms__table-td cms__table-td--buttons">
+                <nuxt-link class="cms__table-button cms__table-button--info"
+                  :to="`/${buttons.entity}/${item.id}/update`"
+                >
                   EDIT
-                </button>
+                </nuxt-link>
                 <button 
                   :class="[
                     'cms__table-button cms__table-button--danger',
@@ -81,7 +83,7 @@
       title: 'Genres',
       buttons: {
         add: '/genres/create',
-        entity: 'genre'
+        entity: 'genres'
       },
       table_fields: [
         {
