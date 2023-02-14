@@ -428,6 +428,12 @@
       background-color: var(--theme_white)
     &__table
       margin: 30px 0
+      &-thumbnail
+        height: 50px
+        width: 50px
+        margin-right: 20px
+        object-fit: cover
+        border-radius: 100px
       &__thead
         transition: .2s ease-in-out
         &--sticky
@@ -498,7 +504,6 @@
       cursor: pointer
       &:hover
         transform: scale(1.1)
-    
     //form
     &__form-container
       padding: 20px 5px 0

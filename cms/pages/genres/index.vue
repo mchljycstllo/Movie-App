@@ -110,11 +110,6 @@
         this.fetchData()
         this.hideLoader()
       },
-      deleteItem (item) {
-        let message = `Are you sure you want to delete ${item.title}? This cannot be undone`,
-        api = `/cms/genre/${item.id}`
-        this.setConfirmation(message, api)
-      },
       fetchData () {
         this.showLoader()
         this.records = []

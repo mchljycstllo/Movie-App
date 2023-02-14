@@ -9,7 +9,8 @@ Vue.mixin({
       getAuthenticated: 'global/settings/getAuthStatus',
       auth_status: 'global/settings/getAuthStatus',
       auth_user: 'global/settings/getAuthUser',
-      modal_info: 'global/modal/getModalInfo'
+      modal_info: 'global/modal/getModalInfo',
+      image_url: 'global/settings/getImageURL'
     })
   },
   methods: {
@@ -82,6 +83,7 @@ Vue.mixin({
       })
     },
 
+    //CRUD
     //table
     checkTableSticky () {
       document.addEventListener('scroll', () => {
@@ -94,6 +96,11 @@ Vue.mixin({
           thead ? thead.classList.remove('cms__table__thead--sticky') : ''
         }
       })
-    }
+    },
+    deleteItem (item) {
+      let message = `Are you sure you want to delete ${item.title}? This cannot be undone`,
+      api = `/cms/${this.buttons.entity}/${item.id}`
+      this.setConfirmation(message, api)
+    },
   }
 })

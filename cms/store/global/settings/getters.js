@@ -10,5 +10,8 @@ export default {
     },
     getAuthUser: (state) => {
         return state.auth_user
+    },
+    getImageURL (state) {
+        return state.image_url
     }
 }

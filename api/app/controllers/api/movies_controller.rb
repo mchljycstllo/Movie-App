@@ -1,7 +1,7 @@
 module Api
   class MoviesController < ApplicationController
     before_action :set_current_movie, only: [:show, :update, :destroy]
-    before_action :authenticate_user!
+    #before_action :authenticate_user! TODO
 
     include MovieConcern
 
