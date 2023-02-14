@@ -47,13 +47,22 @@
                 </nuxt-link>
               </td>
               <td class="cms__table-td">
+                {{ item.movies_count }}
+              </td>
+              <td class="cms__table-td">
                 {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
               </td>
               <td class="cms__table-td">
                 <button class="cms__table-button cms__table-button--info">
                   EDIT
                 </button>
-                <button class="cms__table-button cms__table-button--danger">
+                <button 
+                  :class="[
+                    'cms__table-button cms__table-button--danger',
+                    item.movies_count > 0 && 'cms__table-button--disabled'
+                  ]"
+                  @click="deleteItem(item)"
+                >
                   DELETE
                 </button>
               </td>
@@ -80,6 +89,10 @@
           label: 'Name'
         },
         {
+          name: 'movies_count',
+          label: 'Movies Count'
+        },  
+        {
           name: 'created_at',
           label: 'Created At'
         },
@@ -94,28 +107,44 @@
       initialization () {
         this.fetchData()
         this.hideLoader()
-        this.loaded = true
+      },
+      deleteItem (item) {
+        let message = `Are you sure you want to delete ${item.title}? This cannot be undone`,
+        api = `/cms/genre/${item.id}`
+        this.setConfirmation(message, api)
       },
       fetchData () {
+        this.showLoader()
+        this.records = []
+        this.loaded = false
         this.$axios.$get('cms/genre').then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
         })
+
+        this.loaded = true
+        this.hideLoader()
       },
       manipulateData (records) {
         let new_record = records.map((item, key) => ({
           ...item.genre,
-          movies: item.movies
+          movies_count: item.movies
         }))
         this.records = new_record
       }
     },  
     mounted () {
+      this.$nuxt.$on('clicked-proceed', () => {
+        this.fetchData ()
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
+    },
+    destroyed () {
+      this.$nuxt.$off('clicked-proceed')
     },
     asyncData({ $axios, store, error }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {

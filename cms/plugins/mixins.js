@@ -35,7 +35,6 @@ Vue.mixin({
     runMiddleware () {
       let authenticated = this.auth_status
       let route_name = this.$route.name
-      console.log(route_name)
       if (authenticated) {
         // let token = `eyJhY2Nlc3MtdG9rZW4iOiJKSWpaS1JkZm1SZi0zYW1HekFsTThBIiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjlyOS1wdWxTRlo0X2NUZnFRY2ZneEEiLCJleHBpcnkiOiIxNjc3NTgyMTY2IiwidWlkIjoiamF5Y2FzdGlsbG9AbW92aWVhcHAuY29tIn0=`
         // localStorage.setItem('bearer_token', token)
@@ -66,9 +65,20 @@ Vue.mixin({
         message: message ? message : 'Test modal error'
       })
     },
+    setConfirmation (message, api) {
+      this.set_modal({
+        type: 'confirmation',
+        show: true,
+        message: message,
+        api: api
+      })
+    },
     hideModal () {
       this.set_modal({
-        show: false
+        type: '',
+        show: false,
+        message: '',
+        api: ''
       })
     },
 

@@ -21,13 +21,45 @@
             attr['modal__footer-button--close']
           ]"
         > CLOSE </button>
+
+        <button
+          v-if="modal_info.api"
+          @click="submitDelete()"
+          :class="[
+            attr['modal__footer-button'],
+            attr['modal__footer-button--proceed']
+          ]"
+        > PROCEED </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  export default {
+    methods: {
+      submitDelete () {
+        this.showLoader()
+        //delete data
+        this.$axios.delete(this.modal_info.api).then(res => {
+          this.hideModal()
+          this.setSuccess('Data has been deleted')
 
+          setTimeout(() => {
+            this.$nuxt.$emit('clicked-proceed')
+            this.hideModal()
+          }, 2000)
+        })
+        .catch(err => {
+          this.hideModal()
+          this.setError(err.response.data.errors[0])
+        })
+        .then(() => {
+          this.hideLoader()
+        })
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" module="attr">
@@ -82,7 +114,7 @@
         font-size: 40px
         transform: rotate(45deg)
       //button statuses
-      &--error
+      &--error, &--confirmation
         & ^[0]__close
           background-color: var(--theme_error)
         & ^[0]__footer-button--close
@@ -121,4 +153,6 @@
         cursor: pointer
         &:hover
           transform: scale(1.1)
+        &--proceed
+          background-color: var(--theme_success)
 </style>

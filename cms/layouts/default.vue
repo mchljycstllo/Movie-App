@@ -477,6 +477,9 @@
           background-color: var(--theme_info)
         &--danger
           background-color: var(--theme_danger)
+        &--disabled
+          background-color: var(--theme_gray)
+          pointer-events: none
     &__actions-button
       display: inline-block
       color: var(--theme_white)
