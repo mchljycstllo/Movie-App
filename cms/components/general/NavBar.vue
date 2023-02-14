@@ -31,14 +31,23 @@
           </a>
         </nuxt-link>
       </li>
-      <li v-else>
-        <span
-          :class="attr['nav__link-item']" 
-          @click="logout()"
-        >
-          Logout
-        </span>
-      </li>
+      <template v-else>
+        <li>
+          <nuxt-link to="/edit-profile">
+            <span :class="attr['nav__link-item']" v-if="auth_user && auth_user.full_name">
+              Hello,  {{ auth_user.full_name }}
+            </span>
+          </nuxt-link>
+        </li>
+        <li >
+          <span
+            :class="attr['nav__link-item']" 
+            @click="logout()"
+          >
+            Logout
+          </span>
+        </li>
+      </template>
     </ul>
     </section>
   </nav>
@@ -64,7 +73,6 @@
       margin: 0 auto
       padding: 0 20px
       width: 100%
-      max-width: 1280px
     &__link-item
       margin: 0 10px
       color: var(--theme_white)

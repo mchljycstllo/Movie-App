@@ -36,15 +36,13 @@ Vue.mixin({
       let authenticated = this.auth_status
       let route_name = this.$route.name
       console.log(route_name)
-      switch (route_name) {
-        case 'index':
-        case 'dashboard':
-          if (authenticated) this.$router.push('/dashboard')
-          else this.$router.push('/')
-          break
-        default:
-          break
+      if (authenticated) {
+        if (route_name == 'index') {
+          this.$router.push('/dashboard')
+        }
       }
+      else this.$router.push('/')
+
     },
     logout () {
       localStorage.removeItem('current_user')
@@ -69,6 +67,20 @@ Vue.mixin({
     hideModal () {
       this.set_modal({
         show: false
+      })
+    },
+
+    //table
+    checkTableSticky () {
+      document.addEventListener('scroll', () => {
+        let thead = document.querySelector('#cms-table-head')
+        let page_offset = window.pageYOffset
+        if (page_offset >= 105) {
+          thead ? thead.classList.add('cms__table__thead--sticky') : ''
+        }
+        else {
+          thead ? thead.classList.remove('cms__table__thead--sticky') : ''
+        }
       })
     }
   }

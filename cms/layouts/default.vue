@@ -12,7 +12,7 @@
       </template>
     </transition>
 
-    <transition name="fade">
+    <transition name="slide-y">
       <Message 
         v-if="modal_info.show && (modal_info.type == 'error' || modal_info.type == 'success')"
       />
@@ -31,10 +31,12 @@
     watch:{
       $route (to, from){
         this.runMiddleware()
+        this.checkTableSticky()
       }
     },
     mounted () {
       this.setAuth()
+      this.checkTableSticky()
       setTimeout(() => {
         this.runMiddleware()
       }, 100)
@@ -51,6 +53,9 @@
     --theme_error: #D13744
     --theme_snow_white: #FFFAFA
     --theme_modal_head: rgba(0,0,0,.05)
+    --theme_info: #438eff
+    --theme_danger: #ea5455
+    --theme_success: #5cbf69
     --roboto: 'Roboto'
     --light: 300
     --reg: 400
@@ -204,10 +209,10 @@
     margin: 60px 0
     text-align: center
     thead
-      background-color: var(--theme_primary)
+      //background-color: var(--theme_primary)
       th
         padding: 30px
-        color: var(--theme_white)
+        //color: var(--theme_white)
         *
           display: block
         span
@@ -400,7 +405,95 @@
     transform: translateY(50px)
 
   //cms
+  .no-hover
+    pointer-events: none
   #cms-dashboard
-    padding-left: 160px
-    padding-top: 85px
+    padding: 85px 15px 20px 160px
+
+  
+  .cms-header
+    position: fixed
+    z-index: 999
+    top: 62px
+    padding: 20px 0 0
+    width: 100%
+    max-width: calc(100% - 175px)
+    background-color: var(--theme_white)
+    &__inner
+      padding: 10px 20px
+      border-radius: 5px
+      width: 100%
+      background-color: var(--theme_primary)
+    &__title
+      color: var(--theme_white)
+  .cms
+    &__main-content
+      padding: 50px 0 30px
+      background-color: var(--theme_white)
+    &__table
+      margin: 30px 0
+      &__thead
+        transition: .2s ease-in-out
+        &--sticky
+          position: sticky
+          top: 120px
+          padding: 10px 0
+          width: 100%
+          max-width: calc(100% - 175px)
+          border-radius: 10px
+          color: var(--theme_white)
+          background-color: var(--theme_gray)
+          tr
+            width: 100%
+          th
+            color: var(--theme_white)
+            &:first-child
+              border-top-left-radius: 5px
+              border-bottom-left-radius: 5px
+            &:last-child
+              border-top-right-radius: 5px
+              border-bottom-right-radius: 5px
+      &-th
+        padding: 10px
+        background-color: transparent
+        text-align: left
+        text-transform: uppercase
+        color: var(--theme_gray)
+        font-weight: bold
+      &-td
+        text-align: left
+      &__name
+        color: var(--theme_primary)
+        text-decoration: underline
+        cursor: pointer
+        transition: .2s ease-in-out
+      &-button
+        margin-right: 10px
+        padding: 10px
+        min-width: 70px
+        border-radius: 10px
+        color: var(--theme_white)
+        cursor: pointer
+        transition: .2s ease-in-out
+        &:hover
+          transform: scale(1.1)
+        &--info
+          background-color: var(--theme_info)
+        &--danger
+          background-color: var(--theme_danger)
+    &__actions-button
+      display: inline-block
+      color: var(--theme_white)
+      background-color: var(--theme_primary)
+      font-size: 14px
+      text-transform: uppercase
+      padding: 10px 15px
+      border-radius: 10px
+      box-shadow: 0 0 20px transparent
+      text-align: center
+      transform: translateY(0)
+      transition: .3s ease-in-out
+      cursor: pointer
+      &:hover
+        transform: scale(1.1)
 </style>

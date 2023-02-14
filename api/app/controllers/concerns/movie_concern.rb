@@ -104,7 +104,7 @@ module MovieConcern
     end
 
     def fetch_movie_artists(movie)
-      artists_id = movie.artists_id
+      artists_ids = movie.artists_id
       ids = [1, 2]
       to_return = []
       if ids && ids.length
@@ -121,6 +121,7 @@ module MovieConcern
         end
       end
 
-      return to_return
+      return artists_ids
+      #return to_return
     end
 end

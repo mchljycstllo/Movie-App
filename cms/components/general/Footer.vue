@@ -1,6 +1,6 @@
 <template>
   <nav :class="attr['footer']">
-    This is Footer
+    <span> Copyright {{ $moment().format('Y') }}. Movie App. All right reserved</span>
   </nav>
 </template>
 
@@ -10,9 +10,14 @@
 
 <style lang="stylus" module="attr">
   .footer
-    opacity: 1
     position: fixed
     bottom: 0
-    margin-left: 160px
+    display: flex
+    align-items: center
+    justify-content: center
+    width: 100%
+    margin-left: 153px
     padding: 10px 20px
+    background-color: var(--theme_primary)
+    color: var(--theme_white)
 </style>

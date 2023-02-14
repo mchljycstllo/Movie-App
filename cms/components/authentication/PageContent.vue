@@ -71,10 +71,10 @@
           if (res.data.data.role != 'admin') {
             this.hideLoader()
             //alert('Invalid user')
-            //this.setError('Invalid user')
+            this.setError('Invalid user')
             setTimeout(() => {
               this.logout()
-            }, 1000)
+            }, 4000)
           }
           else {
             localStorage.setItem('current_user', JSON.stringify(res.data.data))
@@ -90,6 +90,12 @@
         })
         //console.log(this.$auth)
       }
+    },
+    mounted () {
+      console.log(this.$auth)
+      let ids = [1, 2],
+      stringified = JSON.stringify(ids)
+      console.log(stringified)
     }
   }
 </script>
