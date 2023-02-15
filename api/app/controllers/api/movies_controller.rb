@@ -3,7 +3,7 @@ module Api
     before_action :set_current_movie, only: [:show, :update, :destroy]
     #before_action :authenticate_user! TODO
 
-    include MovieConcern
+    include MovieConcern, ArtistConcern
 
     # GET /movies
     def index
@@ -12,6 +12,7 @@ module Api
 
     # GET /movies/1
     def show
+      @is_admin = true #instance variable to fetch all admin related data
       fetch_current_movie
     end
 
@@ -49,6 +50,17 @@ module Api
       @movie.update_attribute(:deleted, true)
       render json: {status: 'SUCCESS', msg: 'Deleted movie', data: @movie}, status: :ok
       
+    end
+
+    #api for movie create page. fetch all artists and genres
+    def movie_create_page
+      artists = fetch_all_artists
+      genres = fetch_all_genres
+
+      render json: {status: 'SUCCESS', msg: 'fetched data', data: {
+        artists: artists,
+        genres: genres
+      }}, status: :ok
     end
 
     private

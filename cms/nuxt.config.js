@@ -29,6 +29,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     { src: '~/plugins/vue-scrollto', ssr: false },
+    { src: '~/plugins/vue-multiselect', ssr: false },
     { src: '~/plugins/vue-moment' },
     { src: '~/plugins/mixins' },
     { src: '~/plugins/axios' },

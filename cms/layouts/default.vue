@@ -422,6 +422,8 @@
       font-size: 20px
       color: var(--theme_white)
       text-transform: uppercase
+  .multiselect__tags
+    border: 1px solid var(--theme_gray) !important
   .cms
     &__main-content
       padding: 50px 0 30px
@@ -438,7 +440,7 @@
         transition: .2s ease-in-out
         &--sticky
           position: sticky
-          top: 120px
+          top: 125px
           padding: 10px 0
           width: 100%
           max-width: calc(100% - 175px)
@@ -505,6 +507,8 @@
       &:hover
         transform: scale(1.1)
     //form
+    &__form-element
+      margin-bottom: 80px
     &__form-container
       padding: 20px 5px 0
     &__form-header
@@ -528,16 +532,39 @@
       flex-direction: column
       margin: 0 10px
       width: 100%
+      label
+        display: block
+        margin: 0 0 10px
       &__input
+        width: 100%
         border: 1px solid var(--theme_gray)
-        margin: 10px 0 0
-        padding: 10px 20px
+        padding: 8px 20px
         font-size: 18px
         transition: .2s ease-in-out
+        border-radius: 5px
+        font-family: sans-serif
         &--error
           border: 1px solid var(--theme_error)
         &:hover
           border: 1px solid var(--theme_primary)
+      &__select-container
+        position: relative
+        width: 100%
+        &:hover
+          & ^[0]__form-group__select-arrow
+            transform: translateY(-50%) rotate(180deg)
+      &__select-arrow
+        content: ""
+        position: absolute
+        top: 50%
+        right: 10px
+        border-left: 7px solid transparent
+        border-right: 7px solid transparent
+        border-top: 7px solid var(--theme_primary)
+        z-index: 0
+        transform: translateY(-50%)
+        transition: .4s ease-in-out
+          
       &__error
         position: absolute
         top: calc(100% + 5px)
@@ -563,9 +590,9 @@
     &__form-buttons
       position: fixed
       display: flex
-      bottom: 55px
+      bottom: 38px
       width: 100%
-      max-width: calc(100% - 175px)
+      max-width: calc(100% - 185px)
       & ^[0]__form-button
         width: 50%
         padding: 20px

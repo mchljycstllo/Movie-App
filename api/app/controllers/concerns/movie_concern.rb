@@ -1,7 +1,9 @@
 module MovieConcern
+  include ArtistConcern, GenreConcern
   require 'json'
   private
     @fetch_related = false
+    @is_admin = false #use this variable to fetch admin related data
 
     def set_movie
       begin
@@ -36,6 +38,14 @@ module MovieConcern
         related_movies = fetch_related_movies(@movie)
       end
 
+      #fetch all admin related data
+      all_artists = []
+      all_genres = []
+      if @is_admin
+        all_artists = fetch_all_artists
+        all_genres = fetch_all_genres
+      end 
+
       render json: {status: 'SUCCESS', msg: 'Loaded movie', data: {
         movie: @movie,
         genre: genre,
@@ -44,7 +54,9 @@ module MovieConcern
         related_movies: manipulate_movies(related_movies),
         no_of_ratings: ratings.length,
         ratings_score: get_ratings_score(@movie),
-        artists: fetch_movie_artists(@movie)
+        artists: fetch_movie_artists(@movie),
+        all_artists: all_artists,
+        all_genres: all_genres
       }}, status: :ok
     end
 

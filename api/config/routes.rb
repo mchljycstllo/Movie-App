@@ -15,6 +15,10 @@ Rails.application.routes.draw do
       resources :movies
       resources :ratings
       resources :artists
+
+      scope 'pages' do
+        get 'movie-create-page' => 'movies#movie_create_page'
+      end
     end
 
     scope '/user' do
