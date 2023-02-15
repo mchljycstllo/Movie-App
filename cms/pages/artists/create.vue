@@ -158,6 +158,7 @@
         })
       },
       initialization () {
+        this.loaded = true
         this.hideLoader()
       }
     },  
