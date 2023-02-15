@@ -4,9 +4,9 @@
 
 			<input type="file" :id="`img_id${counter}`" multiple :name="file_name" ref="file" @change="pickHandler" accept="image/*">
 			<div :class="attr.image_preview" v-if="(image_file_data && preview_image) || update && image_file_data">
+
 				<div :class="attr.div_relative">
 					<img :src="image_file_data" :id="`prvw_img_id${counter}`" :class="attr.preview_image" />
-					<!-- <img :src="`${close_icon}`" :class="attr.close_button" @click="removeImage()" v-if="removable && image_file_data"> -->
 
 					<svg xmlns="http://www.w3.org/2000/svg" :src="`${close_icon}`" :class="attr.close_button" @click="removeImage()" v-if="(removable && image_file_data && !update)" width="24" height="24" viewBox="0 0 24 24">
           <g id="Group_11973" data-name="Group 11973" transform="translate(-269.942 -27.396)">
@@ -146,10 +146,13 @@
 				type: Boolean,
 				default: false //if set to true, display preview image
 			},
-			res_image: ''
+			res_image: {
+				type: String,
+				default: ''
+			}
 		},
-		data: ({max_size}) => ({
-			image_file_data: '',
+		data: ({max_size, res_image}) => ({
+			image_file_data: res_image ? res_image : '',
 			image_file: '',
 			file_data: '',
 			data_errors: [],
@@ -326,9 +329,6 @@
 			}	
 		},
 		mounted () {
-			if (this.update) {
-				this.image_file_data = this.res_image
-			}
 			this.evaluateSizeDisplay()
 		}
 	}

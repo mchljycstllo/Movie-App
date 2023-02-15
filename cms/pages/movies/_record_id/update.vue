@@ -213,7 +213,13 @@
                     v-slot="{ errors }"
                   >
                   <label for="name">Thumbnail *</label>
-                  <Uploader :file_name="'image'" ref="image_uploader" />
+                  <Uploader 
+                    v-if="form_data.thumbnail_image"
+                    :file_name="'image'" 
+                    ref="image_uploader" 
+                    :update="true"
+                    :res_image="form_data.thumbnail_image"
+                  />
                   <transition name="slide">
                     <span 
                       class="cms__form-group__error" 
@@ -251,7 +257,7 @@
     data: () => ({
       loaded: false,
       error_messages: '',
-      title: 'Add Movie',
+      title: 'Update Movie',
       buttons: {
         back_link: '/movies'
       },
@@ -300,8 +306,8 @@
                 form_data.append('artist_ids[]', item.id)
               })
 
-              this.$axios.post('cms/movies', form_data).then(res => {
-                this.setSuccess('Movie has been saved')
+              this.$axios.patch(`cms/movies/${this.$route.params.record_id}`, form_data).then(res => {
+                this.setSuccess('Movie has been updated')
                 setTimeout(() => {
                   this.$router.push(this.buttons.back_link)
                   this.hideModal()
@@ -318,11 +324,12 @@
         })
       },
       fetchData () {
-        this.$axios.$get(`cms/pages/movie-create-page`).then(({ data }) => {
+        this.$axios.$get(`cms/movies/${this.$route.params.record_id}`).then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
+          //console.log(err)
         })
         .then(() => {
           this.hideLoader()
@@ -330,14 +337,28 @@
         this.loaded = true
       },
       manipulateData (data) {
-        let new_records = {
-          ...data,
+        //format form data
+        let new_form_data = {
+          ...data.movie,
+          thumbnail_image: `${this.image_url}${data.movie.image.url}`,
           artists: data.artists.map(item => ({
             ...item,
             name: item.full_name
           }))
         }
+        this.form_data = new_form_data
+
+        //new records
+        let new_records = {
+          genres: data.all_genres,
+          artists: data.all_artists.map(item => ({
+            ...item,
+            name: item.full_name
+          }))
+        }
         this.records = new_records
+
+        console.log(this.form_data)
       },
       initialization () {
         this.fetchData()

@@ -75,7 +75,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def movie_params
-        params.permit(:title, :release_year, :movie_id, :genre_id, :artist_ids, :image, :image_alt, :trailer_link)
+        params.permit(:title, :release_year, :movie_id, :genre_id, :artist_ids, :image, :image_alt, :trailer_link, :description)
       end
 
       def save_artist_movies
