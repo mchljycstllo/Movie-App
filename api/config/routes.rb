@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :movies
       resources :ratings
       resources :artists
+      resources :users
 
       scope 'pages' do
         get 'movie-create-page' => 'movies#movie_create_page'
