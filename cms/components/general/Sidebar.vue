@@ -44,9 +44,9 @@
           slug: '/genres'
         },
         {
-          name: 'Actors',
+          name: 'Artists',
           icon: '/icons/actor.png',
-          slug: '/actors'
+          slug: '/artists'
         },
         {
           name: 'Movies',

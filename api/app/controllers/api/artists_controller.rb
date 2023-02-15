@@ -1,13 +1,21 @@
 module Api
   class ArtistsController < ApplicationController
     before_action :set_artist, only: [:show, :update, :destroy]
-    before_action :authenticate_user!
+    #before_action :authenticate_user! TODO
     include ArtistConcern
 
     # GET /artists
     def index
+      to_return = []
       artists = fetch_all_artists
-      render json: {status: 'SUCCESS', msg: 'All Artists', data: artists}, status: :ok
+      artists.each do |artist|
+        artist_obj = {
+          artist: artist,
+          movies_count: artist.movies.count
+        }
+        to_return.push(artist_obj)
+      end
+      render json: {status: 'SUCCESS', msg: 'All Artists', data: to_return}, status: :ok
     end
 
     # GET /artists/1

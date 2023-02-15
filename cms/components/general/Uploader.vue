@@ -1,5 +1,7 @@
 <template>
 	<div :class="['uploader_main',attr.uploader]">
+		
+
 		<div :class="['upload_container', attr.upload_container, image_file_data ? attr.image_loaded : '']" @dragover.prevent @drop.prevent @drop="dropHandler">
 
 			<input type="file" :id="`img_id${counter}`" multiple :name="file_name" ref="file" @change="pickHandler" accept="image/*">
@@ -237,7 +239,7 @@
 					let file_type = split_type[0]
 					let file_format = split_type[1]
 					if (file_type == this.input_type && supported_formats.includes(file_format)) {
-						
+						this.removeIndex(2)
 					}
 					else {
 						let obj = {
