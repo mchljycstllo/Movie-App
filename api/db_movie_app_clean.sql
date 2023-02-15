@@ -97,7 +97,6 @@ CREATE TABLE `artists` (
 
 LOCK TABLES `artists` WRITE;
 /*!40000 ALTER TABLE `artists` DISABLE KEYS */;
-INSERT INTO `artists` VALUES (1,'Juan Dela Cruz',0,'2023-02-13 00:45:20.753197','2023-02-15 09:34:52.260635','03.webp','Juan Dela Cruz thumbnail'),(2,'John Doe',0,'2023-02-13 00:45:31.469452','2023-02-15 09:34:59.313658','08.webp','John Doe thumbnail'),(3,'John Doe',0,'2023-02-14 23:14:47.004576','2023-02-15 09:35:06.802368','09.webp','John Doe thumbnail'),(4,'John Doe',0,'2023-02-14 23:15:32.888626','2023-02-14 23:15:32.888626','04.webp','testing'),(5,'John Doe',0,'2023-02-14 23:16:07.902168','2023-02-14 23:16:07.902168','04.webp','testing'),(6,'John Doe',0,'2023-02-15 08:30:58.847290','2023-02-15 08:30:58.847290','04.webp','asd'),(8,'asd',0,'2023-02-15 09:09:29.732176','2023-02-15 09:09:29.732176','08.webp','asd thumbnail');
 /*!40000 ALTER TABLE `artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -335,4 +334,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-15 17:40:24
+-- Dump completed on 2023-02-15 17:41:50
