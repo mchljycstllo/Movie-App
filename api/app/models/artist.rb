@@ -3,7 +3,7 @@ class Artist < ApplicationRecord
   has_many :artist_movie
   has_many :movies, :through => :artist_movie
 
-  validates :image, presence: true
-  validates :image_alt, presence: true, uniqueness: false, length: { maximum: 50 }
+  validates :image, presence: true, on: :create
+  validates :image_alt, presence: true, uniqueness: false, length: { maximum: 50 }, on: :create
   validates :full_name, presence: true
 end

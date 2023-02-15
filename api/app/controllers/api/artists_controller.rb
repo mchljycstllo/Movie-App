@@ -20,7 +20,12 @@ module Api
 
     # GET /artists/1
     def show
-      render json: @artist
+
+      render json: {
+        data: {
+          artist: @artist
+        }
+      }, status: :ok
     end
 
     # POST /artists

@@ -65,7 +65,12 @@
                     v-slot="{ errors }"
                   >
                   <label for="name">Thumbnail *</label>
-                  <Uploader :file_name="'image'" ref="image_uploader" />
+                  <Uploader 
+                    :file_name="'image'" 
+                    ref="image_uploader" 
+                    :update="true"
+                    :res_image="form_data.thumbnail_image"
+                  />
                   <transition name="slide">
                     <span 
                       class="cms__form-group__error" 
@@ -140,8 +145,8 @@
               form_data.append('image_alt', `${this.form_data.full_name} thumbnail`)
               form_data.append('description', this.form_data.description)
 
-              this.$axios.post('cms/artists', form_data).then(res => {
-                this.setSuccess('Artist has been saved')
+              this.$axios.patch(`cms/artists/${this.$route.params.record_id}`, form_data).then(res => {
+                this.setSuccess('Artist has been updated')
                 setTimeout(() => {
                   this.$router.push(this.buttons.back_link)
                   this.hideModal()
@@ -157,7 +162,30 @@
           })
         })
       },
+      fetchData () {
+        this.$axios.$get(`cms/artists/${this.$route.params.record_id}`).then(({ data }) => {
+          this.manipulateData(data)
+        })
+        .catch(err => {
+          console.log(err)
+          this.setError(err.response.data.errors[0])
+        })
+        .then(() => {
+          this.hideLoader()
+        })
+        this.loaded = true
+      },
+      manipulateData (data) {
+        console.log(data)
+        let new_form_data = {
+          ...data.artist,
+          name: data.artist.full_name,
+          thumbnail_image: `${this.image_url}${data.artist.image.url}`
+        }
+        this.form_data = new_form_data
+      },
       initialization () {
+        this.fetchData()
         this.hideLoader()
       }
     },  
