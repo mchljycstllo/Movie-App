@@ -28,7 +28,7 @@ module Api
       end
       if @movie.save
         save_movie_artists
-        #render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
+        render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
       else
         render json: @movie.errors, status: :unprocessable_entity
       end
@@ -69,16 +69,12 @@ module Api
         artist_ids = params[:artist_ids]
         to_render = []
         artist_ids.each do |id|
-          artist_movie = ArtistMovie.new
-          artist_movie.movie_id = @movie.id
-          artist_movie.artist_id = id
-          artist_movie.save
-          to_render.push(artist_movie)
+          artist_movie = ArtistMovie.create(movie_id: @movie.id, artist_id: id)
+          #to_render.push(artist_movie) #for debugging
         end
-
-        render json: {
-          ids: to_render
-        }
+        # render json: {
+        #   ids: to_render[0].errors.full_messages #for debugging
+        # }
       end
 
   end

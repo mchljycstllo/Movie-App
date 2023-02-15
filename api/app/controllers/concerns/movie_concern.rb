@@ -104,23 +104,7 @@ module MovieConcern
     end
 
     def fetch_movie_artists(movie)
-      ids = [1, 2]
-      to_return = []
-      if ids && ids.length
-        ids.each do |artist_id|
-          artist = Artist.where(
-            id: artist_id,
-            deleted: false
-          ).first
-
-          if artist && artist.deleted == false
-            to_return.push(artist)
-          end
-          
-        end
-      end
-
-      #return artists_ids
-      return to_return
+      movie_artists = movie.artists
+      return movie_artists
     end
 end

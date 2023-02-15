@@ -5,7 +5,8 @@ class Movie < ApplicationRecord
   has_many :ratings
   has_many :favorites
 
-  has_many :artists, through: :artist_movie
+  has_many :artist_movie
+  has_many :artists, :through => :artist_movie
 
   validates :title, presence: true, uniqueness: false, length: { maximum: 200 }
   validates :release_year, presence: true
