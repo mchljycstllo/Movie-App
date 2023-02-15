@@ -66,6 +66,7 @@
                   >
                   <label for="name">Thumbnail *</label>
                   <Uploader 
+                    v-if="form_data.thumbnail_image"
                     :file_name="'image'" 
                     ref="image_uploader" 
                     :update="true"
