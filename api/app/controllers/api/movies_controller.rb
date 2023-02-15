@@ -27,7 +27,7 @@ module Api
         @movie.slug = movie_params[:title].parameterize
       end
       if @movie.save
-        save_movie_artists
+        save_artist_movies
         render json: {status: 'SUCCESS', msg: 'Sved movie', data: @movie}, status: :ok
       else
         render json: @movie.errors, status: :unprocessable_entity
@@ -37,6 +37,7 @@ module Api
     # PATCH/PUT /movies/1
     def update
       if @movie.update_attributes(movie_params)
+        update_artist_movies
         render json: {status: 'SUCCESS', msg: 'Updated movie', data: @movie}, status: :ok
       else
         render json: {status: 'ERROR', errors: ['movie not saved']}, status: :unprocessable_entity
@@ -65,7 +66,7 @@ module Api
         params.permit(:title, :release_year, :movie_id, :genre_id, :artist_ids, :image, :image_alt, :trailer_link)
       end
 
-      def save_movie_artists
+      def save_artist_movies
         artist_ids = params[:artist_ids]
         to_render = []
         artist_ids.each do |id|
@@ -75,6 +76,17 @@ module Api
         # render json: {
         #   ids: to_render[0].errors.full_messages #for debugging
         # }
+      end
+
+      def update_artist_movies
+        #delete all artist movies first from this movie
+        artist_movies = ArtistMovie.where(movie_id: @movie.id)
+        artist_movies.each do |item|
+          item.delete
+        end
+
+        #save here
+        save_artist_movies
       end
 
   end
