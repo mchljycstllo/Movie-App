@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
       scope 'pages' do
         get 'movie-create-page' => 'movies#movie_create_page'
+        get 'dashboard' => 'admin#dashboard'
       end
     end
 

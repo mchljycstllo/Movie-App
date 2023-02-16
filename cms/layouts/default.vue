@@ -609,4 +609,36 @@
           background-color: var(--theme_error)
         &--success
           background-color: var(--theme_success)
+    &__box-container
+      display: flex
+      flex-flow: row wrap
+      margin: 0 -10px
+    &__box-item
+      flex: 0 0 calc((100%/5) - 20px)
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      margin: 0 10px
+      padding: 10px 20px
+      border: 2px solid var(--theme_gray)
+      transition: .2s ease-in-out
+      &:hover
+        border: 2px solid var(--theme_primary)
+        & ^[0]__box-item__count, & ^[0]__box-item__label
+          color: var(--theme_primary)
+      &__count, &__label
+        display: inline-block
+        margin: 15px 0
+        font-size: 30px
+        color: var(--theme_black)
+        transition: .2s ease-in-out
+      &__label
+        margin: 0
+        font-size: 20px
+      &__icon
+        max-height: 100px
+        object-fit: cover
+        max-width: 50px
+
 </style>
