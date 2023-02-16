@@ -548,6 +548,9 @@
           border: 1px solid var(--theme_error)
         &:hover
           border: 1px solid var(--theme_primary)
+      &--disabled
+        pointer-events: none
+        opacity: 0.5
       &__select-container
         position: relative
         width: 100%

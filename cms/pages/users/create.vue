@@ -69,7 +69,7 @@
                         'cms__form-group__input',
                         errors.length && 'cms__form-group__input--error'
                       ]" 
-                      name="role_id"
+                      name="role"
                       v-model="form_data.role"
                     >
                       <option value="" selected disabled> Select Role </option>
@@ -297,9 +297,9 @@
                     }).then(update_res => {
                       this.setSuccess('New admin has been saved')
                       setTimeout(() => {
-                      this.$router.push(this.buttons.back_link)
-                      this.hideModal()
-                    }, 1000)
+                        this.$router.push(this.buttons.back_link)
+                        this.hideModal()
+                      }, 1000)
                     })
                   }
                   else {

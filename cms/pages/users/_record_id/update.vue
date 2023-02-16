@@ -57,7 +57,10 @@
                 </validation-provider>
 
                 <validation-provider tag="div" 
-                    class="cms__form-group" 
+                    :class="[
+                      'cms__form-group',
+                      $route.params.record_id == auth_user.id && 'cms__form-group--disabled'
+                    ]" 
                     name="role" 
                     :rules="{ required: true }" 
                     v-slot="{ errors }"
@@ -69,7 +72,7 @@
                         'cms__form-group__input',
                         errors.length && 'cms__form-group__input--error'
                       ]" 
-                      name="role_id"
+                      name="role"
                       v-model="form_data.role"
                     >
                       <option value="" selected disabled> Select Role </option>
@@ -142,11 +145,15 @@
                 </validation-provider>
               </div>
 
-              <div class="cms__form-row cms__form-row--two">
+              <!-- password --->
+              <div 
+                class="cms__form-row cms__form-row--two"
+                v-if="$route.params.record_id == auth_user.id"
+              >
                 <validation-provider tag="div" 
                     class="cms__form-group" 
                     name="password" 
-                    :rules="{ required: true }" 
+                    :rules="{ required: false }" 
                     v-slot="{ errors }"
                     vid="password"
                   >
@@ -296,29 +303,11 @@
               let form_data = new FormData(document.getElementById('form'))
 
               this.$axios.patch(`cms/users/${this.$route.params.record_id}`, form_data).then(res => {
-                
-                if (res.data && res.data.status == 'success') {
-                  //check user
-                  if (this.form_data.role == 'admin') {
-                    this.$axios.post('cms/update-user-role', {
-                      user_id: res.data.data.id,
-                      role: 'admin'
-                    }).then(update_res => {
-                      this.setSuccess('New admin has been saved')
-                      setTimeout(() => {
-                      this.$router.push(this.buttons.back_link)
-                      this.hideModal()
-                    }, 1000)
-                    })
-                  }
-                  else {
-                    this.setSuccess('User has been saved')
-                    setTimeout(() => {
-                      this.$router.push(this.buttons.back_link)
-                      this.hideModal()
-                    }, 1000)
-                  }
-                }
+                this.setSuccess('User has been updated')
+                  setTimeout(() => {
+                    this.$router.push(this.buttons.back_link)
+                    this.hideModal()
+                }, 1000)    
               })
               .catch(err => {
                 //console.log(err)
@@ -347,6 +336,9 @@
       manipulateData (record) {
         this.form_data = {
           ...record,
+          password: '',
+          password_confirmation: '',
+          username: record.user_name,
           thumbnail_image: `${this.image_url}${record.image.url}`
         }
       }

@@ -12,6 +12,12 @@ module Api
       }, status: :ok
     end
 
+    # PATCH/PUT /users/1
+    def update
+      @user = User.where(id: params[:id], deleted: false)
+      update_user
+    end
+
     def show
       render json: {
         user: @user
