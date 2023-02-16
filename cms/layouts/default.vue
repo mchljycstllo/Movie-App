@@ -612,7 +612,7 @@
     &__box-container
       display: flex
       flex-flow: row wrap
-      margin: 0 -10px
+      margin: 35px -10px 0
     &__box-item
       flex: 0 0 calc((100%/5) - 20px)
       display: flex
