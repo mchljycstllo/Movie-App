@@ -4,7 +4,7 @@ module UserConcern
   end
 
   def update_user
-    user = User.where(id: params[:id])
+    user = User.find(params[:id])
     #update properties
     user.update(
       email: params[:email],
@@ -20,9 +20,10 @@ module UserConcern
     end
 
     if params.has_key?(:password)
-      # user.update(
-      #   password: params[:password]
-      # )
+      user = User.find(params[:id])
+      user.password = params[:password]
+      user.password_confirmation = params[:password]
+      user.save
     end
 
 
