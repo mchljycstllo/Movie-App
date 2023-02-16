@@ -440,6 +440,7 @@
         transition: .2s ease-in-out
         &--sticky
           position: sticky
+          z-index: 9999
           top: 125px
           padding: 10px 0
           width: 100%
