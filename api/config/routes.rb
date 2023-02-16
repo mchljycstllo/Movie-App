@@ -17,6 +17,8 @@ Rails.application.routes.draw do
       resources :artists
       resources :users
 
+      post 'update-user-role' => 'users#update_user_role'
+
       scope 'pages' do
         get 'movie-create-page' => 'movies#movie_create_page'
       end

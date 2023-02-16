@@ -23,7 +23,16 @@ module Api
       render json: {status: 'SUCCESS', msg: 'Deleted user', data: @user}, status: :ok
     end
 
+    def update_user_role
+      user = User.where(id: params[:user_id])
+      user.update(role: params[:role])
+      render json: {
+        user: user
+      }, status: :ok
+    end
+
     private
+
     def set_current_user
       begin
         @user = User.find(params[:id])

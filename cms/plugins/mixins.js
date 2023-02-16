@@ -10,7 +10,8 @@ Vue.mixin({
       auth_status: 'global/settings/getAuthStatus',
       auth_user: 'global/settings/getAuthUser',
       modal_info: 'global/modal/getModalInfo',
-      image_url: 'global/settings/getImageURL'
+      image_url: 'global/settings/getImageURL',
+      app_url: 'global/settings/getAppURL'
     })
   },
   methods: {

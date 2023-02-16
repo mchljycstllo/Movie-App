@@ -55,6 +55,9 @@
                 {{ item.user_name }}
               </td>
               <td class="cms__table-td">
+                {{ item.email }}
+              </td>
+              <td class="cms__table-td">
                 {{ item.role }}
               </td>
               <td class="cms__table-td">
@@ -103,6 +106,10 @@
           label: 'User Name'
         },
         {
+          name: 'email',
+          label: 'Email'
+        },
+        {
           name: 'role',
           label: 'Role'
         },
@@ -130,8 +137,7 @@
           this.manipulateData(data)
         })
         .catch(err => {
-          console.log(err)
-          //this.setError(err.response.data.errors[0])
+          this.setError(err.response.data.errors[0])
         })
 
         this.loaded = true

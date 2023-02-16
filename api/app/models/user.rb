@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :comments, through: :movies
   has_many :favorites, through: :movies
 
+  validates :user_name, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
   validates :image, presence: true, on: :create
 end

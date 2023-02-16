@@ -13,5 +13,8 @@ export default {
     },
     getImageURL (state) {
         return state.image_url
+    },
+    getAppURL(state) {
+        return state.app_url
     }
 }
