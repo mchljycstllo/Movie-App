@@ -140,7 +140,8 @@
       manipulateData (records) {
         let new_records = records.users.map((item, key) => ({
           ...item,
-          image: item.image ? `${this.image_url}/${item.users.image.url}` : '/images/unkown_user_placeholder.webp'
+          title: item.full_name,
+          image: item.image ? `${this.image_url}/${item.image.url}` : '/images/unkown_user_placeholder.webp'
         }))
         console.log(new_records)
         this.records = new_records

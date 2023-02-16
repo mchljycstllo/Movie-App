@@ -132,6 +132,7 @@
       manipulateData (records) {
         let new_record = records.map((item, key) => ({
           ...item.artist,
+          title: item.artist.full_name,
           image: `${this.image_url}/${item.artist.image.url}`,
           movies_count: item.movies_count
         }))

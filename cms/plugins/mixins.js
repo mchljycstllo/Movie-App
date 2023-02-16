@@ -98,6 +98,7 @@ Vue.mixin({
       })
     },
     deleteItem (item) {
+      console.log(item)
       let message = `Are you sure you want to delete ${item.title}? This cannot be undone`,
       api = `/cms/${this.buttons.entity}/${item.id}`
       this.setConfirmation(message, api)
