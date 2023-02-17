@@ -13,9 +13,6 @@
     },
     methods: {
       initialization () {
-        this.$axios.get('test-route').then(res => {
-          console.log(res)
-        })
         this.hideLoader()
       }
     },  

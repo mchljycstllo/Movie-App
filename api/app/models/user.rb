@@ -15,9 +15,9 @@ class User < ActiveRecord::Base
   has_many :favorites, through: :movies
 
   validates :user_name, presence: true, uniqueness: true
-  validates :full_name, presence: true, uniqueness: true
+  validates :full_name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :image, presence: true, on: :create
+  #validates :image, presence: true, on: :create
   validates :full_name, presence: true
   validates :password, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :create

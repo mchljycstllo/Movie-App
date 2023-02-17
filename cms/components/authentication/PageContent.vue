@@ -53,15 +53,6 @@
       login_form: {
         email: '',
         password: ''
-      },
-      register_form: {
-        first_name: '',
-        last_name: '',
-        username: '',
-        email: '',
-        password: '',
-        confirm_password: '',
-        email: ''
       }
     }),
     methods: {

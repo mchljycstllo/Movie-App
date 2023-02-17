@@ -156,7 +156,7 @@
         let new_records = records.users.map((item, key) => ({
           ...item,
           title: item.full_name,
-          image: item.image ? `${this.image_url}/${item.image.url}` : '/images/unkown_user_placeholder.webp'
+          image: this.checkImage(item)
         }))
         console.log(new_records)
         this.records = new_records

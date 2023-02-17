@@ -5,9 +5,9 @@
         <Sidebar />
       </div>
       <div :class="attr['page__content-container']">
-        <main-content 
+        <!-- <main-content 
           :payload="related_movies_data"
-        />
+        /> -->
       </div>
    </div>
   </div>
@@ -19,7 +19,7 @@
       Sidebar: () => import('~/components/profile/Sidebar.vue'),
       MainContent: () => import('~/components/profile/favorites/MainContent')
     },
-    inject: ['related_movies_data']
+    // inject: ['related_movies_data']
   }
 </script>
 

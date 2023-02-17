@@ -112,5 +112,8 @@ Vue.mixin({
       api = `/cms/${this.buttons.entity}/${item.id}`
       this.setConfirmation(message, api)
     },
+    checkImage(item) {
+      return item.image && item.image.url ? `${this.image_url}/${item.image.url}` : '/images/unkown_user_placeholder.webp'
+    }
   }
 })

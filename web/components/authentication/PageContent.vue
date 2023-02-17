@@ -2,9 +2,15 @@
   <div :class="attr['page']">
     <div :class="attr['page__content']">
       <!--- login --->
-      <validation-observer tag="div" ref="login_form">
+      <validation-observer 
+        tag="div" 
+        ref="login_form"
+        :class="[
+          attr['page__form-container'],
+          display.login && attr['page__form-container--active']
+        ]"
+      >
         <form
-          v-if="display.login"
           :class="attr['page__content-form']"
           id="login_form"
           @submit.prevent="login()"
@@ -25,6 +31,7 @@
             <input
               type="text"
               name="email"
+              placeholder="Enter your email"
               v-model="login_form.email"
               :class="[
                 attr['page__text-input'],
@@ -54,6 +61,7 @@
             <input
               type="password"
               name="password"
+              placeholder="Enter your password"
               v-model="login_form.password"
               :class="[
                 attr['page__text-input'],
@@ -74,7 +82,6 @@
           <div :class="attr['page__input-group']">
             <button
               :class="attr['page__button']"
-              @click="login()"
             >
               Login
             </button>
@@ -89,101 +96,213 @@
 
 
       <!--- register --->
-      <div
-        v-if="!display.login"
-        :class="attr['page__content-form']">
-        <h2 :class="attr['page__form-title']">
-          Sign Up
-        </h2>
-        <div :class="attr['page__input-group']">
-          <label>
-            First Name
-          </label>
-          <input 
-            type="text"
-            name="first_name"
-            v-model="register_form.first_name"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Last Name
-          </label>
-          <input 
-            type="text"
-            name="last_name"
-            v-model="register_form.last_name"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Email
-          </label>
-          <input 
-            type="text"
-            name="email"
-            v-model="register_form.email"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Username
-          </label>
-          <input 
-            type="text"
-            name="username"
-            v-model="register_form.username"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Password
-          </label>
-          <input 
-            type="password"
-            name="password"
-            v-model="register_form.password"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Confirm Password
-          </label>
-          <input 
-            type="password"
-            name="confirm_password"
-            v-model="register_form.confirm_password"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <button
-            :class="attr['page__button']"
-            @click="register()"
+      <validation-observer
+        tag="div" ref="register_form"
+        :class="[
+          attr['page__form-container'],
+          !display.login && attr['page__form-container--active']
+        ]"
+      >
+        <form
+          :class="attr['page__content-form']"
+          id="register_form"
+          ref="register_form"
+          @submit.prevent="register()"
+        >
+          <h2 :class="attr['page__form-title']">
+            Sign Up
+          </h2>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="first name" 
+            :rules="{ required: true, alpha_spaces: true }"
+            v-slot="{ errors }"
           >
-            Register
-          </button>
-        </div>
-        <div :class="attr['page__input-group']">
-          <p :class="attr['page__disclaimer']">
-            Already have an account? Click <b @click="display.login = true">here</b> to login to your account.
-          </p>
-        </div>
-      </div>
+            <label>
+              First Name *
+            </label>
+            <input
+              type="text"
+              name="first_name"
+              v-model="register_form.first_name"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error']
+              ]"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="last name" 
+            :rules="{ required: true, alpha_spaces: true }"
+            v-slot="{ errors }"
+          >
+            <label>
+              Last Name *
+            </label>
+            <input
+              type="text"
+              name="last_name"
+              v-model="register_form.last_name"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error']
+              ]"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="email" 
+            :rules="{ required: true, email: true }"
+            v-slot="{ errors }"
+          >
+            <label>
+              Email *
+            </label>
+            <input
+              type="text"
+              name="email"
+              v-model="register_form.email"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error']
+              ]"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="user name" 
+            :rules="{ required: true, alpha_num: true }"
+            v-slot="{ errors }"
+          >
+            <label>
+              Username *
+            </label>
+            <input
+              type="text"
+              name="user_name"
+              v-model="register_form.username"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error']
+              ]"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="password" 
+            :rules="{ required: true }"
+            v-slot="{ errors }"
+          >
+            <label>
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              v-model="register_form.password"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error']
+              ]"
+              vid="password"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="password confirmation" 
+            :rules="{ required: true, confirmed: 'password' }"
+            v-slot="{ errors }"
+          >
+            <label>
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="password_confirmation"
+              v-model="register_form.confirm_password"
+              :class="attr['page__text-input']"
+            />
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <div :class="attr['page__input-group']">
+            <button
+              :class="attr['page__button']"
+            >
+              Register
+            </button>
+          </div>
+          <div :class="attr['page__input-group']">
+            <p :class="attr['page__disclaimer']">
+              Already have an account? Click <b @click="display.login = true">here</b> to login to your account.
+            </p>
+          </div>
+        </form>
+      </validation-observer>
     </div>
   </div>
 </template>
 
 <script>
+import { alpha_spaces } from 'vee-validate/dist/rules'
+
   export default {
     data: () => ({
       display: {
-        login: true
+        login: true //to do
       },
       login_form: {
         email: '',
@@ -227,7 +346,29 @@
         //console.log(this.$auth)
       },
       register () {
-        //console.log('register', this.register_form)
+        this.$refs.register_form.validate().then(success => {
+          if (!success) {
+            this.$scrollTo('.err0r', {
+              offset: -250
+            })
+            this.hideLoader()
+            return
+          } 
+          else {
+            let form_data = new FormData(document.getElementById('register_form'))
+            form_data.append('full_name', `${this.register_form.first_name} ${this.register_form.last_name}`)
+            this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
+              this.setSuccess('You have been registered successfully. You may now login to your account')
+              setTimeout(() => {
+                this.display.login = true
+                this.hideModal()
+              }, 2000)
+            })
+            .catch(err => {
+              console.log(err)
+            })
+          }
+        })
       }
     }
   }
@@ -236,6 +377,10 @@
 <style lang="stylus" module="attr">
   .page
     padding: 0 10px
+    &__form-container
+      display: none
+      &--active
+        display: block
     &__form-title
       margin-bottom: 20px
       text-align: center
@@ -287,6 +432,8 @@
       border-radius: 5px
       border: 1px solid var(--theme_gray)
       transition: .2s ease-in-out
+      &--error
+        border: 1px solid var(--theme_error)
       &:hover
         border: 1px solid var(--theme_primary)
     &__button
