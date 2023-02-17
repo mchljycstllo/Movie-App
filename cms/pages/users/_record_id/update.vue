@@ -340,7 +340,7 @@
           password: '',
           password_confirmation: '',
           username: record.user_name,
-          thumbnail_image: `${this.image_url}${record.image.url}`
+          thumbnail_image: this.checkImage(record)
         }
       }
 
