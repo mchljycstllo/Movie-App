@@ -627,6 +627,10 @@
         border: 2px solid var(--theme_primary)
         & ^[0]__box-item__count, & ^[0]__box-item__label
           color: var(--theme_primary)
+        & ^[0]__box-item__icon
+          display: none
+          &--active
+            display: block
       &__count, &__label
         display: inline-block
         margin: 15px 0
@@ -637,8 +641,11 @@
         margin: 0
         font-size: 20px
       &__icon
+        display: block
         max-height: 100px
         object-fit: cover
         max-width: 50px
+        &--active
+          display: none
 
 </style>

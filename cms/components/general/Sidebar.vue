@@ -19,7 +19,15 @@
             ]"
           >
             <img 
+              :class="attr['sidebar__icon']"
               :src="`${item.icon}`"
+            />
+            <img 
+              :class="[
+                attr['sidebar__icon'],
+                attr['sidebar__icon--active']
+              ]"
+              :src="`${item.icon_active}`"
             />
             {{ item.name }} 
           </a>
@@ -36,26 +44,31 @@
         {
           name: 'Dashboard',
           icon: '/icons/dashboard.png',
+          icon_active: '/icons/dashboard_active.png',
           slug: '/dashboard'
         },
         {
           name: 'Genres',
           icon: '/icons/category.png',
+          icon_active: '/icons/category_active.png',
           slug: '/genres'
         },
         {
           name: 'Artists',
           icon: '/icons/actor.png',
+          icon_active: '/icons/actor_active.png',
           slug: '/artists'
         },
         {
           name: 'Movies',
           icon: '/icons/movies.png',
+          icon_active: '/icons/movies_active.png',
           slug: '/movies'
         },
         {
           name: 'Users',
           icon: '/icons/users.png',
+          icon_active: '/icons/users_active.png',
           slug: '/users'
         }
       ]
@@ -88,4 +101,12 @@
       transition: .2s ease-in-out
       &--active, &:hover
         color: var(--theme_primary)
+        & ^[0]__icon
+          display: none
+          &--active
+            display: block
+    &__icon
+      display: block
+      &--active
+        display: none
 </style>

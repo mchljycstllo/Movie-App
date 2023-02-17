@@ -21,6 +21,10 @@
               :src="item.icon"
               class="cms__box-item__icon"
             />
+            <img 
+              :src="item.icon_active"
+              class="cms__box-item__icon cms__box-item__icon--active"
+            />
             <span class="cms__box-item__count">
               {{ records[item.name] }}
             </span>
@@ -44,25 +48,29 @@
           name: 'genres',
           slug: '/genres',
           label: 'Genres',
-          icon: '/icons/category.png'
+          icon: '/icons/category.png',
+          icon_active: '/icons/category_active.png'
         },
         {
           name: 'artists',
           slug: '/artists',
           label: 'Artists',
-          icon: '/icons/actor.png'
+          icon: '/icons/actor.png',
+          icon_active: '/icons/actor_active.png'
         },
         {
           name: 'movies',
           slug: '/movies',
           label: 'Movies',
-          icon: '/icons/movies.png'
+          icon: '/icons/movies.png',
+          icon_active: '/icons/movies_active.png'
         },
         {
           name: 'users',
           slug: '/users',
           label: 'Users',
-          icon: '/icons/users.png'
+          icon: '/icons/users.png',
+          icon_active: '/icons/users_active.png'
         }
       ],
       records: {}
