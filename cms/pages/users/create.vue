@@ -205,7 +205,11 @@
                     v-slot="{ errors }"
                   >
                   <label for="name">Thumbnail *</label>
-                  <Uploader :file_name="'image'" ref="image_uploader" />
+                  <Uploader 
+                    :file_name="'image'" 
+                    ref="image_uploader" 
+                    :uploader_name="'profile picture'" 
+                  />
                   <transition name="slide">
                     <span 
                       class="cms__form-group__error" 

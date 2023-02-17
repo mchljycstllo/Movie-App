@@ -31,6 +31,9 @@ Rails.application.routes.draw do
       resources :comments
       resources :ratings
       resources :favorites
+      resources :users
+
+      post 'get-user-via-id' => 'session#get_user_via_id'
     end
 
     scope '/frontend' do

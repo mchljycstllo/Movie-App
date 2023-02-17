@@ -114,45 +114,17 @@
           </h2>
           <validation-provider 
             :class="attr['page__input-group']"
-            name="first name" 
+            name="full name" 
             :rules="{ required: true, alpha_spaces: true }"
             v-slot="{ errors }"
           >
             <label>
-              First Name *
+              Full Name *
             </label>
             <input
               type="text"
-              name="first_name"
-              v-model="register_form.first_name"
-              :class="[
-                attr['page__text-input'],
-                errors.length && attr['page__text-input--error']
-              ]"
-            />
-            <transition name="slide">
-              <span 
-                :class="[
-                  attr['page__input-error'],
-                  'err0r'
-                ]" 
-                v-if="errors.length > 0"
-              > {{ errors[0] }}</span>
-            </transition>
-          </validation-provider>
-          <validation-provider 
-            :class="attr['page__input-group']"
-            name="last name" 
-            :rules="{ required: true, alpha_spaces: true }"
-            v-slot="{ errors }"
-          >
-            <label>
-              Last Name *
-            </label>
-            <input
-              type="text"
-              name="last_name"
-              v-model="register_form.last_name"
+              name="full_name"
+              v-model="register_form.full_name"
               :class="[
                 attr['page__text-input'],
                 errors.length && attr['page__text-input--error']
@@ -309,8 +281,7 @@ import { alpha_spaces } from 'vee-validate/dist/rules'
         password: ''
       },
       register_form: {
-        first_name: '',
-        last_name: '',
+        full_name: '',
         username: '',
         email: '',
         password: '',
@@ -356,7 +327,6 @@ import { alpha_spaces } from 'vee-validate/dist/rules'
           } 
           else {
             let form_data = new FormData(document.getElementById('register_form'))
-            form_data.append('full_name', `${this.register_form.first_name} ${this.register_form.last_name}`)
             this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
               this.setSuccess('You have been registered successfully. You may now login to your account')
               setTimeout(() => {

@@ -1,13 +1,13 @@
 <template>
   <div :class="attr['page']">
-   <div :class="attr['page__content']">
+    <div :class="attr['page__content']">
       <div :class="attr['page__sidebar-container']">
         <Sidebar />
       </div>
       <div :class="attr['page__content-container']">
         <user-info />
       </div>
-   </div>
+    </div>
   </div>
 </template>
 

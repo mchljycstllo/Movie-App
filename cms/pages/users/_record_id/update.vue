@@ -217,6 +217,7 @@
                     :file_name="'image'"
                     ref="image_uploader" 
                     :res_image="form_data.thumbnail_image"
+                    :uploader_name="'profile picture'"
                   />
                   <transition name="slide">
                     <span 
