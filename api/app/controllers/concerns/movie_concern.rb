@@ -53,12 +53,21 @@ module MovieConcern
       }}, status: :ok
     end
 
-    def check_if_favorite(movie)
+    def check_if_favorite_1(movie) #TODO
       if !current_user
         return false
       else  
         favorite = Favorite.where(movie_id: movie.id, user_id: current_user.id, deleted: false).first
         
+        favorite ? favorite.id : false
+      end
+    end
+
+    def check_if_favorite(movie)
+      if !params[:user_id]
+        return false
+      else
+        favorite = Favorite.where(movie_id: movie.id, user_id: params[:user_id], deleted: false).first
         favorite ? favorite.id : false
       end
     end

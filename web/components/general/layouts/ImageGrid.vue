@@ -5,21 +5,29 @@
         <h2> {{  title  }} </h2>
       </div>
       <div :class="attr['section__grid']">
-        <nuxt-link
+        <div
           :class="attr['section__grid__item']"
           :style="`--col_no: ${number_of_columns}`"
           v-for="(item, key) in payload"
           :key="key"
-          :to="item.slug"
         >
-          <img
-            :class="attr['section__grid__item__thumbnail']"
-            :src="`${item.image.src}`"
-          />
-          <movie-text-section 
-            :payload="item"
-          />
-        </nuxt-link>
+          <nuxt-link
+            :to="item.slug"
+          >
+            <img
+              :class="attr['section__grid__item__thumbnail']"
+              :src="`${item.image.src}`"
+            />
+            <movie-text-section
+              :payload="item"
+            />
+          </nuxt-link>
+          <div
+            @click="addRemoveFavorite(item)"
+          >
+            {{ item.favorite }}
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -43,7 +51,34 @@
         type: Number,
         default: 5
       }
-    }
+    },
+    methods: {
+      addRemoveFavorite(item) {
+        item.favorite ? this.removeFavorite(item) : this.addFavorite(item)
+      },
+      addFavorite (item) {
+        this.$axios.post('user/favorites', {
+          user_id: this.auth_user.id,
+          movie_id: item.id
+        }).then(res => {
+          this.$nuxt.$emit('favorite-updated')
+        })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
+      },
+      removeFavorite (item) {
+        this.$axios.delete(`user/favorites/${item.favorite}`).then(res => {
+          this.$nuxt.$emit('favorite-updated')
+        })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
+      }
+    },
+    data: ({ payload }) => ({
+      all_movies: payload
+    })
   }
 </script>
 

@@ -1,14 +1,21 @@
 <template>
   <div :class="attr['page']">
-    <page-content />
+    <page-content 
+      v-if="loaded"
+    />
   </div>
 </template>
 
 <script>
+  import { computed } from 'vue'
   export default {
     components: {
       PageContent: () => import('~/components/home/PageContent')
     },
+    data: () => ({
+      loaded: false,
+      data: []
+    }),
     provide () {
       return {
         movies_data_old: [
@@ -169,7 +176,7 @@
             no_of_ratings: 25
           },
         ],
-        movies_data: this.data?.map((item, key) => ({
+        movies_data: computed(() => this.data?.map((item, key) => ({
           ...item.movie,
           genre: item.genre.title,
           image: {
@@ -177,20 +184,42 @@
             alt: item.movie.image_alt
           },
           ratings: item.ratings_score,
-          no_of_ratings: item.no_of_ratings
-        }))
+          no_of_ratings: item.no_of_ratings,
+          favorite: item.favorite
+        })))
       }
     },  
     methods: {
+      fetchData() {
+        this.$axios.$post('frontend/all-movies', {
+          user_id: this.auth_user ? this.auth_user.id : ''
+        }).then(({ data }) => {
+          this.manipulateData(data)
+        })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
+        this.loaded = true
+      },
+      manipulateData (data) {
+        this.data = data
+        console.log(data)
+      },
       initialization () {
-        console.log(this.data)
+        this.fetchData()
         this.hideLoader()
       }
     },  
     mounted () {
+      this.$nuxt.$on('favorite-updated', () => {
+        this.fetchData()
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
+    },
+    destroyed () {
+      this.$nuxt.$off('favorite-updated')
     },
     asyncData({ $axios, store, error }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {
@@ -198,13 +227,13 @@
         status: true
       })
 
-      return $axios.$get('frontend/all-movies')
-      .then(({ data }) => {
-        return { data }
-      })
-      .catch(() => {
-        error({ statusCode: 500 })
-      })
+      // return $axios.$post('frontend/all-movies')
+      // .then(({ data }) => {
+      //   return { data }
+      // })
+      // .catch(() => {
+      //   error({ statusCode: 500 })
+      // })
     }
   }
 </script>

@@ -104,8 +104,7 @@
           // this.hideLoader()
         })
         .catch(err => {
-          console.log(err)
-          //this.setError(err.response.data.errors[0])
+          this.setError(err.response.data.errors[0])
         })
       },
       checkAllowComments () {
