@@ -30,8 +30,8 @@
             user: {
               ...item.user,
               image: {
-                src: '/images/profiles/zuck.jpeg',
-                alt: 'user101 - image'
+                src: this.checkImage(item.user),
+                alt: `${item.user.full_name} image`
               }
             }
           }))
@@ -50,7 +50,6 @@
     },
     methods: {
       initialization () {
-        console.log(this.data)
         this.hideLoader()
       }
     },

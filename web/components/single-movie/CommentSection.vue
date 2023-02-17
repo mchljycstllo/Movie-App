@@ -12,6 +12,7 @@
       >
         <div :class="attr['section__comment-user']">
           <div :class="attr['section__comment-thumbnail-container']">
+            
             <img 
               :src="item.user.image.src"
               :alt="item.user.image.alt"
@@ -20,7 +21,7 @@
           </div>
         </div>
         <div :class="attr['section__comment-text-wrapper']">
-          <span> {{  item.user.username  }} </span>
+          <span> {{  item.user.user_name  }} </span>
           <div
             :class="attr['section__comment-text']"
             v-html="item.comment"
@@ -77,10 +78,51 @@
     }),
     methods: {
       submitComment () {
-        this.all_comments.push(this.new_comment)
+        //this.showLoader()
+
+        let new_comment = {
+          ...this.new_comment,
+          user: {
+            ...this.auth_user,
+            username: this.auth_user.user_name,
+            image: {
+              src: this.checkImage(this.auth_user),
+              alt: `${this.auth_user.user_name} profile picture`
+            }
+          }
+        }
+
+        this.all_comments.push(new_comment)
         this.new_comment = ''
         this.show_element.add_comment_box = false
+
+        this.$axios.$post(`user/comments`, {
+          movie_id: this.payload.id,
+          user_id: this.auth_user.id,
+          content: new_comment.comment
+        }).then(res => {
+          // this.hideLoader()
+        })
+        .catch(err => {
+          console.log(err)
+          //this.setError(err.response.data.errors[0])
+        })
+      },
+      checkAllowComments () {
+        if (this.auth_user) {
+          if (this.all_comments.length) {
+            let user_comment = this.all_comments.find(item => {
+              return item.user.id == this.auth_user.id
+            })
+            if (user_comment) this.show_element.add_comment_box = false
+            else return this.show_element.add_comment_box = true
+          }
+          else return this.show_element.add_comment_box = true
+        } else return this.show_element.add_comment_box = false
       }
+    },
+    mounted () {
+      this.checkAllowComments()
     }
   }
 </script>

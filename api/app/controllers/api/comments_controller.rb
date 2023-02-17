@@ -24,7 +24,8 @@ module Api
 
       @existing_comment = Comment.where(
         user_id: params[:user_id], 
-        movie_id: params[:movie_id]
+        movie_id: params[:movie_id],
+        deleted: false
       ).first
       
       if @existing_comment
