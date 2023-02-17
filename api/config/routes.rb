@@ -16,11 +16,13 @@ Rails.application.routes.draw do
       resources :ratings
       resources :artists
       resources :users
+      resources :comments
 
       post 'update-user-role' => 'users#update_user_role'
 
       scope 'pages' do
         get 'movie-create-page' => 'movies#movie_create_page'
+        post 'movie-comment-page' => 'movies#get_movie_comments'
         get 'dashboard' => 'admin#dashboard'
       end
     end

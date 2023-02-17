@@ -12,14 +12,13 @@
         <div class="cms__actions">
           <nuxt-link 
             class="cms__actions-button"
-            :to="buttons.add"
+            :to="buttons.back_link"
           >
             <span>
-              ADD ITEM
+              BACK
             </span>
           </nuxt-link>
         </div>
-        
         <!--- record part --->
         <table class="cms__table">
           <thead 
@@ -39,8 +38,8 @@
           <tbody>
             <tr v-for="(item, key) in records" :key="key">
               <td class="cms__table-td">
-                <nuxt-link 
-                  class="cms__table__name"
+                <div 
+                  class="cms__table__name no-hover"
                   :to="`/${buttons.entity}/${item.id}/update`"
                 >
                   <img
@@ -48,39 +47,20 @@
                     :src="item.image"
                     :alt="item.image_alt"
                   >
-                  {{ item.title }}
-                </nuxt-link>
+                  {{ item.user_name }}
+              </div>
               </td>
               <td class="cms__table-td">
-                {{ item.genre }}
-              </td>
-              <td class="cms__table-td">
-                {{ item.ratings }}
-              </td>
-              <td class="cms__table-td">
-                {{ item.comment_count }}
+                {{ item.content }}
               </td>
               <td class="cms__table-td">
                 {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
               </td>
               <td class="cms__table-td cms__table-td--buttons">
-                <nuxt-link
-                  :class="[
-                    'cms__table-button cms__table-button--success',
-                    item.comment_count == 0 && 'cms__table-button--disabled'
-                  ]"
-                  :to="`/${buttons.entity}/${item.id}/comments`"
-                >
-                  COMMENTS
-                </nuxt-link>
-                <nuxt-link class="cms__table-button cms__table-button--info"
-                  :to="`/${buttons.entity}/${item.id}/update`"
-                >
-                  EDIT
-                </nuxt-link>
                 <button 
                   :class="[
-                    'cms__table-button cms__table-button--danger'
+                    'cms__table-button cms__table-button--danger',
+                    item.movies_count > 0 && 'cms__table-button cms__table-button--disabled'
                   ]"
                   @click="deleteItem(item)"
                 >
@@ -97,30 +77,22 @@
 
 <script>
   export default {
-    data: () => ({
+    data: ({ $route }) => ({
       loaded: false,
-      title: 'Movies',
+      title: 'Comments',
       buttons: {
-        add: '/movies/create',
-        entity: 'movies'
+        back_link: `/movies`,
+        entity: 'comments'
       },
       table_fields: [
         {
-          name: 'title',
-          label: 'Title'
+          name: 'user_name',
+          label: 'Username'
         },
         {
-          name: 'genre',
-          label: 'Genre'
+          name: 'comment',
+          label: 'Comment'
         },
-        {
-          name: 'ratings',
-          label: 'Ratings'
-        },  
-        {
-          name: 'comment_count',
-          label: 'Comment Count'
-        },  
         {
           name: 'created_at',
           label: 'Created At'
@@ -141,7 +113,9 @@
         this.showLoader()
         this.records = []
         this.loaded = false
-        this.$axios.$get(`cms/${this.buttons.entity}`).then(({ data }) => {
+        this.$axios.$post(`cms/pages/movie-comment-page`, {
+          id: this.$route.params.record_id
+        }).then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
@@ -151,14 +125,14 @@
         this.loaded = true
         this.hideLoader()
       },
-      manipulateData (records) {
-        let new_record = records.map((item, key) => ({
-          ...item.movie,
-          image: `${this.image_url}/${item.movie.image.url}`,
-          ratings: item.ratings_score,
-          comment_count: item.comment_count,
-          genre: item.genre.title
+      manipulateData (data) {
+        let new_record = data.comments.map(item => ({
+          ...item.comment,
+          title: 'this comment',
+          user_name: item.user.user_name,
+          image: `${this.image_url}${item.user.image.url}`
         }))
+        this.title = `${data.movie.title} comments`
         this.records = new_record
       }
     },  

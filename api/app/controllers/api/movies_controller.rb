@@ -63,6 +63,20 @@ module Api
       }}, status: :ok
     end
 
+    def get_movie_comments
+      begin
+        movie = Movie.find(params[:id])
+        render json: {
+          data: {
+            movie: movie,
+            comments: manipulate_movie_comments(movie.comments)
+          }
+        }, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+      end
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_current_movie

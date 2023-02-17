@@ -2,7 +2,7 @@ module Api
   class CommentsController < ApplicationController
     before_action :set_comment, only: [:show, :update, :destroy]
     before_action :set_movie, only: [:create]
-    before_action :authenticate_user!, only: [:create, :destroy]
+    #before_action :authenticate_user!, only: [:create, :destroy] TODO
 
     include MovieConcern
 
@@ -76,11 +76,13 @@ module Api
       end
 
       def check_user
-        if current_user.id == @comment.user_id || current_user.role == 'admin'
-          return 1
-        else
-          return 0
-        end
+        #TODO
+        # if current_user.id == @comment.user_id || current_user.role == 'admin'
+        #   return 1
+        # else
+        #   return 0
+        # end
+        return 1
       end
   end
 end

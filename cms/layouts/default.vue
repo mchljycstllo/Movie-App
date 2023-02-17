@@ -424,6 +424,8 @@
       text-transform: uppercase
   .multiselect__tags
     border: 1px solid var(--theme_gray) !important
+  .ho-hover
+    cursor: none
   .cms
     &__main-content
       padding: 50px 0 30px
@@ -489,6 +491,8 @@
           background-color: var(--theme_info)
         &--danger
           background-color: var(--theme_danger)
+        &--success
+          background-color: var(--theme_success)
         &--disabled
           background-color: var(--theme_gray)
           pointer-events: none

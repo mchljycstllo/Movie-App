@@ -14,25 +14,18 @@ module MovieConcern
     end
 
     def fetch_all_movies
-      @movies = Movie.includes(:genre).where(deleted: false)
+      @movies = Movie.where(deleted: false)
       render json: {status: 'SUCCESS', msg: 'Loaded movie', data: manipulate_movies(@movies)}, status: :ok
     end
 
     #for fetching current movie
     def fetch_current_movie
       genre = @movie.genre
-      comments = @movie.comments.where(deleted: false).includes(:user)
+      comments = @movie.comments.where(deleted: false)
       ratings = @movie.ratings
 
-      fetched_comments = []
-      comments.each do |comment|
-        comment_obj = {
-          comment: comment,
-          user: comment.user
-        }
-        comment.deleted == false ? fetched_comments.push(comment_obj) : nil
-      end
-
+      fetched_comments = manipulate_movie_comments(comments)
+      
       related_movies = []
       if @fetch_related
         related_movies = fetch_related_movies(@movie)
@@ -78,13 +71,27 @@ module MovieConcern
           genre: movie.genre,
           favorite: check_if_favorite(movie),
           no_of_ratings: movie.ratings.length,
-          ratings_score: get_ratings_score(movie)
+          ratings_score: get_ratings_score(movie),
+          comment_count: movie.comments.where(deleted: false).count
         }
 
         to_return.push(movie_obj)
       end
 
       return to_return
+    end
+
+    def manipulate_movie_comments(comments)
+      fetched_comments = []
+      comments.each do |comment|
+        comment_obj = {
+          comment: comment,
+          user: comment.user
+        }
+        comment.deleted == false ? fetched_comments.push(comment_obj) : nil
+      end
+
+      return fetched_comments
     end
 
 
