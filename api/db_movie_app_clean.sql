@@ -60,7 +60,7 @@ CREATE TABLE `artist_movies` (
   KEY `index_artist_movies_on_movie_id` (`movie_id`),
   CONSTRAINT `fk_rails_86bfde1076` FOREIGN KEY (`artist_id`) REFERENCES `artists` (`id`),
   CONSTRAINT `fk_rails_c0d06f708c` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +88,7 @@ CREATE TABLE `artists` (
   `image` varchar(255) DEFAULT NULL,
   `image_alt` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +97,7 @@ CREATE TABLE `artists` (
 
 LOCK TABLES `artists` WRITE;
 /*!40000 ALTER TABLE `artists` DISABLE KEYS */;
+INSERT INTO `artists` VALUES (9,'Vin Diesel',0,'2023-02-15 17:07:29.043939','2023-02-15 17:07:29.043939','02.webp','Vin Diesel thumbnail'),(10,'John Cena',0,'2023-02-15 17:07:42.446424','2023-02-15 17:07:42.446424','03.webp','John Cena thumbnail'),(11,'Dwayne Johnson',0,'2023-02-15 17:08:04.834558','2023-02-15 17:08:04.834558','10.webp','Dwayne Johnson thumbnail'),(12,'Kate Winslet',0,'2023-02-16 01:44:12.159112','2023-02-16 01:44:12.159112','04.webp','Kate Winslet thumbnail');
 /*!40000 ALTER TABLE `artists` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +121,7 @@ CREATE TABLE `comments` (
   KEY `index_comments_on_movie_id` (`movie_id`),
   CONSTRAINT `fk_rails_03de2dc08c` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `fk_rails_56963e5c80` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,7 +178,7 @@ CREATE TABLE `genres` (
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +213,7 @@ CREATE TABLE `movies` (
   PRIMARY KEY (`id`),
   KEY `index_movies_on_genre_id` (`genre_id`),
   CONSTRAINT `fk_rails_0a6710c65a` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,7 +276,7 @@ CREATE TABLE `schema_migrations` (
 
 LOCK TABLES `schema_migrations` WRITE;
 /*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
-INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255'),('20230211154559'),('20230212213606'),('20230213003548'),('20230213004855'),('20230213011406'),('20230213011407'),('20230214225830'),('20230214230337'),('20230214230851'),('20230214233011');
+INSERT INTO `schema_migrations` VALUES ('20230119052235'),('20230119064826'),('20230119090024'),('20230119090025'),('202301200733191'),('20230120093206'),('20230126021132'),('20230126040823'),('20230130141733'),('20230130141734'),('20230130141735'),('20230209042006'),('20230209154436'),('20230211124255'),('20230211154559'),('20230212213606'),('20230213003548'),('20230213004855'),('20230213011406'),('20230213011407'),('20230214225830'),('20230214230337'),('20230214230851'),('20230214233011'),('20230215174835'),('20230216095938');
 /*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -307,12 +308,13 @@ CREATE TABLE `users` (
   `tokens` text,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
+  `deleted` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_users_on_uid_and_provider` (`uid`,`provider`),
   UNIQUE KEY `index_users_on_email` (`email`),
   UNIQUE KEY `index_users_on_reset_password_token` (`reset_password_token`),
   UNIQUE KEY `index_users_on_confirmation_token` (`confirmation_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,7 +323,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'email','jaycastillo@movieapp.com','$2a$12$PUWXb0P6U8ZjgoIeg/apWebzZWk4H8SVpGuzeYR1prcRBHRAWrfrS',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo',NULL,'jaycastillo@movieapp.com','admin','{\"pF41ouGxO-LExi9zfbX5Vg\":{\"token\":\"$2a$10$ghkotIIGdKN6goukb7P4CeBqCeE6dVZgYGFuTHiCiNzePQaQManlu\",\"expiry\":1677486533},\"FulNFSLfk1CV91RdzlgNFA\":{\"token\":\"$2a$10$s397T.VkDbLJ/oDpBYpCm.XnCWFQbFBVGALuA7jf0GYVcysbjiSEG\",\"expiry\":1677486728},\"0IcR6GdlMwKf33GtNM_SyA\":{\"token\":\"$2a$10$tIScqGEBz8P1dMOpvqI6euN6cyV1z4gmnrhmgy6CIkVxaiO528joO\",\"expiry\":1677488181},\"P4h_WBHdI8eIbz5bcA6bAg\":{\"token\":\"$2a$10$Af.lZ7oS4W3X9LTb4IkZke9391O/8kzld/xXmKreLjUGyuQnsq8Hy\",\"expiry\":1677488247},\"V7VFZOIxOqeTHwBZ-1KRMQ\":{\"token\":\"$2a$10$wzaeVcViRtYk0zfAUU9r6uMi5KVpdBpm25nTgZVzMboMmBZQHTUji\",\"expiry\":1677510075},\"vuy-rjjLTlKhUhQH4Lw2mA\":{\"token\":\"$2a$10$HlzFe39DcocLOr6PHJoeuutDpoCGBXxKitHeJnurYxT24wMO3rTL.\",\"expiry\":1677541084},\"CyOlLy-aGPZEqR7gQplY2g\":{\"token\":\"$2a$10$hiOEFHGQ0m5n/VujYRPStufZhTg/FBxSnGedz791Q3za3iv7JLoJu\",\"expiry\":1677545259},\"TDpWlVACBhZYdkrg_elmnA\":{\"token\":\"$2a$10$JnjbTcRw2cJW8iUzUKHoGebhPRPNnnnKAG6sQCmkMS7wVz2SJoD2m\",\"expiry\":1677550104},\"OjpmMKnyMUZVs4M4EikZzQ\":{\"token\":\"$2a$10$dWzdDWpi37yG/ZvacPNdH.kroRm.6I1kx/DwsiMDp/K5XA6/IJqiu\",\"expiry\":1677550344},\"RkVW7_0VN5KjT3Ohi3lZTw\":{\"token\":\"$2a$10$StqtaW2VnA16JwV9V1zT0OzORZx6c5dnfOdgaahnxY6iwxoRFxFl6\",\"expiry\":1677655382}}','2023-01-30 14:58:13.041444','2023-02-15 07:23:02.913626'),(2,'email','jaycastillo_user@movieapp.com','$2a$12$BKLkinijRlzvq/7QcZVZr.oz1NKIl3FzHlUBsj3t9FHV9kfniqFhm',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo',NULL,'jaycastillo_user@movieapp.com','user','{\"gGAQz_guVR0tbkkUWNSKLw\":{\"token\":\"$2a$10$okn9St8p8zrcW1Zf7UIu6eSMt7RbE6sP3ICJHOnOmyFwcC7eWZ0ne\",\"expiry\":1677126753},\"DLJF88EzdoKlTsqIff6LCg\":{\"token\":\"$2a$10$P9LDSYKfjSdV5Bi0oisr0eIVLZUauh3RG9HklIV1SSJAjAz/n8/FC\",\"expiry\":1677126787},\"1Tp931thSmSNMfWfWBgsFQ\":{\"token\":\"$2a$10$8zZG6h/L1.7hcoIIK4Hl0OC6EV8tYqKuEnkWGTmuCCI3J2wFFg1Hm\",\"expiry\":1677327067},\"dBNibCEgI2OZeLGMMHN25Q\":{\"token\":\"$2a$10$8dPC0slQ/JXVtxozS7b3B.FCujh1xc5vPC4Z/UIIVMqbg6kKZTOiK\",\"expiry\":1677327072},\"kEafV7U_nJ99O5F5cQZQxw\":{\"token\":\"$2a$10$zP/nHAEWyQLT3PU0enb7iekaEAMVEtoL0tsdHp4CJ79QkQaLJfc1a\",\"expiry\":1677486487},\"iJpxccAOpYgKNOuIIYVPEg\":{\"token\":\"$2a$10$YTL7gOh4VBpGNVbU9.Q/nOqH7P2QE1mBdmscWkQd9c3P08/O5NtVq\",\"expiry\":1677486518},\"HX6ufQ4d_4eM85rgPO2Eug\":{\"token\":\"$2a$10$Fw4djrqMGjePTFJcoZhaaeM6qlVAOb2y.SVe.C/v1gZfLYG9voGlC\",\"expiry\":1677486562},\"qwhAhe1TlcyvLiiNI7l7jQ\":{\"token\":\"$2a$10$eB6JgV8aF8YolDU2MG4l.uFjSzdfeyVTBvv5AFndf6Z2.PgbdWZwi\",\"expiry\":1677486761},\"cNYn4AhrcY2CXteERz6WFQ\":{\"token\":\"$2a$10$uZsER8N6GZZDyfRYIdB2BuEmA3n0TmI1o0.zbuGyqo8dvtA1oVSqa\",\"expiry\":1677488098},\"TPepEUHaWepTyKGswiL7eA\":{\"token\":\"$2a$10$jsVRgYjWUaL8beJsHpxDh.qGEIy9RDnfCdNQq9TP10TUXimIXMXlO\",\"expiry\":1677488101}}','2023-02-09 04:32:33.359087','2023-02-13 08:55:01.926076');
+INSERT INTO `users` VALUES (6,'email','jaycastillo_admin@movieapp.com','$2a$12$4YXUkOknWWQp3Y0kPgMlk.eJ2Mgh2SyGnQizqqRXtBOptGUd1Ep4K',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay','jaycastillo','actor.png','jaycastillo_admin@movieapp.com','admin','{\"VpnYnm1PLSdo8UP5nb75KA\":{\"token\":\"$2a$10$aCm4cmL9J.ZZ6enkgdlLS..PNV6.cSBCu1molHnugrssGuLuZTsjC\",\"expiry\":1677749310},\"bMnCGKc5oK7PWGV--Li3xg\":{\"token\":\"$2a$10$56IkYIntw7aPsVnfPe33ruadMoquJzTT13n9kZ1w2TjIIoQE3KDFO\",\"expiry\":1677749325},\"TXkFGaCzHFLWbe-VhKAv_g\":{\"token\":\"$2a$10$.NN9XKn203SdkYfS0gvuBuny2rv4yKWDOW.EgFIXR9AMTerz516bG\",\"expiry\":1677749353},\"wvsLteN8Zvx2fsvXvLWPoQ\":{\"token\":\"$2a$10$EGNZwGsAtEkEzeLIpoPAXeIpRe4EHwX83HRdOpIC2ZtHX5uaBvepi\",\"expiry\":1677751768},\"D2Tl5o1fg8QzR3VRDT8O0A\":{\"token\":\"$2a$10$XupRcRtoNuWDW.72wELl8O4sJDVghxIGrJFijfQnrTB2O.H/tlima\",\"expiry\":1677751782},\"rvmpkoXIPmLrh9akqYsczg\":{\"token\":\"$2a$10$7NOdLiIOUZDIQzRPUcm2fusZO7OB1G8.g5MyhaQIjpMHJuq7/0lUC\",\"expiry\":1677771102},\"MMFDrk1gPu1VmRDNOzGmJQ\":{\"token\":\"$2a$10$GTS18jHX8oJXPb0TTd0DUe7ZJvpFhFchoemuqbgNkHUhr7kXQSUsS\",\"expiry\":1677771171},\"OWofnmsqGegZuuDedjZMtA\":{\"token\":\"$2a$10$NuMQFU.xZD8zlAE4.JZIieMmq0fJmOrxuezFSqPbvcWFw6W8K9LRC\",\"expiry\":1677809601},\"DKe8uBJFi2sqJnDvh2kQIQ\":{\"token\":\"$2a$10$vt1olRJ8hUwAFReHmphRQuyzp08OZbhjM/FCg3dfBUvlxCB7VMNZS\",\"expiry\":1677809606},\"sns9AY7H53sW7Ymp0bq9Dw\":{\"token\":\"$2a$10$c/MUEC3FprBaOxwrpcbXn.ZTWwtyX/NYREURpJdu8CSAvkn13FXQC\",\"expiry\":1677809665}}','2023-02-16 09:28:26.196159','2023-02-17 02:14:25.019336',0),(7,'email','defaultadmin@movieapp.com','$2a$12$wWEJEMqSBai9D/RPH2ME3usucGYaRDm/NOJ97AOGB66u0oD5eutOq',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Default Admin','defaultadmin','zuck.jpeg','defaultadmin@movieapp.com','admin','{\"aLNCg-FO6FvtId7NDZ4v2Q\":{\"token\":\"$2a$10$1gNr.dKEn1ZWxDUsIPwwJ.hqVsS2gcx2tzrKuctBJTg9tcVbiQvXm\",\"expiry\":1677749385}}','2023-02-16 09:29:45.810094','2023-02-16 09:29:45.916578',0),(8,'email','user@gmail.coms','$2a$12$qTi36hBnafiwpYeN6I4/k.jmie8zoohsGLCu6EMT2X8VxyraI8/0a',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'Michael Jay1','user123','zuck.jpeg','user@gmail.coms','admin','{\"5PKZ-95YLjg7A2gEIdM3EA\":{\"token\":\"$2a$10$sqFT0FYFDK1.VPuHMstNye9lkcNnYaqdkKjclBkpp8TSmUwKs7io.\",\"expiry\":1677749533},\"Cxs0y61yj0HwSsyBSQ432A\":{\"token\":\"$2a$10$KBJKvj1A8nxXQVDME05dG.LFJNTswx/j45p0FwrMxzTaX21/.9Bom\",\"expiry\":1677750199},\"CuPRMPAdEksoTnSWul780g\":{\"token\":\"$2a$10$YlQMyCTd5HsRdmUPEt6tLuQMPy2b5TSbDtVeBWxTRSCQiBp22rrFi\",\"expiry\":1677770492},\"zpTzM249sr3r7zt0oG5PVw\":{\"token\":\"$2a$10$8UV7Xv8qjMwjOc9bokjFe.Rkhk3A1QlKMUnVv5quglR5lFJlDnFem\",\"expiry\":1677770773},\"yKOy2tBhWg86V33n-eyS4g\":{\"token\":\"$2a$10$U/Q6XYLghU5DLTn13R2BGOUkMkXa4/qRmDOS5hqJP287FURut6lFK\",\"expiry\":1677770903},\"J0qNvgbTuYknilk8Q_Edjw\":{\"token\":\"$2a$10$Xw1Ica2AM.hmBZOs.9zYLOfX6yEqO0nh3ovi9kMUcpxyXTi5ErOq2\",\"expiry\":1677770915},\"3_ICt0zkMDe3pQa6CzvqLg\":{\"token\":\"$2a$10$NTCjDCNTqT4FH9hlN5rqt.xa5xO7QSnvt.cTpXtj5hPeMbrQjKIrq\",\"expiry\":1677770970},\"eimkqWiPRLNke2d76TApPA\":{\"token\":\"$2a$10$XzBr8zGnRWXEEjJWVk9gV.s3tuB7vNA7JZrwEpcIkcqDGwqhV/zEK\",\"expiry\":1677770991},\"A5ds6kyOoqf4BmU4OmlpNg\":{\"token\":\"$2a$10$a4iizvWlE1N6ctZwkCljW.FEVGkUS8UG0R0CZhb4oZN78LB0K5QvC\",\"expiry\":1677771068},\"wK9U07pGCMMW8gToWhTXgQ\":{\"token\":\"$2a$10$BfMKnExKfbMfGuZfVGvh0erx1O3O2XOPiLfs4797QQoo1W1SOjbwi\",\"expiry\":1677771123}}','2023-02-16 09:30:10.728337','2023-02-16 15:32:19.479593',0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -334,4 +336,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-15 17:41:50
+-- Dump completed on 2023-02-17 10:17:13
