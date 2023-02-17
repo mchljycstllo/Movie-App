@@ -255,7 +255,7 @@
     data: () => ({
       loaded: false,
       error_messages: '',
-      title: 'Add User',
+      title: 'Update User',
       buttons: {
         back_link: '/users'
       },

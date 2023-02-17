@@ -32,8 +32,8 @@
         </nuxt-link>
       </li>
       <template v-else>
-        <li>
-          <nuxt-link to="/edit-profile">
+        <li v-if="auth_user">
+          <nuxt-link :to="`/users/${auth_user.id}/update`">
             <span :class="attr['nav__link-item']" v-if="auth_user && auth_user.full_name">
               Hello,  {{ auth_user.full_name }}
             </span>
