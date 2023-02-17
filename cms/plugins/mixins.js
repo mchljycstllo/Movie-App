@@ -50,7 +50,10 @@ Vue.mixin({
     logout () {
       localStorage.removeItem('current_user')
       this.logout_user()
-      window.open('/', '_SELF')
+      this.setSuccess('Logged out successfully')
+      setTimeout(() => {
+        window.open('/', '_SELF')
+      }, 1000)
     },
     //modals
     setSuccess (message) {

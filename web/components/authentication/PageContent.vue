@@ -2,52 +2,95 @@
   <div :class="attr['page']">
     <div :class="attr['page__content']">
       <!--- login --->
-      <div
-        v-if="display.login"
-        :class="attr['page__content-form']"
-      >
-        <h2 :class="attr['page__form-title']">
-          Login
-        </h2>
-        <div :class="attr['page__input-group']">
-          <label>
-            Email / Username
-          </label>
-          <input 
-            type="text"
-            name="username"
-            v-model="login_form.username"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <label>
-            Password
-          </label>
-          <input 
-            type="password"
-            name="password"
-            v-model="login_form.password"
-            :class="attr['page__text-input']"
-          />
-        </div>
-        <div :class="attr['page__input-group']">
-          <button
-            :class="attr['page__button']"
-            @click="login()"
-          >
+      <validation-observer tag="div" ref="login_form">
+        <form
+          v-if="display.login"
+          :class="attr['page__content-form']"
+          id="login_form"
+          @submit.prevent="login()"
+          ref="login_form"
+        >
+          <h2 :class="attr['page__form-title']">
             Login
-          </button>
-        </div>
-        <div :class="attr['page__input-group']">
-          <p :class="attr['page__disclaimer']">
-            Don't have an account yet? Click <b @click="display.login = false">here</b> to register for an account.
-          </p>
-        </div>
-      </div>
+          </h2>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="email" 
+            :rules="{ required: true }" 
+            v-slot="{ errors }"
+          >
+            <label>
+              Email
+            </label>
+            <input
+              type="text"
+              name="email"
+              v-model="login_form.email"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error'],
+              ]"
+            />
+
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <validation-provider 
+            :class="attr['page__input-group']"
+            name="password" 
+            :rules="{ required: true }" 
+            v-slot="{ errors }"
+          >
+            <label>
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              v-model="login_form.password"
+              :class="[
+                attr['page__text-input'],
+                errors.length && attr['page__text-input--error'],
+              ]"
+            />
+
+            <transition name="slide">
+              <span 
+                :class="[
+                  attr['page__input-error'],
+                  'err0r'
+                ]" 
+                v-if="errors.length > 0"
+              > {{ errors[0] }}</span>
+            </transition>
+          </validation-provider>
+          <div :class="attr['page__input-group']">
+            <button
+              :class="attr['page__button']"
+              @click="login()"
+            >
+              Login
+            </button>
+          </div>
+          <div :class="attr['page__input-group']">
+            <p :class="attr['page__disclaimer']">
+              Don't have an account yet? Click <b @click="display.login = false">here</b> to register for an account.
+            </p>
+          </div>
+        </form>
+      </validation-observer>
+
+
       <!--- register --->
       <div
-        v-else 
+        v-if="!display.login"
         :class="attr['page__content-form']">
         <h2 :class="attr['page__form-title']">
           Sign Up
@@ -143,7 +186,7 @@
         login: true
       },
       login_form: {
-        username: '',
+        email: '',
         password: ''
       },
       register_form: {
@@ -159,10 +202,32 @@
     methods: {
       login () {
         this.showLoader()
-        console.log('login', this.login_form)
+        
+        this.$refs.login_form.validate().then(success => {
+          if (!success) {
+            this.$scrollTo('.err0r', {
+              offset: -250
+            })
+            this.hideLoader()
+            return
+          }
+          else {
+            this.$auth.loginWith('local', { data: this.login_form }).then(res => {
+              localStorage.setItem('current_user', JSON.stringify(res.data.data))
+              window.open('/profile', '_SELF')
+            }).catch(err => {
+              this.setError(err.response.data.errors[0])
+            }).then(() => {
+              setTimeout( () => {
+                this.hideLoader()
+              }, 500)
+            })
+          }
+        })
+        //console.log(this.$auth)
       },
       register () {
-        console.log('register', this.register_form)
+        //console.log('register', this.register_form)
       }
     }
   }
@@ -190,11 +255,34 @@
       border: 1px solid var(--theme_gray)
       border-radius: 5px
       & ^[0]__input-group
+        position: relative
         display: flex
         flex-direction: column
-        margin-bottom: 10px
+        margin-bottom: 30px
+      & ^[0]__input-error
+        position: absolute
+        top: calc(100% + 5px)
+        background-color: var(--theme_error)
+        color: var(--theme_white)
+        font-size: 14px
+        z-index: 1
+        padding: 5px 10px
+        border-radius: 5px
+        user-select: none
+        right: 0
+        &:before
+          content: ""
+          position: absolute
+          bottom: calc(100% - 1px)
+          width: 0
+          height: 0
+          border-left: 7px solid transparent
+          border-right: 7px solid transparent
+          border-bottom: 7px solid var(--theme_error)
+          right: 17px
+          z-index: 1
     &__text-input
-      margin: 10px 0
+      margin: 10px 0 0
       padding: 10px
       border-radius: 5px
       border: 1px solid var(--theme_gray)

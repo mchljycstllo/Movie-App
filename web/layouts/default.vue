@@ -10,6 +10,12 @@
         <content-loader />
       </template>
     </transition>
+
+    <transition name="slide-y">
+      <Message 
+        v-if="modal_info.show"
+      />
+    </transition>
   </div>
 </template>
 
@@ -25,9 +31,16 @@
         }
       }
     },
+    watch:{
+      $route (to, from){
+        this.runMiddleware()
+      }
+    },
     mounted () {
+      this.setAuth()
       setTimeout(() => {
         this.autoPadding()
+        this.runMiddleware()
       }, 500)
     }
   }
@@ -40,6 +53,11 @@
     --theme_gray: #808080
     --theme_primary: #FF0073
     --theme_error: #D13744
+    --theme_snow_white: #FFFAFA
+    --theme_modal_head: rgba(0,0,0,.05)
+    --theme_info: #438eff
+    --theme_danger: #ea5455
+    --theme_success: #5cbf69
     --roboto: 'Roboto'
     --light: 300
     --reg: 400

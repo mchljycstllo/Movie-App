@@ -25,7 +25,7 @@
     margin-bottom: 40px
     &__content
       display: flex
-      max-width: 1024px
+      //max-width: 1024px
       margin: 0 auto
     &__content-container
       width: 100%

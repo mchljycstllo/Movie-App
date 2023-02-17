@@ -28,12 +28,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    {
-      src: '~/plugins/vue-moment'
-    },
-    {
-      src: '~/plugins/mixins'
-    }
+    { src: '~/plugins/vue-scrollto', ssr: false },
+    { src: '~/plugins/vue-multiselect', ssr: false },
+    { src: '~/plugins/vue-moment' },
+    { src: '~/plugins/mixins' },
+    { src: '~/plugins/axios' },
+    { src: '~/plugins/vee-validate' }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,6 +44,7 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
+    '@nuxtjs/auth-next'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -62,7 +63,27 @@ export default {
       }
     ]
   ],
-
+  auth: {
+    strategies: {
+      local: {
+        // tokenRequired: true,
+        // tokenType: 'Bearer',
+        token: {
+          property: 'token',
+          maxAge: 604800,
+          prefix: 'cms'
+        },
+        user: {
+          property: 'user'
+        },
+        endpoints: {
+          login: { url: `${process.env.APP_URL}/auth/sign_in`, method: 'post' },
+          logout: { url: `${process.env.APP_URL}/auth/sign_out`, method: 'post' },
+          user: { url: `${process.env.API_URL}/user-data`, method: 'get' }
+        }
+      }
+    }
+  },
   googleFonts: {
     download: true,
     inject: true,
@@ -81,6 +102,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ["vee-validate/dist/rules"],
     loaders: {
       cssModules: {
         modules: {

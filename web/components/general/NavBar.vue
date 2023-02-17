@@ -31,7 +31,15 @@
           </a>
         </nuxt-link>
       </li>
-      <li>
+      <li v-if="auth_user">
+        <nuxt-link
+          to="/profile"
+          :class="attr['nav__link-item']"
+        >
+          Hello, {{ auth_user.full_name }}
+        </nuxt-link>
+      </li>
+      <li v-if="!auth_user">
         <nuxt-link
           custom
           to="/login"
@@ -48,6 +56,15 @@
             Login
           </a>
         </nuxt-link>
+      </li>
+      <li v-else>
+        <a
+          href="#"
+          @click.prevent="logout()"
+          :class="attr['nav__link-item']"
+        > 
+          Logout
+        </a>
       </li>
     </ul>
     </section>
