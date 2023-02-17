@@ -340,7 +340,7 @@
         //format form data
         let new_form_data = {
           ...data.movie,
-          thumbnail_image: `${this.image_url}${data.movie.image.url}`,
+          thumbnail_image: this.checkImage(data.movie),
           artists: data.artists.map(item => ({
             ...item,
             name: item.full_name

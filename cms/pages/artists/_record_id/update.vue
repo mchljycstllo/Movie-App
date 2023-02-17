@@ -181,7 +181,7 @@
         let new_form_data = {
           ...data.artist,
           name: data.artist.full_name,
-          thumbnail_image: `${this.image_url}${data.artist.image.url}`
+          thumbnail_image: this.checkImage(data.artist)
         }
         this.form_data = new_form_data
       },
