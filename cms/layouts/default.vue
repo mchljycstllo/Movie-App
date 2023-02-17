@@ -427,6 +427,10 @@
   .ho-hover
     cursor: none
   .cms
+    &__no-data
+      display: block
+      margin-top: 20px
+      font-size: 30px
     &__main-content
       padding: 50px 0 30px
       background-color: var(--theme_white)

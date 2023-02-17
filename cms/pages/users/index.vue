@@ -21,7 +21,10 @@
         </div>
         
         <!--- record part --->
-        <table class="cms__table">
+        <table 
+          class="cms__table"
+          v-if="records.length"
+        >
           <thead 
             class="cms__table__thead"
             id="cms-table-head"
@@ -82,6 +85,12 @@
             </tr>
           </tbody>
         </table>
+        <span 
+          v-else
+          class="cms__no-data"
+        >
+          No data available
+        </span>
       </div>
     </div>
   </div>
