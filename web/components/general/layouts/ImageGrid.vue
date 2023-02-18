@@ -13,6 +13,7 @@
         >
           <nuxt-link
             :to="item.slug"
+            :class="attr['section__grid__item__inner']"
           >
             <img
               :class="attr['section__grid__item__thumbnail']"
@@ -22,11 +23,20 @@
               :payload="item"
             />
           </nuxt-link>
-          <div
-            @click="addRemoveFavorite(item)"
+          <template
+            v-if="auth_user"
           >
-            {{ item.favorite }}
-          </div>
+            <div
+              @click="addRemoveFavorite(item)"
+              :class="attr['section__grid__item__favorite']"
+              :title="`${item.favorites ? 'Remove from favorites' : 'Add to favorites'}`"
+            >
+              <img 
+                :src="getFavoriteImage(item)"
+                :class="attr['section__grid__item__favorite-image']"
+              />
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -67,6 +77,9 @@
           this.setError(err.response.data.errors[0])
         })
       },
+      getFavoriteImage(item) {
+        return item.favorite ? '/icons/heart_filled.png' : '/icons/heart_empty.png'
+      },
       removeFavorite (item) {
         this.$axios.delete(`user/favorites/${item.favorite}`).then(res => {
           this.$nuxt.$emit('favorite-updated')
@@ -96,11 +109,31 @@
       flex-flow: row wrap
       margin: 0 -20px
       &__item
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: space-between
         flex: 0 0 calc(100% / var(--col_no) - 20px)
         margin: 0 10px 20px
+        padding: 5px
+        border-radius: 5px
+        box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.25)
         cursor: pointer
         transition: .2s ease-in-out
         &:hover
           a
             color: var(--theme_primary)
+        &__favorite
+          display: flex
+          align-items: center
+          justify-content: center
+          width: 100%
+          padding: 10px
+          border-radius: 5px
+          background-color: rgba(255, 0, 115, 0.3)
+        &__favorite-image
+          max-width: 30px
+        &__inner
+          display: block
+          margin-bottom: 10px
 </style>
