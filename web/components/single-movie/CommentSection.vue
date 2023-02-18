@@ -27,6 +27,34 @@
             v-html="item.comment"
           >
           </div>
+          <template 
+            v-if="auth_user"
+          >
+            <div
+              :class="attr['section__comment-controls']"
+            >
+              <span
+                :class="[
+                  attr['section__comment-control'],
+                  attr['section__comment-control--edit']
+                ]"
+                v-if="checkEditableComment(item)"
+                @click="displayEditComment(item)"
+              >
+                Edit
+              </span>
+              <span
+                v-if="checkDeletableComment(item)"
+                @click="deleteComment(item)"
+                :class="[
+                  attr['section__comment-control'],
+                  attr['section__comment-control--delete']
+                ]"
+              >
+                Delete
+              </span>
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -37,7 +65,7 @@
     >
       <textarea 
         :class="attr['section__add-comment__textarea']"
-        v-model="new_comment.comment"
+        v-model="comment_form_data.comment"
       >
       </textarea>
       <button
@@ -65,7 +93,8 @@
       },
       displayed_comments: 10,
       all_comments: payload.comments,
-      new_comment: {
+      comment_type: 'new-comment',
+      comment_form_data: {
         user: {
           username: 'user101',
           image: {
@@ -78,10 +107,9 @@
     }),
     methods: {
       submitComment () {
-        //this.showLoader()
-
-        let new_comment = {
-          ...this.new_comment,
+        let comment_form_data = {
+          ...this.comment_form_data,
+          comment_user_id: this.auth_user.id,
           user: {
             ...this.auth_user,
             username: this.auth_user.user_name,
@@ -92,14 +120,14 @@
           }
         }
 
-        this.all_comments.push(new_comment)
-        this.new_comment = ''
+        this.all_comments.push(comment_form_data)
+        this.comment_form_data = ''
         this.show_element.add_comment_box = false
 
         this.$axios.$post(`user/comments`, {
           movie_id: this.payload.id,
           user_id: this.auth_user.id,
-          content: new_comment.comment
+          content: comment_form_data.comment
         }).then(res => {
           // this.hideLoader()
         })
@@ -118,6 +146,24 @@
           }
           else return this.show_element.add_comment_box = true
         } else return this.show_element.add_comment_box = false
+      },
+      checkDeletableComment (item) {
+        if (this.auth_user.role == 'admin') return true
+        else return item.comment_user_id == this.auth_user.id ? true : false
+      },
+      checkEditableComment (item) {
+        return item.comment_user_id == this.auth_user.id ? true : false
+      },
+      displayEditComment (item) {
+        console.log(item)
+      },
+      deleteComment (item) {
+        let delete_payload = {
+          ...item,
+          title: 'your comment',
+          api: `user/comments/${item.id}`
+        }
+        this.deleteItem(delete_payload)
       }
     },
     mounted () {
@@ -144,6 +190,16 @@
       &-text
         margin-top: 10px
         max-width: 500px
+      &-controls
+        margin: 10px 0
+      &-control
+        display: inline-block
+        margin-right: 5px
+        cursor: pointer
+        &--edit
+          color: var(--theme_success)
+        &--delete
+          color: var(--theme_error)
     &__add-comment
       display: flex
       flex-direction: column
@@ -166,4 +222,5 @@
         &:hover
           background-color: var(--theme_white)
           color: var(--theme_primary)
+  
 </style>

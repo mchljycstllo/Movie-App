@@ -27,6 +27,7 @@
           comments: this.data.comments?.map((item) => ({
             ...item.comment,
             comment: item.comment.content,
+            comment_user_id: item.comment.user_id,
             user: {
               ...item.user,
               image: {
@@ -54,17 +55,6 @@
       }
     },
     mounted () {
-      let ids = [
-        {
-          id: 1
-        },
-        {
-          id: 2
-        }
-      ]
-      console.log('asdasd')
-      console.log(ids, JSON.stringify(ids))
-
       setTimeout(() => {
         this.initialization()
       }, 200)
