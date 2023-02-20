@@ -1,15 +1,15 @@
 <template>
   <div :class="attr['page']">
-   <div :class="attr['page__content']">
+    <div :class="attr['page__content']">
       <div :class="attr['page__sidebar-container']">
         <Sidebar />
       </div>
       <div :class="attr['page__content-container']">
-        <!-- <main-content 
-          :payload="related_movies_data"
-        /> -->
+        <main-content 
+          :payload="favorites_data"
+        />
       </div>
-   </div>
+    </div>
   </div>
 </template>
 
@@ -19,7 +19,7 @@
       Sidebar: () => import('~/components/profile/Sidebar.vue'),
       MainContent: () => import('~/components/profile/favorites/MainContent')
     },
-    // inject: ['related_movies_data']
+    inject: ['favorites_data']
   }
 </script>
 

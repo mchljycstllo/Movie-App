@@ -2,9 +2,8 @@ module Api
   class FavoritesController < ApplicationController
     before_action :set_favorite, only: [:show, :update, :destroy]
     before_action :set_movie, only: [:create]
-    #before_action :authenticate_user! TODO
-
     include MovieConcern
+    #before_action :authenticate_user! TODO
 
     # GET /favorites
     def index

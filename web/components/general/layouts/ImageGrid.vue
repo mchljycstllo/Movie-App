@@ -29,7 +29,7 @@
             <div
               @click="addRemoveFavorite(item)"
               :class="attr['section__grid__item__favorite']"
-              :title="`${item.favorites ? 'Remove from favorites' : 'Add to favorites'}`"
+              :title="`${item.favorite ? 'Remove from favorites' : 'Add to favorites'}`"
             >
               <img 
                 :src="getFavoriteImage(item)"
