@@ -37,6 +37,9 @@
                 src: this.checkImage(item.user),
                 alt: `${item.user.full_name} image`
               }
+            },
+            user_rating: {
+              ...item.user_rating
             }
           }))
         })),

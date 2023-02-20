@@ -24,6 +24,7 @@ module MovieConcern
       comments = @movie.comments.where(deleted: false)
       ratings = @movie.ratings
 
+      #manipulate movies and ratings
       fetched_comments = manipulate_movie_comments(comments)
       
       related_movies = []
@@ -91,11 +92,15 @@ module MovieConcern
     end
 
     def manipulate_movie_comments(comments)
+      #ratings included here
       fetched_comments = []
       comments.each do |comment|
+        user = comment.user
+        user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: @movie.id).first
         comment_obj = {
           comment: comment,
-          user: comment.user
+          user: user,
+          user_rating: user_rating ? user_rating : nil
         }
         comment.deleted == false ? fetched_comments.push(comment_obj) : nil
       end

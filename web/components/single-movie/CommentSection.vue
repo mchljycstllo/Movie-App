@@ -21,7 +21,37 @@
           </div>
         </div>
         <div :class="attr['section__comment-text-wrapper']">
-          <span> {{  item.user.user_name  }} </span>
+          <div :class="attr['section__group']"> 
+            <span :class="attr['section__group__username']">{{  item.user.user_name  }} </span>
+            <div :class="attr['section__star-container']">
+            <div 
+              :class="attr['section__star']"
+              v-for="(rate, rate_key) in payload.ratings"
+              :key="rate_key"
+            >
+              <img 
+                src="/images/icons/star-orange.svg"
+                :class="attr['star-filled']"
+              />
+            </div>
+            <div 
+              :class="[
+                attr['section__texts__star'],
+                attr['section__texts__star--black'],
+              ]"
+              v-for="(rate, rate_key) in (5 - payload.ratings)"
+              :key="rate_key + 100"
+            >
+              <img 
+                src="/images/icons/star-black.svg"
+                :class="[
+                  attr['star-filled'],
+                  attr['star-filled--black']
+                ]"
+              />
+            </div>
+        </div>
+          </div>
           <div
             :class="attr['section__comment-text']"
             v-html="item.comment"
@@ -63,16 +93,53 @@
       :class="attr['section__add-comment']"
       v-show="show_element.add_comment_box"
     >
+      <div :class="[
+        attr['section__group'],
+        attr['section__group--comment-inputs']
+      ]"> 
+        <span>Your Rating: </span>
+        <div :class="attr['section__star-container']">
+          <div 
+            :class="attr['section__star']"
+            v-for="(rate, rate_key) in comment_form_data.rating_score"
+            :key="rate_key"
+          >
+            <img 
+              @click="adjustRating(rate, 'add')"
+              src="/images/icons/star-orange.svg"
+              :class="attr['star-filled']"
+            />
+          </div>
+          <div 
+            :class="[
+              attr['section__texts__star'],
+              attr['section__texts__star--black'],
+            ]"
+            v-for="(rate, rate_key_2) in (5 - comment_form_data.rating_score)"
+            :key="rate_key_2 + 100"
+          >
+            <img
+              @click="adjustRating(rate + comment_form_data.rating_score, 'add')"
+              src="/images/icons/star-black.svg"
+              :class="[
+                attr['star-filled'],
+                attr['star-filled--black']
+              ]"
+            />
+          </div>
+        </div>
+      </div>
       <textarea 
         :class="attr['section__add-comment__textarea']"
         v-model="comment_form_data.comment"
+        placeholder="Share your thoughts about this movie"
       >
       </textarea>
       <button
         :class="attr['section__add-comment__submit']"
         @click="submitComment()"
       >
-        Submit Comment
+        Submit Comment and Rate
       </button>
     </div>
 
@@ -89,7 +156,7 @@
         :class="attr['section__add-comment__submit']"
         @click="submitEditedComment()"
       >
-        Update Comment
+        Update Comment and Rating
       </button>
     </div>
   </div>
@@ -119,19 +186,36 @@
             alt: 'user101 - image'
           }
         },
-        comment: ``
+        comment: ``,
+        rating_score: 5
       },
       edit_comment_form_data: null
     }),
     methods: {
       submitComment () {
+        if (this.comment_form_data.comment.length == 0) {
+          this.setError('Comment is required')
+          return false
+        }
+        this.showLoader()
         this.$axios.$post(`user/comments`, {
           movie_id: this.payload.id,
           user_id: this.auth_user.id,
           content: this.comment_form_data.comment
         }).then(res => {
-          this.setSuccess('Your comment has been added')
-          this.refreshPage()
+          this.$axios.post('user/ratings', {
+            movie_id: this.payload.id,
+            user_id: this.auth_user.id,
+            score: this.comment_form_data.rating_score
+          }).then(ratings_res => {
+            this.hideLoader()
+            this.setSuccess('Your comment and ratings have been added')
+            this.refreshPage()
+          })
+          .cat(err => {
+            this.setError(err.response.data.errors[0])
+          })
+          
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
@@ -199,6 +283,15 @@
         setTimeout(() => {
           window.open(`/${this.$route.params.slug}`, '_SELF')
         }, 1000)
+      },
+      adjustRating (score, input_type) {
+        console.log(score)
+        if (input_type == 'add') {
+          this.comment_form_data.rating_score = score
+        }
+        else {
+
+        }
       }
     },
     mounted () {
@@ -214,6 +307,10 @@
 </script>
 
 <style lang="stylus" module="attr">
+  .star-filled
+    max-width: 20px
+    &--black
+      max-width: 19px
   .section  
     &__comment
       &-thumbnail-container
@@ -263,5 +360,19 @@
         &:hover
           background-color: var(--theme_white)
           color: var(--theme_primary)
-  
+    &__star-container
+      display: flex
+      flex-flow: row wrap
+      align-items: center
+      transform: translateY(-2px)
+    &__group
+      display: flex
+      align-items: center
+      margin: 5px 0
+      &__username
+        display: inline-block
+        margin-right: 5px
+      &--comment-inputs
+        .star-filled
+          max-width: 50px
 </style>
