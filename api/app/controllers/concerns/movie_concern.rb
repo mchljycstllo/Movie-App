@@ -96,7 +96,14 @@ module MovieConcern
       fetched_comments = []
       comments.each do |comment|
         user = comment.user
-        user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: @movie.id, deleted: false).first
+        #user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: @movie.id, deleted: false).first
+
+        if params.has_key?(:movie_id)
+          user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: params[:movie_id], deleted: false).first
+        else
+          user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(movie_id: @movie.id, deleted: false).first
+        end
+
         comment_obj = {
           comment: comment,
           user: user,

@@ -65,7 +65,7 @@ module Api
 
     def get_movie_comments
       begin
-        movie = Movie.find(params[:id])
+        movie = Movie.find(params[:movie_id])
         render json: {
           data: {
             movie: movie,

@@ -123,7 +123,7 @@
         this.records = []
         this.loaded = false
         this.$axios.$post(`cms/pages/movie-comment-page`, {
-          id: this.$route.params.record_id
+          movie_id: this.$route.params.record_id
         }).then(({ data }) => {
           this.manipulateData(data)
         })

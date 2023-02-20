@@ -12,7 +12,7 @@
           :key="key"
         >
           <nuxt-link
-            :to="item.slug"
+            :to="`/${item.slug}`"
             :class="attr['section__grid__item__inner']"
           >
             <img
