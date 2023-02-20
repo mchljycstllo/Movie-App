@@ -39,7 +39,8 @@
               }
             },
             user_rating: {
-              ...item.user_rating
+              ...item.user_rating,
+              score: item.user_rating.score
             }
           }))
         })),

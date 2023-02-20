@@ -26,7 +26,7 @@
             <div :class="attr['section__star-container']">
             <div 
               :class="attr['section__star']"
-              v-for="(rate, rate_key) in payload.ratings"
+              v-for="(rate, rate_key) in item.user_rating.score"
               :key="rate_key"
             >
               <img 
@@ -39,7 +39,7 @@
                 attr['section__texts__star'],
                 attr['section__texts__star--black'],
               ]"
-              v-for="(rate, rate_key) in (5 - payload.ratings)"
+              v-for="(rate, rate_key) in (5 - item.user_rating.score)"
               :key="rate_key + 100"
             >
               <img 
@@ -147,6 +147,42 @@
       :class="attr['section__add-comment']"
       v-if="show_element.edit_comment_box"
     >
+    <div :class="[
+        attr['section__group'],
+        attr['section__group--comment-inputs']
+      ]"> 
+        <span>Your Rating: </span>
+        <div :class="attr['section__star-container']">
+          <div 
+            :class="attr['section__star']"
+            v-for="(rate, rate_key) in edit_comment_form_data.rating_score"
+            :key="rate_key"
+          >
+            <img 
+              @click="adjustRating(rate, 'update')"
+              src="/images/icons/star-orange.svg"
+              :class="attr['star-filled']"
+            />
+          </div>
+          <div 
+            :class="[
+              attr['section__texts__star'],
+              attr['section__texts__star--black'],
+            ]"
+            v-for="(rate, rate_key_2) in (5 - edit_comment_form_data.rating_score)"
+            :key="rate_key_2 + 100"
+          >
+            <img
+              @click="adjustRating(rate + edit_comment_form_data.rating_score, 'update')"
+              src="/images/icons/star-black.svg"
+              :class="[
+                attr['star-filled'],
+                attr['star-filled--black']
+              ]"
+            />
+          </div>
+        </div>
+      </div>
       <textarea 
         :class="attr['section__add-comment__textarea']"
         v-model="edit_comment_form_data.comment"
@@ -252,7 +288,11 @@
               alt: `${this.auth_user.user_name} profile picture`
             }
           },
-          comment: item.content
+          comment: item.content,
+          rating: {
+            ...item.user_rating
+          },
+          rating_score: item.user_rating.score
         }
         this.show_element.edit_comment_box = true
       },
@@ -263,8 +303,16 @@
           content: this.edit_comment_form_data.comment
         })
         .then(res => {
-          this.setSuccess('Your comment has been edited')
-          this.refreshPage()
+          this.$axios.$patch(`/user/ratings/${this.edit_comment_form_data.rating.id}`, {
+            score: this.edit_comment_form_data.rating_score
+          })
+          .then(ratings_res => {
+            this.setSuccess('Your comment and rating has been updated')
+            this.refreshPage()
+          })
+          .catch(err => {
+            this.setError(err.response.data.errors[0])
+          })
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
@@ -286,12 +334,8 @@
       },
       adjustRating (score, input_type) {
         console.log(score)
-        if (input_type == 'add') {
-          this.comment_form_data.rating_score = score
-        }
-        else {
-
-        }
+        if (input_type == 'add') this.comment_form_data.rating_score = score
+        else this.edit_comment_form_data.rating_score = score
       }
     },
     mounted () {
