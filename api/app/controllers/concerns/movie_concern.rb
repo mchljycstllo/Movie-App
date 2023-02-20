@@ -80,7 +80,7 @@ module MovieConcern
           movie: movie,
           genre: movie.genre,
           favorite: check_if_favorite(movie),
-          no_of_ratings: movie.ratings.length,
+          no_of_ratings: movie.ratings.where(deleted: 0).count,
           ratings_score: get_ratings_score(movie),
           comment_count: movie.comments.where(deleted: false).count
         }

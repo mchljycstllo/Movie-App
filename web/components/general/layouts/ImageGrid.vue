@@ -131,6 +131,11 @@
           padding: 10px
           border-radius: 5px
           background-color: rgba(255, 0, 115, 0.3)
+          transition: .2s ease-in-out
+          border: 2px solid transparent
+          &:hover
+            border: 2px solid rgba(255, 0, 115, 0.3)
+            background-color: var(--theme_white)
         &__favorite-image
           max-width: 30px
         &__inner
