@@ -22,7 +22,7 @@ module MovieConcern
     def fetch_current_movie
       genre = @movie.genre
       comments = @movie.comments.where(deleted: false)
-      ratings = @movie.ratings
+      ratings = @movie.ratings.where(deleted: false)
 
       #manipulate movies and ratings
       fetched_comments = manipulate_movie_comments(comments)
@@ -96,7 +96,7 @@ module MovieConcern
       fetched_comments = []
       comments.each do |comment|
         user = comment.user
-        user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: @movie.id).first
+        user_rating = Rating.select(:id, :user_id, :movie_id, :score).where(user_id: user.id, movie_id: @movie.id, deleted: false).first
         comment_obj = {
           comment: comment,
           user: user,

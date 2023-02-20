@@ -53,6 +53,9 @@ module Api
       #@comment.destroy
       if check_user == 1
         @comment.update_attribute(:deleted, true)
+        #delete rating attached to this comment
+        delete_ratings
+
         render json: {status: 'SUCCESS', msg: 'Deleted comment', data: @comment}, status: :ok
       else
         render json: {status: 'ERROR', errors: ["You don't have the right to delete this comment"]}, status: :unprocessable_entity
@@ -84,6 +87,11 @@ module Api
         #   return 0
         # end
         return 1
+      end
+
+      def delete_ratings
+        ratings = Rating.where(movie_id: @comment.movie_id, user_id: @comment.user_id).first
+        ratings.update_attribute(:deleted, true)
       end
   end
 end

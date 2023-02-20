@@ -57,7 +57,7 @@ module Api
       # Use callbacks to share common setup or constraints between actions.
       def set_rating
         begin
-          @rating = Rating.find(params[:id])
+          @rating = Rating.where(id: params[:id], deleted: false).first
         rescue ActiveRecord::RecordNotFound
           render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
         end
