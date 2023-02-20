@@ -1,17 +1,20 @@
 <template>
   <div :class="attr['page']">
-    <page-content />
+    <page-content 
+      v-if="loaded"
+    />
   </div>
 </template>
 
 <script>
+  import { computed } from 'vue'
   export default {
     components: {
       PageContent: () => import('~/components/single-movie/PageContent')
     },
     provide () {
       return {
-        single_movie_data: {
+        single_movie_data: computed(() => ({
           ...this.data.movie,
           genre: this.data.genre.title,
           casts: this.data.artists?.map(item => ({
@@ -36,25 +39,48 @@
               }
             }
           }))
-        },
-        related_movies_data: this.data.related_movies?.map((item, key) => ({
+        })),
+        related_movies_data: computed(() => this.data.related_movies?.map((item, key) => ({
           ...item.movie,
           genre: item.genre.title,
           image: {
             src: `${this.image_url}${item.movie.image.url}`,
             alt: item.movie.image_alt
           },
+          favorite: item.favorite,
           ratings: item.ratings_score,
           no_of_ratings: item.no_of_ratings
-        }))
+        })))
       }
     },
+    data: () => ({
+      loaded: false,
+      data: {}
+    }),
     methods: {
       initialization () {
+        this.fetchData()
         this.hideLoader()
+      },
+      fetchData () {
+        this.$axios.$post(`frontend/${this.$route.params.slug}`, {
+          user_id: this.auth_user ? this.auth_user.id : null
+        })
+        .then(({ data }) => {
+          this.data = data
+          console.log(data)
+          this.loaded = true
+        })
+        .catch(err => {
+          this.loaded = true
+          this.setError(err.response.data.errors[0])
+        })
       }
     },
     mounted () {
+      this.$nuxt.$on('favorite-updated', () => {
+        this.fetchData()
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
@@ -65,13 +91,16 @@
         status: true
       })
 
-      return $axios.$get(`frontend/${params.slug}`)
-      .then(({ data }) => {
-        return { data }
-      })
-      .catch(() => {
-        error({ statusCode: 500 })
-      })
+      // return $axios.$get(`frontend/${params.slug}`)
+      // .then(({ data }) => {
+      //   return { data }
+      // })
+      // .catch(() => {
+      //   error({ statusCode: 500 })
+      // })
+    },
+    destroyed () {
+      this.$nuxt.$off('favorite-updated')
     }
   }
 </script>

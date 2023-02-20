@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
     scope '/frontend' do
       post 'all-movies' => 'frontend#all_movies'
-      get match '/*path', to: 'frontend#single_movie', via: [:get]
+      post match '/*path', to: 'frontend#single_movie', via: [:post]
     end
   end
 end

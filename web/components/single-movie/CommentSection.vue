@@ -61,7 +61,7 @@
 
     <div 
       :class="attr['section__add-comment']"
-      v-if="show_element.add_comment_box"
+      v-show="show_element.add_comment_box"
     >
       <textarea 
         :class="attr['section__add-comment__textarea']"
@@ -73,6 +73,23 @@
         @click="submitComment()"
       >
         Submit Comment
+      </button>
+    </div>
+
+    <div 
+      :class="attr['section__add-comment']"
+      v-if="show_element.edit_comment_box"
+    >
+      <textarea 
+        :class="attr['section__add-comment__textarea']"
+        v-model="edit_comment_form_data.comment"
+      >
+      </textarea>
+      <button
+        :class="attr['section__add-comment__submit']"
+        @click="submitEditedComment()"
+      >
+        Update Comment
       </button>
     </div>
   </div>
@@ -103,33 +120,18 @@
           }
         },
         comment: ``
-      }
+      },
+      edit_comment_form_data: null
     }),
     methods: {
       submitComment () {
-        let comment_form_data = {
-          ...this.comment_form_data,
-          comment_user_id: this.auth_user.id,
-          user: {
-            ...this.auth_user,
-            username: this.auth_user.user_name,
-            image: {
-              src: this.checkImage(this.auth_user),
-              alt: `${this.auth_user.user_name} profile picture`
-            }
-          }
-        }
-
-        this.all_comments.push(comment_form_data)
-        this.comment_form_data = ''
-        this.show_element.add_comment_box = false
-
         this.$axios.$post(`user/comments`, {
           movie_id: this.payload.id,
           user_id: this.auth_user.id,
-          content: comment_form_data.comment
+          content: this.comment_form_data.comment
         }).then(res => {
-          // this.hideLoader()
+          this.setSuccess('Your comment has been added')
+          this.refreshPage()
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
@@ -156,18 +158,57 @@
       },
       displayEditComment (item) {
         console.log(item)
+        this.edit_comment_form_data = {
+          ...item,
+          user: {
+            ...this.auth_user,
+            username: this.auth_user.user_name,
+            image: {
+              src: this.checkImage(this.auth_user),
+              alt: `${this.auth_user.user_name} profile picture`
+            }
+          },
+          comment: item.content
+        }
+        this.show_element.edit_comment_box = true
+      },
+      submitEditedComment () {
+        this.$axios.$patch(`user/comments/${this.edit_comment_form_data.id}`, {
+          movie_id: this.payload.id,
+          user_id: this.auth_user.id,
+          content: this.edit_comment_form_data.comment
+        })
+        .then(res => {
+          this.setSuccess('Your comment has been edited')
+          this.refreshPage()
+        })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
       },
       deleteComment (item) {
+        this.comment_to_delete = item
         let delete_payload = {
           ...item,
           title: 'your comment',
           api: `user/comments/${item.id}`
         }
         this.deleteItem(delete_payload)
+      },
+      refreshPage () {
+        setTimeout(() => {
+          window.open(`/${this.$route.params.slug}`, '_SELF')
+        }, 1000)
       }
     },
     mounted () {
+      this.$nuxt.$on('clicked-proceed', () => {
+        window.open(`/${this.$route.params.slug}`, '_SELF')
+      })
       this.checkAllowComments()
+    },
+    destroyed () {
+      this.$nuxt.$off('clicked-proceed')
     }
   }
 </script>
