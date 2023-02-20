@@ -65,7 +65,13 @@
             this.setError('Invalid user')
             setTimeout(() => {
               this.logout()
-            }, 4000)
+            }, 2000)
+          }
+          else if (res.data.data.deleted) {
+            this.setError('User not found')
+            setTimeout(() => {
+              this.logout()
+            }, 2000)
           }
           else {
             localStorage.setItem('current_user', JSON.stringify(res.data.data))

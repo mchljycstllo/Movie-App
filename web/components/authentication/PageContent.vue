@@ -303,8 +303,16 @@ import { alpha_spaces } from 'vee-validate/dist/rules'
           }
           else {
             this.$auth.loginWith('local', { data: this.login_form }).then(res => {
-              localStorage.setItem('current_user', JSON.stringify(res.data.data))
-              window.open('/profile', '_SELF')
+              if (res.data.data.deleted) {
+                this.setError('User not found')
+                setTimeout(() => {
+                  this.logout()
+                }, 2000)
+              }
+              else {
+                localStorage.setItem('current_user', JSON.stringify(res.data.data))
+                window.open('/profile', '_SELF')
+              }
             }).catch(err => {
               this.setError(err.response.data.errors[0])
             }).then(() => {

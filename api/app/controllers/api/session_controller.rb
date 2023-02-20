@@ -13,7 +13,7 @@ module Api
 
     def get_user_via_id
       begin
-        user = User.find(params[:id])
+        user = User.where(id: params[:id], deleted: false).first
         render json: {status: 'SUCCESS', msg: 'fetched data', data: user}, status: :ok
       rescue ActiveRecord::RecordNotFound
         render json: {

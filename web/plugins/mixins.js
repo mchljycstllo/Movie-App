@@ -35,8 +35,8 @@ Vue.mixin({
       })
     },
     runMiddleware () {
+      //check user first
       let authenticated = this.auth_status
-      console.log('authenticated',authenticated)
       let route_name = this.$route.name
       if (authenticated) {
         // let token = `eyJhY2Nlc3MtdG9rZW4iOiJKSWpaS1JkZm1SZi0zYW1HekFsTThBIiwidG9rZW4tdHlwZSI6IkJlYXJlciIsImNsaWVudCI6IjlyOS1wdWxTRlo0X2NUZnFRY2ZneEEiLCJleHBpcnkiOiIxNjc3NTgyMTY2IiwidWlkIjoiamF5Y2FzdGlsbG9AbW92aWVhcHAuY29tIn0=`
@@ -44,6 +44,20 @@ Vue.mixin({
         if (route_name == 'login') {
           this.$router.push('/profile')
         }
+
+        this.$axios.$post('user/get-user-via-id', {
+          id: this.auth_user.id
+        }).then(({ data }) => {
+          if (!data) {
+            this.setError('No user found')
+            setTimeout(() => {
+              this.logout()
+            }, 1000)
+          }
+        })  
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
       }
       else {
         if (route_name == 'profile') {

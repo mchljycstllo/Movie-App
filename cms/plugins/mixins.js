@@ -43,6 +43,20 @@ Vue.mixin({
         if (route_name == 'index') {
           this.$router.push('/dashboard')
         }
+
+        this.$axios.$post('user/get-user-via-id', {
+          id: this.auth_user.id
+        }).then(({ data }) => {
+          if (!data) {
+            this.setError('No user found')
+            setTimeout(() => {
+              this.logout()
+            }, 1000)
+          }
+        })  
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
       }
       else this.$router.push('/')
 
