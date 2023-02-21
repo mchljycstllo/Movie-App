@@ -3,6 +3,7 @@
     <page-content 
       v-if="record"
     />
+    <Skeleton v-else />
 
   </div>
 </template>

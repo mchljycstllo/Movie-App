@@ -32,4 +32,6 @@
       margin: 0 auto
     &__content-container
       width: 100%
+      max-width: 750px
+      margin: 0 auto
 </style>

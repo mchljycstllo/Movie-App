@@ -22,19 +22,33 @@
             :src="`${item.img}`"
             :class="attr['sidebar__link-image']"
           />
+          <img 
+            :src="`${item.img_active}`"
+            :class="[
+              attr['sidebar__link-image'],
+              attr['sidebar__link-image--active']
+            ]"
+          />
             {{ item.name }}
           </a>
         </nuxt-link>
       </li>
       <li
         :key="100"
+        :class="attr['sidebar__link-item']"
       >
         <img 
           src="/images/icons/logout.png"
           :class="attr['sidebar__link-image']"
         />
+        <img 
+          src="/images/icons/logout_active.png"
+          :class="[
+            attr['sidebar__link-image'],
+            attr['sidebar__link-image--active']
+          ]"
+        />
         <span
-          :class="attr['sidebar__link-item']"
           @click="logout()"
         >
           Logout
@@ -51,25 +65,28 @@
         {
           name: 'Profile',
           url: '/profile',
-          img: '/images/icons/user.png'
+          img: '/images/icons/user.png',
+          img_active: '/images/icons/user_active.png'
         },
         {
           name: 'Favorites',
           url: '/profile/favorites',
-          img: '/images/icons/heart.png'
+          img: '/images/icons/heart.png',
+          img_active: '/images/icons/heart_active.png'
         }
       ]
     }),
     methdos: {
-      logout () {
-        console.log('logout')
-      }
+      // logout () {
+      //   console.log('logout')
+      // }
     }
   }
 </script>
 
 <style lang="stylus" module="attr">
   .sidebar
+    position: sticky
     min-width: 120px
     margin-right: 100px
     padding-right: 20px
@@ -88,7 +105,15 @@
       cursor: pointer
       &:hover, &--active
         color: var(--theme_primary)
+        & ^[0]__link-image
+          display: none
+          &--active
+            display: inline-block
+            transform: scale(1.2)
     &__link-image
       max-width: 20px
       margin-right: 10px
+      transition: .2s ease-in-out
+      &--active
+        display: none
 </style>
