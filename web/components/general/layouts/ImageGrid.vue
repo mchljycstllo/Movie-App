@@ -63,31 +63,7 @@
       }
     },
     methods: {
-      addRemoveFavorite(item) {
-        item.favorite ? this.removeFavorite(item) : this.addFavorite(item)
-      },
-      addFavorite (item) {
-        this.$axios.post('user/favorites', {
-          user_id: this.auth_user.id,
-          movie_id: item.id
-        }).then(res => {
-          this.$nuxt.$emit('favorite-updated')
-        })
-        .catch(err => {
-          this.setError(err.response.data.errors[0])
-        })
-      },
-      getFavoriteImage(item) {
-        return item.favorite ? '/icons/heart_filled.png' : '/icons/heart_empty.png'
-      },
-      removeFavorite (item) {
-        this.$axios.delete(`user/favorites/${item.favorite}`).then(res => {
-          this.$nuxt.$emit('favorite-updated')
-        })
-        .catch(err => {
-          this.setError(err.response.data.errors[0])
-        })
-      }
+      //all favorite methods in mixins
     },
     data: ({ payload }) => ({
       all_movies: payload
@@ -141,4 +117,5 @@
         &__inner
           display: block
           margin-bottom: 10px
+          width: 100%
 </style>

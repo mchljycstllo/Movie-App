@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="108" height="110">
-<path d="M54,5 86,105 1,43H107L22,105" fill="#808080"/>
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 275" width="300" height="275">
+	<title>star-orange-svg</title>
+	<defs>
+		<image  width="300" height="275" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAETBAMAAAB+fyY+AAAAAXNSR0IB2cksfwAAABtQTFRFAAAAgICA/6UA/wAA/1UAg4B9/4AA/4AA/4AAFrjugAAAAAl0Uk5TAP8AAQOTBgQC+Mmi4gAABO1JREFUeJzt3Vt20zAQBuCmPbwjl/BcFyg8EnZAd2B20C6BJbBymoTQxrqM5irlaObZlj/7n7S+Rbm68vLy8vLqqzbvWwuS5SxMhdBakCxnIWoTQo/N5SxMhdBlczkLUZs9q7/mchamQtBsrut7Yh1Z1LXvxmLNR9bkrAtmhcBqLmd1wJpPLGJzOasDVgi85nJWe9b8yqI1l7Pas8KbctZlsua3LFJzOas5K5yVsy6RNZ+zKM01EGvXJyusylmF+tQna16zCM01DmvXJ2utojTXMKzPfbKijqc01zCsnzHrtgNWrCI01yisxAcxhB/NWYmOJ/T8KKyUCv9RtGGhe34QVrK1Qnjsk4Xt+UFYaVX40CcL2/NjsDKthf4oWrGQPT8Ga8mxkM0lzMqqnBXXlzwL11yyrGzHOytRS561bcjKq5A9PwKr0Foh/OqTher5EVglFe6jaMdC9fwArGJr4ZrLWa1YZRWquZzViAW0Fqq5Lo0FbcOmItamtWhfie9yLK1NL//d+4wx2V3NY8x8HWdpq0pG2D7GnKptjIVvVC3tVNkI28ZYUrWLEfhS3NJGVYzwpa7bsO4gFnheoFETyCrdHNKqbc35lj2r6jTQPMap7ux0sVVta0+abVnV5/KmMU71lxiLnWqLufKxY6EuyMxinHDXiYuN6nTLsJZlFCN4+bpmmcQ4oVkWMb7e9a1nGcRYcQ8iZqnHOJFY2jG+vXGPYSnHeE9lqcY4kVmaMZ4/e8GxFGO857DUYpxYLK0Y14/PsCylGNdbQbNUYozuQaNZGjHGT0DxLIUY420QWOIxJh4jEFjSMaYeYlNYwjGmtkBiicaYfBJEYknGmH4PgcYSjDE9PpElFmPmYR6RJRVj7lUSKksoxtzoZJZIjNnnsWSWRIz5t4HoLIEY82MzWOwYC4/UGSxujKUXujgsZoylkVksVozFtyJYLE6M5XfyeCxGjOVxmSxyjMCLLUwWNUbotUouixgjNCqb9URRfVRndXq0nIVgEf9CQC++OcuSRVOBzeUsQ1an/6qdhWHtqCxgcgEmi6pSPjt1FoLFuCIr97yz7Fh0FdBczjJjJWf4qa1HNVand2ychWFxVIp3A52FYDHvgJeay1lWLNIdt9cq3XvjsHiqYs87y4jV6RMyZ2FY4FZBdwvWLXyHogWrchFp1kN5k4fGAWJ8VmCVNzkhFjJknZYyZ+1qVGWXBqtye8WDass6Owolly2LuKAEq34GMMpcYQqsaFuIRRVZ8bKGLIQKubAKK3kAsofWipWJJeeSZkW/MgFsJ7N4bhZuKiuz+79zrK+ogyvMKpwG41aQZeVVmRilWWgVbhVJFvDoMnmA9VngFEgplywLsQXSvsixHmFW4vGCNqtqFqvq1Yis+McvalSJGDOTgxNZRFX1ikKs6onIohg1WYjp0dYuSVbd2Iw9EmFhVGuXHgs57XjNyjQW52BVrS3AwqpqVuezCD/nNeuwHniqc9ezGGuGdhYsaL+4rD801jddFvE3xcEhSKz/Q4Lvveer3AY8Fl0FDMJikSPc1yzNmiVU5WEgVqpOs/YRVj2rf8MAc/FV10ZGdXJJscRGE9u/Q8kN9iTO6m6oG8GGOMT4XWwoqTYVHGwj1w5XhxjFWCLjHOtGiiUY4b6k9lL0YMmNJ6ySGlA0wn29kx7Qy8vLy8tLoP4Chi0bhvRxRv8AAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0"/>
 </svg>

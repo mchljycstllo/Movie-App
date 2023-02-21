@@ -10,9 +10,23 @@
           </iframe>
         </div>
         <div :class="attr['section__texts-container']">
-          <h1 :class="attr['section__texts-container__title']"> 
-            {{  payload.title  }} 
-          </h1>
+          <div :class="attr['section__texts-container-top']">
+            <h1 :class="attr['section__texts-container__title']">
+              {{  payload.title  }}
+            </h1>
+            <!---favorite section-->
+            <div 
+              :class="attr['section__texts-favorite']"
+              v-if="auth_user"
+              @click="addRemoveFavorite(payload)"
+              :title="payload.favorite ? 'Remove from favorites' : 'Add to favorites'"
+            > 
+              <img 
+                :class="attr['section__texts-favorite-image']"
+                :src="getFavoriteImage(payload)"
+              />
+            </div>
+          </div>
           <movie-text-section 
             :payload="payload"
             :show_title="false"
@@ -75,4 +89,17 @@ import MovieTextSection from '../general/layouts/MovieTextSection.vue'
         font-weight: var(--bold)
     &__description
       margin: 20px 0
+    &__texts-container-top 
+      display: flex
+      justify-content: space-between
+    &__texts-favorite
+      padding: 0 20px
+      cursor: pointer
+      &:hover
+        & ^[0]__texts-favorite-image
+          transform: scale(1.2)
+      &-image
+        width: 50px
+        transition: .2s ease-in-out
+    
 </style>

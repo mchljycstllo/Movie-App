@@ -26,6 +26,7 @@
           },
           ratings: this.data.ratings_score,
           no_of_ratings: this.data.no_of_ratings,
+          favorite: this.data.favorite,
           trailer_link: `https://www.youtube.com/embed/${this.data.movie.trailer_link}`,
           comments: this.data.comments?.map((item) => ({
             ...item.comment,
