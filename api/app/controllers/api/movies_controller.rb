@@ -38,7 +38,7 @@ module Api
     # PATCH/PUT /movies/1
     def update
       if @movie.update_attributes(movie_params)
-        update_artist_movies
+        delete_artist_movies
         #save here
         save_artist_movies
         render json: {status: 'SUCCESS', msg: 'Updated movie', data: @movie}, status: :ok
@@ -50,7 +50,8 @@ module Api
     # DELETE /movies/1
     def destroy
       @movie.update_attribute(:deleted, true)
-      update_artist_movies #to delete all artist movies assiciated with this movie
+      delete_artist_movies #to delete all artist movies assiciated with this movie
+      delete_movie_favorites #to delete all favorites associated with this movie
       render json: {status: 'SUCCESS', msg: 'Deleted movie', data: @movie}, status: :ok
       
     end
@@ -105,14 +106,6 @@ module Api
         # render json: {
         #   ids: to_render[0].errors.full_messages #for debugging
         # }
-      end
-
-      def update_artist_movies
-        #delete all artist movies first from this movie
-        artist_movies = ArtistMovie.where(movie_id: @movie.id)
-        artist_movies.each do |item|
-          item.delete
-        end
       end
 
   end

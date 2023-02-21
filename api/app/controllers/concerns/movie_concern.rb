@@ -142,9 +142,12 @@ module MovieConcern
       end
       
     end
-
-    def fetch_movie_artists(movie)
-      movie_artists = movie.artists
-      return movie_artists
+  
+    def delete_movie_favorites
+      favorites = Favorite.where(movie_id: @movie.id)
+      favorites.each do |favorite|
+        favorite.delete
+      end
     end
+
 end
