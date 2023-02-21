@@ -39,6 +39,8 @@ module Api
     def update
       if @movie.update_attributes(movie_params)
         update_artist_movies
+        #save here
+        save_artist_movies
         render json: {status: 'SUCCESS', msg: 'Updated movie', data: @movie}, status: :ok
       else
         render json: {status: 'ERROR', errors: ['movie not saved']}, status: :unprocessable_entity
@@ -48,6 +50,7 @@ module Api
     # DELETE /movies/1
     def destroy
       @movie.update_attribute(:deleted, true)
+      update_artist_movies #to delete all artist movies assiciated with this movie
       render json: {status: 'SUCCESS', msg: 'Deleted movie', data: @movie}, status: :ok
       
     end
@@ -110,9 +113,6 @@ module Api
         artist_movies.each do |item|
           item.delete
         end
-
-        #save here
-        save_artist_movies
       end
 
   end
