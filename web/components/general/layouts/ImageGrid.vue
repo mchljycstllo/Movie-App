@@ -19,22 +19,26 @@
               :class="attr['section__grid__item__thumbnail']"
               :src="`${item.image.src}`"
             />
-            <movie-text-section
-              :payload="item"
-            />
+            <div :class="attr['section__grid__item__movie-text-cover']">
+              <movie-text-section
+                :payload="item"
+              />
+            </div>
           </nuxt-link>
           <template
             v-if="auth_user"
           >
-            <div
-              @click="addRemoveFavorite(item)"
-              :class="attr['section__grid__item__favorite']"
-              :title="`${item.favorite ? 'Remove from favorites' : 'Add to favorites'}`"
-            >
-              <img 
-                :src="getFavoriteImage(item)"
-                :class="attr['section__grid__item__favorite-image']"
-              />
+            <div :class="attr['section__grid__item__movie-text-cover']">
+              <div
+                @click="addRemoveFavorite(item)"
+                :class="attr['section__grid__item__favorite']"
+                :title="`${item.favorite ? 'Remove from favorites' : 'Add to favorites'}`"
+              >
+                <img
+                  :src="getFavoriteImage(item)"
+                  :class="attr['section__grid__item__favorite-image']"
+                />
+              </div>
             </div>
           </template>
         </div>
@@ -91,7 +95,7 @@
         justify-content: space-between
         flex: 0 0 calc(100% / var(--col_no) - 20px)
         margin: 0 10px 20px
-        padding: 5px
+        //padding: 5px
         border-radius: 5px
         box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.25)
         cursor: pointer
@@ -117,5 +121,12 @@
         &__inner
           display: block
           margin-bottom: 10px
+          width: 100%
+        &__thumbnail
+          object-fit: cover
+          object-position: center
+          height: 320px
+        &__movie-text-cover
+          padding: 10px
           width: 100%
 </style>
