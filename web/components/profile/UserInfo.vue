@@ -213,27 +213,35 @@
                 return false
               }
 
-              //form data
               let form_data = new FormData(document.getElementById('form'))
-              form_data.append('role', this.form_data.role)
-              this.$axios.patch(`user/users/${this.auth_user.id}`, form_data).then(({data}) => {
-                this.setSuccess('Your info has been updated')
-                localStorage.setItem('current_user', JSON.stringify(data.data))
-                  setTimeout(() => {
-                    window.open('/profile', '_SELF')
-                    this.hideModal()
-                }, 1000)    
+              form_data.append('user_id', this.auth_user.id)
+              this.$axios.post(`user/validate-registration-info`, form_data)
+              .then(res => {
+                this.proceedUpdate()
               })
               .catch(err => {
-                //console.log(err)
-                //this.setError(err.response.data.errors[0])
+                this.setError(err.response.data.errors[0])
+                this.hideLoader()
               })
-              this.hideLoader()
           }
           this.$nextTick(() => {
             this.$refs.form.reset()
           })
         })
+      },
+      proceedUpdate () {
+        //form data
+        let form_data = new FormData(document.getElementById('form'))
+        form_data.append('role', this.form_data.role)
+        this.$axios.patch(`user/users/${this.auth_user.id}`, form_data).then(({data}) => {
+          this.setSuccess('Your info has been updated')
+          localStorage.setItem('current_user', JSON.stringify(data.data))
+            setTimeout(() => {
+              window.open('/profile', '_SELF')
+              this.hideModal()
+          }, 1000)    
+        })
+        //this.hideLoader()
       }
     }
   }

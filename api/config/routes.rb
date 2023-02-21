@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       resources :users
 
       post 'get-user-via-id' => 'session#get_user_via_id'
+      post 'validate-registration-info' => 'session#validate_registration_info'
     end
 
     scope '/frontend' do

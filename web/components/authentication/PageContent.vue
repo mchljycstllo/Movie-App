@@ -335,17 +335,25 @@ import { alpha_spaces } from 'vee-validate/dist/rules'
           } 
           else {
             let form_data = new FormData(document.getElementById('register_form'))
-            this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
-              this.setSuccess('You have been registered successfully. You may now login to your account')
-              setTimeout(() => {
-                this.display.login = true
-                this.hideModal()
-              }, 2000)
+            //send validation api
+            this.$axios.post(`user/validate-registration-info`, form_data )
+            .then(response => {
+              this.proceedRegistration()
             })
             .catch(err => {
-              console.log(err)
+              this.setError(err.response.data.errors[0])
             })
           }
+        })
+      },
+      proceedRegistration () {
+        let form_data = new FormData(document.getElementById('register_form'))
+        this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
+          this.setSuccess('You have been registered successfully. You may now login to your account')
+          setTimeout(() => {
+            this.display.login = true
+            this.hideModal()
+          }, 2000)
         })
       }
     }
