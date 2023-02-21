@@ -287,43 +287,51 @@
                 return false
               }
 
-              //form data
               let form_data = new FormData(document.getElementById('form'))
-
-              this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
-                
-                if (res.data && res.data.status == 'success') {
-                  //check user
-                  if (this.form_data.role == 'admin') {
-                    this.$axios.post('cms/update-user-role', {
-                      user_id: res.data.data.id,
-                      role: 'admin'
-                    }).then(update_res => {
-                      this.setSuccess('New admin has been saved')
-                      setTimeout(() => {
-                        this.$router.push(this.buttons.back_link)
-                        this.hideModal()
-                      }, 1000)
-                    })
-                  }
-                  else {
-                    this.setSuccess('User has been saved')
-                    setTimeout(() => {
-                      this.$router.push(this.buttons.back_link)
-                      this.hideModal()
-                    }, 1000)
-                  }
-                }
+              this.$axios.post(`user/validate-registration-info`, form_data)
+              .then(res => {
+                this.proceedCreate()
               })
               .catch(err => {
-                //console.log(err)
-                //this.setError(err.response.data.errors[0])
+                this.setError(err.response.data.errors[0])
+                this.hideLoader()
               })
-              this.hideLoader()
           }
           this.$nextTick(() => {
             this.$refs.form.reset()
           })
+        })
+      },
+      proceedCreate () {
+        //form data
+        let form_data = new FormData(document.getElementById('form'))
+        this.$axios.post(`${this.app_url}/auth`, form_data).then(res => {
+          
+          if (res.data && res.data.status == 'success') {
+            //check user
+            if (this.form_data.role == 'admin') {
+              this.$axios.post('cms/update-user-role', {
+                user_id: res.data.data.id,
+                role: 'admin'
+              }).then(update_res => {
+                this.setSuccess('New admin has been saved')
+                setTimeout(() => {
+                  this.$router.push(this.buttons.back_link)
+                  this.hideModal()
+                }, 1000)
+              })
+            }
+            else {
+              this.setSuccess('User has been saved')
+              setTimeout(() => {
+                this.$router.push(this.buttons.back_link)
+                this.hideModal()
+              }, 1000)
+            }
+          }
+        })
+        .catch(err => {
+          this.hideLoader()
         })
       },
       initialization () {

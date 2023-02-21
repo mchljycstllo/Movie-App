@@ -302,23 +302,34 @@
 
               //form data
               let form_data = new FormData(document.getElementById('form'))
-
-              this.$axios.patch(`cms/users/${this.$route.params.record_id}`, form_data).then(res => {
-                this.setSuccess('User has been updated')
-                  setTimeout(() => {
-                    this.$router.push(this.buttons.back_link)
-                    this.hideModal()
-                }, 1000)    
+              form_data.append('user_id', this.$route.params.record_id)
+              this.$axios.post(`user/validate-registration-info`, form_data)
+              .then(res => {
+                this.proceedUpdate()
               })
               .catch(err => {
-                //console.log(err)
-                //this.setError(err.response.data.errors[0])
+                this.setError(err.response.data.errors[0])
+                this.hideLoader()
               })
-              this.hideLoader()
+              
           }
           this.$nextTick(() => {
             this.$refs.form.reset()
           })
+        })
+      },
+      proceedUpdate () {
+        let form_data = new FormData(document.getElementById('form'))
+
+        this.$axios.patch(`cms/users/${this.$route.params.record_id}`, form_data).then(res => {
+          this.setSuccess('User has been updated')
+            setTimeout(() => {
+              this.$router.push(this.buttons.back_link)
+              this.hideModal()
+          }, 1000)    
+        })
+        .catch(err => {
+          this.hideLoader()
         })
       },
       initialization () {
