@@ -3,6 +3,7 @@
     <page-content 
       v-if="loaded"
     />
+    <Skeleton v-else />
   </div>
 </template>
 
