@@ -422,6 +422,12 @@
       font-size: 20px
       color: var(--theme_white)
       text-transform: uppercase
+    &__image
+      width: 30px
+      height: 30px
+      object-fit: cover
+      object-position: center
+      border-radius: 100px
   .multiselect__tags
     border: 1px solid var(--theme_gray) !important
   .ho-hover

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       scope 'pages' do
         get 'movie-create-page' => 'movies#movie_create_page'
         post 'movie-comment-page' => 'movies#get_movie_comments'
+        post 'artist-movies-page' => 'artists#get_artist_movies'
         get 'dashboard' => 'admin#dashboard'
       end
     end

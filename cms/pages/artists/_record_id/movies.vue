@@ -4,24 +4,28 @@
       <div class="cms-header">
         <div class="cms-header__inner">
           <span class="cms-header__title">
+            <img 
+              :src="artist.image"
+              v-if="artist && artist.image"
+              class="cms-header__image"
+            />
             {{ title }} : {{ records.length }} {{ records.length == 1 ? 'item' : 'items' }}
           </span>
         </div>
       </div>
       <div class="cms__main-content">
-        <div class="cms__actions">
-          <nuxt-link 
-            class="cms__actions-button"
-            :to="buttons.add"
-          >
-            <span>
-              ADD ITEM
-            </span>
-          </nuxt-link>
-        </div>
-        
+        <nuxt-link 
+          class="cms__actions-button"
+          :to="buttons.back_link"
+        >
+          <span>
+            BACK
+          </span>
+        </nuxt-link>
+
         <!--- record part --->
-        <table class="cms__table"
+        <table 
+          class="cms__table"
           v-if="records.length"
         >
           <thead 
@@ -50,39 +54,8 @@
                     :src="item.image"
                     :alt="item.image_alt"
                   >
-                  {{ item.full_name }}
+                  {{ item.title }}
                 </nuxt-link>
-              </td>
-              <td class="cms__table-td">
-                {{ item.movies_count }}
-              </td>
-              <td class="cms__table-td">
-                {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
-              </td>
-              <td class="cms__table-td cms__table-td--buttons">
-                <nuxt-link 
-                  :class="[
-                    'cms__table-button cms__table-button--success',
-                    item.movies_count == 0 && 'cms__table-button cms__table-button--disabled'
-                  ]"
-                  :to="`/${buttons.entity}/${item.id}/movies`"
-                >
-                  Movies
-                </nuxt-link>
-                <nuxt-link class="cms__table-button cms__table-button--info"
-                  :to="`/${buttons.entity}/${item.id}/update`"
-                >
-                  EDIT
-                </nuxt-link>
-                <button 
-                  :class="[
-                    'cms__table-button cms__table-button--danger',
-                    item.movies_count > 0 && 'cms__table-button cms__table-button--disabled'
-                  ]"
-                  @click="deleteItem(item)"
-                >
-                  DELETE
-                </button>
               </td>
             </tr>
           </tbody>
@@ -102,30 +75,20 @@
   export default {
     data: () => ({
       loaded: false,
-      title: 'Artists',
+      title: 'Movies',
       buttons: {
-        add: '/artists/create',
-        entity: 'artists'
+        add: '/movies/create',
+        back_link: `/artists`,
+        entity: 'movies'
       },
       table_fields: [
         {
-          name: 'full_name',
-          label: 'Full Name'
-        },
-        {
-          name: 'movies_count',
-          label: 'Number of Movies'
-        },
-        {
-          name: 'created_at',
-          label: 'Created At'
-        },
-        {
-          name: 'actions',
-          label: 'Actions'
+          name: 'title',
+          label: 'Title'
         }
       ],
-      records: []
+      records: [],
+      artist: null
     }),
     methods: {
       initialization () {
@@ -136,22 +99,28 @@
         this.showLoader()
         this.records = []
         this.loaded = false
-        this.$axios.$get(`cms/${this.buttons.entity}`).then(({ data }) => {
+        this.$axios.$post(`cms/pages/artist-movies-page`, {
+          artist_id: this.$route.params.record_id
+        }).then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
-          this.setError(err.response.data.errors[0])
+          // this.setError(err.response.data.errors[0])
+          console.log(err)
         })
 
         this.loaded = true
         this.hideLoader()
       },
       manipulateData (records) {
-        let new_record = records.map((item, key) => ({
-          ...item.artist,
-          title: item.artist.full_name,
-          image: `${this.image_url}/${item.artist.image.url}`,
-          movies_count: item.movies_count
+        this.title = `${records.artist.full_name} movies`
+        this.artist = {
+          ...records.artist,
+          image: `${this.image_url}/${records.artist.image.url}`
+        }
+        let new_record = records.movies.map((item, key) => ({
+          ...item,
+          image: `${this.image_url}/${item.image.url}`
         }))
         this.records = new_record
       }

@@ -53,6 +53,10 @@ module Api
       @artist.destroy
     end
 
+    def get_artist_movies
+      fetch_artist_movies
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_artist

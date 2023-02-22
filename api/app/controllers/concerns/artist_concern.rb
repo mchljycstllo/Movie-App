@@ -16,4 +16,17 @@ module ArtistConcern
     movie_artists = movie.artists
     return movie_artists
   end
+
+  
+  def fetch_artist_movies
+    artist = Artist.select('id', 'full_name', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
+    movies = artist.movies.select('id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+
+    render json: {
+      data: {
+        artist: artist,
+        movies: movies
+      }
+    }, status: :ok
+  end
 end
