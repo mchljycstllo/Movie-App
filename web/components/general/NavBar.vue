@@ -13,6 +13,21 @@
     </nuxt-link>
 
     <ul :class="attr['nav__links']">
+      <li :class="attr['nav__search-container']">
+        <form @submit.prevent="submitSearch()">
+          <input
+            type="text"
+            placeholder="Search movie title"
+            :class="attr['nav__search-input']"
+            v-model="form_data.title"
+          />
+          <img 
+            @click="submitSearch()"
+            :class="attr['nav__search-icon']"
+            src="/icons/search.png"
+          />
+        </form>
+      </li>
       <li>
         <nuxt-link
           custom
@@ -72,7 +87,35 @@
 </template>
 
 <script>
-
+  export default {
+    data: () => ({
+      form_data: {
+        title: ''
+      }
+    }),
+    methods: {
+      submitSearch () {
+        let form_data = {
+          ...this.form_data,
+          user_id: this.auth_user ? this.auth_user.id : null
+        }
+        //save to local storage
+        if (form_data.title.length == 0) {
+          this.setError('Title is required')
+        }
+        else {
+          localStorage.setItem('search_params', JSON.stringify(form_data))
+          this.form_data.title = ''
+          if (this.$route.name == 'search') {
+            this.$nuxt.$emit('execute-search')
+          }
+          else {
+            this.$router.push('/search')
+          }
+        }
+      }
+    }
+  }
 </script>
 
 <style lang="stylus" module="attr">
@@ -113,11 +156,33 @@
           color: var(--theme_white)
     &__links
       display: flex
-      list-style-type: none
+      align-items: center
       padding: 0
+      list-style-type: none
       li
         display: inline-block
         margin: 0 10px
         &:last-child
           margin-right: 0
+    &__search
+      &-container
+        display: flex
+        align-items: center
+        position: relative
+      &-input
+        padding: 5px 30px 5px 20px
+        border-radius: 100px
+        border: 1px solid var(--theme_white)
+        color: var(--theme_white)
+        font-size: 16px
+      &-icon
+        position: absolute
+        top: 7px
+        right: 10px
+        max-width: 15px
+        cursor: pointer
+        transition: .2s ease-in-out
+        opacity: 0.5
+        &:hover
+          opacity: 1
 </style>

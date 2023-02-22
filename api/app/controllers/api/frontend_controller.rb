@@ -33,5 +33,16 @@ module Api
         favorites: manipulate_movies(movies)
       }
     end
+
+    #post frontend/search-movies
+    def search_movies 
+      search = params[:title]
+      movies = Movie.where("title LIKE ?", "%#{search}%")
+      
+      render json:{
+        data: manipulate_movies(movies),
+        msg: 'loaded'
+      }, status: :ok
+    end
   end
 end

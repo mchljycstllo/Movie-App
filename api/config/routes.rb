@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     scope '/frontend' do
       post 'all-movies' => 'frontend#all_movies'
       post 'all-favorites' => 'frontend#get_user_favorites'
+      post 'search-movies' => 'frontend#search_movies'
       post match '/*path', to: 'frontend#single_movie', via: [:post]
     end
   end
