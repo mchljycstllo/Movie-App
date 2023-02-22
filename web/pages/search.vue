@@ -10,7 +10,10 @@
       v-if="!data.length"
       :class="attr['page__skeleton']"
     >
-      
+      <img 
+        src="/icons/no_search_result.png"
+        :class="attr['page__no-search-icon']"
+      />
     </div>
   </div>
 </template>
@@ -204,8 +207,8 @@
         this.showLoader()
         let form_data = JSON.parse(localStorage.getItem('search_params'))
         this.$axios.$post('frontend/search-movies', form_data).then(({ data }) => {
-          if (data.length) this.title = `Search results for ${form_data.title}`
-          else this.title = `No results for ${form_data.title}. Try another keyword`
+          if (data.length) this.title = `Search results for: "${form_data.title}"`
+          else this.title = `No results for "${form_data.title}". Try another keyword`
           this.manipulateData(data)
         })
         .catch(err => {
@@ -265,5 +268,10 @@
 <style lang="stylus" module="attr">
   .page
     &__skeleton
-      height: 100vh
+      height: 75vh
+      display: flex
+      align-items: center
+      justify-content: center
+    &__no-search-icon
+      width: 200px
 </style>

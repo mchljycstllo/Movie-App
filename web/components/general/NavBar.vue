@@ -175,6 +175,10 @@
         border: 1px solid var(--theme_white)
         color: var(--theme_white)
         font-size: 16px
+        transition: .2s ease-in-out
+        opacity: 0.8
+        &:hover
+          opacity: 1
       &-icon
         position: absolute
         top: 7px
