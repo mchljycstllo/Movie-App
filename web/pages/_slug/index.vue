@@ -69,8 +69,9 @@
         this.hideLoader()
       },
       fetchData () {
-        this.$axios.$post(`frontend/${this.$route.params.slug}`, {
-          user_id: this.auth_user ? this.auth_user.id : null
+        this.$axios.$post(`frontend/movie-inner-page`, {
+          user_id: this.auth_user ? this.auth_user.id : null,
+          movie_slug: this.$route.params.slug
         })
         .then(({ data }) => {
           this.data = data

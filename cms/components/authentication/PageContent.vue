@@ -11,7 +11,7 @@
         </h2>
         <div :class="attr['page__input-group']">
           <label>
-            Email
+            Email *
           </label>
           <input 
             type="text"
@@ -22,7 +22,7 @@
         </div>
         <div :class="attr['page__input-group']">
           <label>
-            Password
+            Password *
           </label>
           <input 
             type="password"

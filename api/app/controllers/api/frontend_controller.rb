@@ -9,7 +9,7 @@ module Api
     def single_movie
       @fetch_related = true
       begin
-        @movie = Movie.where(slug: params[:path]).first
+        @movie = Movie.where(slug: params[:movie_slug]).first
         if @movie
           fetch_current_movie
         else
@@ -43,6 +43,20 @@ module Api
         data: manipulate_movies(movies),
         msg: 'loaded'
       }, status: :ok
+    end
+
+    #post frontend/all-artists
+    def artist_landing_page
+      to_return = []
+      artists = fetch_all_artists
+      artists.each do |artist|
+        artist_obj = {
+          artist: artist,
+          movies_count: artist.movies.count
+        }
+        to_return.push(artist_obj)
+      end
+      render json: {status: 'SUCCESS', msg: 'All Artists', data: to_return}, status: :ok
     end
   end
 end

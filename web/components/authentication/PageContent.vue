@@ -26,7 +26,7 @@
             v-slot="{ errors }"
           >
             <label>
-              Email
+              Email *
             </label>
             <input
               type="text"
@@ -56,7 +56,7 @@
             v-slot="{ errors }"
           >
             <label>
-              Password
+              Password *
             </label>
             <input
               type="password"

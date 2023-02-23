@@ -28,10 +28,13 @@
           />
         </form>
       </li>
-      <li>
+      <li
+        v-for="(item, key) in nav_items"
+        :key="key"
+      >
         <nuxt-link
           custom
-          to="/"
+          :to="item.url"
           v-slot="{ href, navigate, isActive, isExactActive }"
           >
           <a
@@ -42,16 +45,25 @@
               (isExactActive) && attr['nav__link-item--active']
             ]"
           >
-            Home
+            {{ item.label }}
           </a>
         </nuxt-link>
       </li>
       <li v-if="auth_user">
         <nuxt-link
           to="/profile"
-          :class="attr['nav__link-item']"
+          v-slot="{ href, navigate, isActive, isExactActive }"
         >
-          Hello, {{ auth_user.full_name }}
+          <a
+            :href="href"
+            @click="navigate"
+            :class="[
+            attr['nav__link-item'],
+              (isActive || isExactActive) && attr['nav__link-item--active']
+            ]"
+          >
+            Hello, {{ auth_user.full_name }}
+          </a>
         </nuxt-link>
       </li>
       <li v-if="!auth_user">
@@ -91,7 +103,17 @@
     data: () => ({
       form_data: {
         title: ''
-      }
+      },
+      nav_items: [
+        {
+          label: 'Home',
+          url: '/'
+        },
+        {
+          label: 'Artists',
+          url: '/artists'
+        }
+      ]
     }),
     methods: {
       submitSearch () {
