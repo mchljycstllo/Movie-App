@@ -54,10 +54,12 @@
         v-if="show_casts && payload.casts.length"
       >
         <label> Casts:  </label>
-        <span
+        <nuxt-link
+          :to="`/artists/${cast.id}`"
           v-for="(cast, cast_key) in payload.casts"
+          :class="attr['section__cast-name']"
           :key="cast_key"
-        > {{ cast.full_name }} <b v-if="(cast_key + 1) < payload.casts.length">, </b> </span>
+        > {{ cast.full_name }} <b v-if="(cast_key + 1) < payload.casts.length">,</b></nuxt-link>
       </div>
     </div>
   </div>
@@ -111,4 +113,12 @@
       span
         display: inline-block
         margin-left: 5px
+    &__cast-name
+      display: inline-block
+      margin: 0 5px
+      color: var(--theme_black)
+      transition: .2s ease-in-out
+      text-decoration: underline
+      &:hover
+        color: var(--theme_primary)
 </style>

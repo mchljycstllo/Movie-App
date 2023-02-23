@@ -2,7 +2,7 @@ module Api
   class ArtistsController < ApplicationController
     before_action :set_artist, only: [:show, :update, :destroy]
     #before_action :authenticate_user! TODO
-    include ArtistConcern
+    include ArtistConcern, MovieConcern
 
     # GET /artists
     def index

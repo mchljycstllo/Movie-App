@@ -58,5 +58,22 @@ module Api
       end
       render json: {status: 'SUCCESS', msg: 'All Artists', data: to_return}, status: :ok
     end
+
+    def artist_inner_page
+      artist = Artist.select('id', 'full_name', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
+      if artist
+        movies = artist.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+        render json: {
+          data: {
+            artist: artist,
+            movies: manipulate_movies(movies)
+          }
+        }, status: :ok
+      else
+        render json: {
+          errors: ['Artist not found']
+        }, status: :unprocessable_entity
+      end
+    end
   end
 end

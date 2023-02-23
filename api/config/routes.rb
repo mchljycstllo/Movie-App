@@ -44,7 +44,7 @@ Rails.application.routes.draw do
       post 'all-favorites' => 'frontend#get_user_favorites'
       post 'search-movies' => 'frontend#search_movies'
       post 'all-artists' => 'frontend#artist_landing_page'
-      
+      post 'artist-inner-page' => 'frontend#artist_inner_page'
     end
   end
 end
