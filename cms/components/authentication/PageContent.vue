@@ -64,7 +64,7 @@
             //alert('Invalid user')
             this.setError('Invalid user')
             setTimeout(() => {
-              this.logout()
+              this.logout(false)
             }, 2000)
           }
           else if (res.data.data.deleted) {

@@ -61,10 +61,10 @@ Vue.mixin({
       else this.$router.push('/')
 
     },
-    logout () {
+    logout (show_message=true) {
       localStorage.removeItem('current_user')
       this.logout_user()
-      this.setSuccess('Logged out successfully')
+      if (show_message) this.setSuccess('Logged out successfully')
       setTimeout(() => {
         window.open('/', '_SELF')
       }, 1000)
