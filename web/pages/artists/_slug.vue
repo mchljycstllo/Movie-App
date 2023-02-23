@@ -24,8 +24,7 @@
           image: {
             src: this.checkImage(this.data.artist),
             alt: `${this.data.artist.full_name} profile image`
-          },
-          description: `Mark Sinclair, known professionally as Vin Diesel, is an American actor and producer. One of the world's highest-grossing actors, he is best known for playing Dominic Toretto in the Fast & Furious franchise.`
+          }
         })),
         movies_data: computed(() => this.data.movies?.map((item, key) => ({
           ...item.movie,

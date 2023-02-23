@@ -47,7 +47,7 @@
         margin: 0 -10px
         &__item
           flex: 0 0 calc(100% / 5 - 20px)
-          margin: 0 10px
+          margin: 0 10px 20px
           transition: .2s ease-in-out
           &:hover
             & ^[0]__artist-grid

@@ -65,7 +65,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def artist_params
-        params.permit(:full_name, :image, :image_alt)
+        params.permit(:full_name, :image, :image_alt, :description)
       end
   end
 end

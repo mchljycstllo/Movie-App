@@ -60,7 +60,7 @@ module Api
     end
 
     def artist_inner_page
-      artist = Artist.select('id', 'full_name', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
+      artist = Artist.select('id', 'full_name', 'description', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
       if artist
         movies = artist.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
         render json: {

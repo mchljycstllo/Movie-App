@@ -60,6 +60,33 @@
               <div class="cms__form-row cms__form-row--one">
                 <validation-provider tag="div" 
                     class="cms__form-group" 
+                    name="description" 
+                    :rules="{ required: true, max: 1000 }" 
+                    v-slot="{ errors }"
+                  >
+                  <label for="description">Description *</label>
+                  <textarea 
+                    :class="[
+                      'cms__form-group__input',
+                      errors.length && 'cms__form-group__input--error'
+                    ]"
+                    name="description"
+                    autocomplete="off"  
+                    placeholder="Enter description" 
+                    v-model="form_data.description"
+                  ></textarea>
+                  <transition name="slide">
+                    <span 
+                      class="cms__form-group__error" 
+                      v-if="errors.length > 0"
+                    > {{ errors[0] }}</span>
+                  </transition>
+                </validation-provider>
+              </div>
+
+              <div class="cms__form-row cms__form-row--one">
+                <validation-provider tag="div" 
+                    class="cms__form-group" 
                     name="thubmanil image"
                     :rules="{ required: false }" 
                     v-slot="{ errors }"
@@ -108,7 +135,8 @@
         back_link: '/artists'
       },
       form_data: {
-        name: ''
+        name: '',
+        description: ''
       }
     }),
     methods: {

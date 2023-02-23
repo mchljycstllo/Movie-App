@@ -154,7 +154,7 @@
                 <validation-provider tag="div" 
                     class="cms__form-group" 
                     name="description" 
-                    :rules="{ required: true }" 
+                    :rules="{ required: true, max: 1000 }" 
                     v-slot="{ errors }"
                   >
                   <label for="description">Description *</label>

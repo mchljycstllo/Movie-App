@@ -39,6 +39,10 @@
   .page
     &__no-movies
       height: 70vh
+      display: flex
+      justify-content: center
+      span
+        font-weight: bold
     &__content  
       max-width: 1180px
       margin: 0 auto
