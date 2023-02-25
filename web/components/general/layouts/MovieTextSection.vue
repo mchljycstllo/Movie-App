@@ -3,7 +3,7 @@
     <div :class="attr['section__texts']">
       <nuxt-link
         v-if="show_title"
-        :to="payload.slug"
+        :to="`/${payload.slug}`"
         :class="attr['section__texts-title']"
       >
         {{  payload.title  }}
