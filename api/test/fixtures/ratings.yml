@@ -1,9 +1,10 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  movies: one
+  user_id: 1
+  movie_id: 1
+  score: 5
 
-two:
-  user: two
-  movies: two
+# two:
+#   user: two
+#   movies: two

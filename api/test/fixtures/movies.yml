@@ -2,6 +2,10 @@
 
 one:
   genre: one
+  title: 'Test movie'
+  slug: 'test-movie'
+  description: 'asdasdas asd asd asd asd '
+  trailer_link: 'kJshsjaH'
 
-two:
-  genre: two
+# two:
+#   genre: two
