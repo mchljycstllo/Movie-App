@@ -187,7 +187,7 @@
         password: '',
         password_confirmation: ''
       }),
-      confirm_password_required: true
+      confirm_password_required: false
     }), 
     methods: {
       updateProfile () {
