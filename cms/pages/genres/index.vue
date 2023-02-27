@@ -44,7 +44,7 @@
               <td class="cms__table-td">
                 <nuxt-link 
                   class="cms__table__name"
-                  :to="`/${buttons.entity}/${item.id}/update`"
+                  :to="`/genres/${item.id}/update`"
                 >
                   {{ item.title }}
                 </nuxt-link>
@@ -57,7 +57,7 @@
               </td>
               <td class="cms__table-td cms__table-td--buttons">
                 <nuxt-link class="cms__table-button cms__table-button--info"
-                  :to="`/${buttons.entity}/${item.id}/update`"
+                  :to="`/genres/${item.id}/update`"
                 >
                   EDIT
                 </nuxt-link>
@@ -92,7 +92,7 @@
       title: 'Genres',
       buttons: {
         add: '/genres/create',
-        entity: 'genres'
+        entity: 'genre'
       },
       table_fields: [
         {
