@@ -56,7 +56,7 @@ module Api
           render json: {status: 'ERROR', errors: ['Genre contains movies. Cannot be deleted']}, status: :unprocessable_entity
         end
       else
-        render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['Genre not found']}, status: :unprocessable_entity
       end
     end
 
@@ -73,7 +73,7 @@ module Api
         begin
           @genre = Genre.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-          render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['Genre not found']}, status: :unprocessable_entity
         end
       end
 

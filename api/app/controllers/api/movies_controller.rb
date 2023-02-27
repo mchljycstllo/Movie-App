@@ -77,7 +77,7 @@ module Api
           }
         }, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['Movie not found']}, status: :unprocessable_entity
       end
     end
 
@@ -87,7 +87,7 @@ module Api
         begin
           @movie = Movie.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-          render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['Movie not found']}, status: :unprocessable_entity
         end
       end
 

@@ -9,7 +9,7 @@ module MovieConcern
       begin
         @movie = Movie.find(params[:movie_id])
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No movie found']}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['Movie not found']}, status: :unprocessable_entity
       end
     end
 

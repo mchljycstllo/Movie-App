@@ -70,7 +70,7 @@ module Api
         begin
           @comment = Comment.find(params[:id])
         rescue ActiveRecord::RecordNotFound
-          render json: {status: 'ERROR', errors: ['No comment found']}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['Comment not found']}, status: :unprocessable_entity
         end
       end
 
