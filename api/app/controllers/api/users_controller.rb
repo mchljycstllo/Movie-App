@@ -26,18 +26,33 @@ module Api
 
     def destroy
       @user.update_attribute(:deleted, true)
+      #delete user comments and reviews
+      delete_user_comments_and_ratings
       render json: {status: 'SUCCESS', msg: 'Deleted user', data: @user}, status: :ok
     end
 
     def update_user_role
       user = User.where(id: params[:user_id])
       user.update(role: params[:role])
+
       render json: {
         user: user
       }, status: :ok
     end
 
     private
+
+    def delete_user_comments_and_ratings
+      ratings = Rating.where(user_id: @user.id)
+      ratings.each do |rating|
+        rating.delete
+      end
+
+      comments = Comment.where(user_id: @user.id)
+      comments.each do |comment|
+        comment.delete
+      end
+    end
 
     def set_current_user
       begin
