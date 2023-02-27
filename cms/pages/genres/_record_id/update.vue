@@ -131,12 +131,18 @@
         this.$axios.$get(`cms/genre/${this.$route.params.record_id}`).then(({ data }) => {
           this.manipulateData(data)
         })
+        .catch(err => {
+          this.setError(err.response.data.errors[0])
+        })
       },
       manipulateData(data) {
         this.form_data.title = data.title
       }
     },  
     mounted () {
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/genres')
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
@@ -146,6 +152,9 @@
         type: 'loader',
         status: true
       })
+    },
+    destroyed () {
+      this.$nuxt.$off('pressed-hide-modal')
     }
   }
 </script>

@@ -220,6 +220,9 @@
       }
     },  
     mounted () {
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/artists')
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
@@ -229,6 +232,9 @@
         type: 'loader',
         status: true
       })
+    },
+    destroyed () {
+      this.$nuxt.$off('pressed-hide-modal')
     }
   }
 </script>

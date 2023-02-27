@@ -100,14 +100,18 @@
           this.manipulateData(data)
         })
         .catch(err => {
-          // this.setError(err.response.data.errors[0])
-          console.log(err)
+          this.setError(err.response.data.errors[0])
         })
 
         this.loaded = true
         this.hideLoader()
       },
       manipulateData (records) {
+        if (!records.genre) {
+          this.setError('Genre not found')
+          return
+        }
+
         this.title = `${records.genre.title} movies`
         let new_record = records.movies.map((item, key) => ({
           ...item,
@@ -121,12 +125,16 @@
       this.$nuxt.$on('clicked-proceed', () => {
         this.fetchData ()
       })
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/genres')
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
     },
     destroyed () {
       this.$nuxt.$off('clicked-proceed')
+      this.$nuxt.$off('pressed-hide-modal')
     },
     asyncData({ $axios, store, error }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {

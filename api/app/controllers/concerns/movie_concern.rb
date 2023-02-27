@@ -151,27 +151,46 @@ module MovieConcern
     end
 
     def fetch_artist_movies
-      artist = Artist.select('id', 'full_name', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
-      movies = artist.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+      begin
+        movies = []
+        artist = Artist.select('id', 'full_name', 'image', 'image_alt').where(deleted: false, id: params[:artist_id]).first
+        if artist
+          movies = artist.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+        end
 
-      render json: {
-        data: {
-          artist: artist,
-          movies: movies
-        }
-      }, status: :ok
+        render json: {
+          data: {
+            artist: artist,
+            movies: movies
+          }
+        }, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: {
+          errors: ['Artist not found']
+        }, status: :unprocessable_entity
+      end
     end
 
     def fetch_genre_movies
-      genre = Genre.where(deleted: false, id: params[:genre_id]).first
-      movies = genre.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+      begin
+        movies = []
+        genre = Genre.where(deleted: false, id: params[:genre_id]).first
+        
+        if genre
+          movies = genre.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+        end
 
-      render json: {
-        data: {
-          genre: genre,
-          movies: movies
-        }
-      }, status: :ok
+        render json: {
+          data: {
+            genre: genre,
+            movies: movies
+          }
+        }, status: :ok
+      rescue ActiveRecord::RecordNotFound
+        render json: {
+          errors: ['Genre not found']
+        }, status: :unprocessable_entity
+      end
     end
 
 end
