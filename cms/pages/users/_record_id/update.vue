@@ -41,9 +41,11 @@
                     type="text" 
                     :class="[
                       'cms__form-group__input',
-                      errors.length && 'cms__form-group__input--error'
+                      errors.length && 'cms__form-group__input--error',
+                      $route.params.record_id != auth_user.id && 'cms__form-group__input--readonly'
                     ]" 
                     name="full_name" 
+                    :readonly="$route.params.record_id != auth_user.id"
                     autocomplete="off" 
                     placeholder="Enter full name" 
                     v-model="form_data.full_name"
@@ -103,8 +105,10 @@
                     type="text" 
                     :class="[
                       'cms__form-group__input',
-                      errors.length && 'cms__form-group__input--error'
+                      errors.length && 'cms__form-group__input--error',
+                      $route.params.record_id != auth_user.id && 'cms__form-group__input--readonly'
                     ]" 
+                    :readonly="$route.params.record_id != auth_user.id"
                     name="email" 
                     autocomplete="off" 
                     placeholder="email@domain.com" 
@@ -129,8 +133,10 @@
                     type="text" 
                     :class="[
                       'cms__form-group__input',
-                      errors.length && 'cms__form-group__input--error'
+                      errors.length && 'cms__form-group__input--error',
+                      $route.params.record_id != auth_user.id && 'cms__form-group__input--readonly'
                     ]" 
+                    :readonly="$route.params.record_id != auth_user.id"
                     name="user_name" 
                     autocomplete="off" 
                     placeholder="Enter username" 
@@ -218,6 +224,7 @@
                     ref="image_uploader" 
                     :res_image="form_data.thumbnail_image"
                     :uploader_name="'profile picture'"
+                    :removable="$route.params.record_id == auth_user.id"
                   />
                   <transition name="slide">
                     <span 
