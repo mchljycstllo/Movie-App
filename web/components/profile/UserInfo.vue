@@ -120,6 +120,7 @@
                 errors.length && attr['page__text-input--error']
               ]"
               vid="password"
+              @input="checkRequiredPassword()"
             />
             <transition name="slide">
               <span 
@@ -134,7 +135,7 @@
           <validation-provider 
             :class="attr['page__input-group']"
             name="password confirmation" 
-            :rules="{ required: false, confirmed: 'password' }"
+            :rules="{ required: confirm_password_required, confirmed: 'password' }"
             v-slot="{ errors }"
           >
             <label>
@@ -185,12 +186,13 @@
         ...user_info,
         password: '',
         password_confirmation: ''
-      })
+      }),
+      confirm_password_required: true
     }), 
     methods: {
       updateProfile () {
-        if (this.form_data.password.length > 0) this.confirm_password_required = true
-        else this.confirm_password_required = false
+        // if (this.form_data.password.length > 0) this.confirm_password_required = true
+        // else this.confirm_password_required = false
 
         this.showLoader()
         this.$refs.form.validate().then(success => {
@@ -242,7 +244,13 @@
           }, 1000)    
         })
         //this.hideLoader()
-      }
+      },
+      checkRequiredPassword () {
+        if (this.form_data.password.length > 0) this.confirm_password_required = true
+        else this.confirm_password_required = false
+
+        console.log(this.confirm_password_required)
+      },
     }
   }
 </script>
