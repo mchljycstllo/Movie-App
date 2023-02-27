@@ -149,12 +149,16 @@
       this.$nuxt.$on('clicked-proceed', () => {
         this.fetchData ()
       })
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/movies')
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
     },
     destroyed () {
       this.$nuxt.$off('clicked-proceed')
+      this.$nuxt.$off('pressed-hide-modal')
     },
     asyncData({ $axios, store, error }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {

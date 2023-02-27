@@ -55,7 +55,7 @@ module Api
         begin
           @favorite = Favorite.find(params[:id])
         rescue
-          render json: {status: 'ERROR', errors: ['No favorite found']}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['Favorite not found']}, status: :unprocessable_entity
         end
       end
 

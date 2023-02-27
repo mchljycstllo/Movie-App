@@ -43,7 +43,7 @@ module Api
       begin
         @user = User.find(params[:id])
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['No user found']}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['User not found']}, status: :unprocessable_entity
       end
     end
 

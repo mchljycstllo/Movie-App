@@ -60,7 +60,13 @@ module Api
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_artist
-        @artist = Artist.find(params[:id])
+        begin
+          @artist = Artist.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          render json: {
+            errors: ['Artist not found']
+          }, status: :unprocessable_entity
+        end
       end
 
       # Only allow a trusted parameter "white list" through.

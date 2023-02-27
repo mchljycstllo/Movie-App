@@ -49,7 +49,7 @@ Vue.mixin({
           id: this.auth_user.id
         }).then(({ data }) => {
           if (!data) {
-            this.setError('No user found')
+            this.setError('User not found')
             setTimeout(() => {
               this.logout()
             }, 1000)
