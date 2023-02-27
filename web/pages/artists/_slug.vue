@@ -50,10 +50,6 @@
         })
         .catch(err => {
           this.setError(err.response.data.errors[0])
-          setTimeout(() => {
-            this.$router.push(`/artists`)
-            this.hideModal()
-          }, 1000)
         })
         
       },
@@ -71,12 +67,16 @@
       this.$nuxt.$on('favorite-updated', () => {
         this.fetchData()
       })
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/artists')
+      })
       setTimeout(() => {
         this.initialization()
       }, 200)
     },
     destroyed () {
       this.$nuxt.$off('favorite-updated')
+      this.$nuxt.$off('pressed-hide-modal')
     },
     asyncData({ $axios, store, error }) {
       store.commit('global/content-loader/toggleContentLoaderStatus', {
