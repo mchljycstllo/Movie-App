@@ -1,5 +1,8 @@
 <template>
-	<div :class="['uploader_main',attr.uploader]">
+	<div :class="[
+		['uploader_main',attr.uploader],
+		!removable && attr['uploader_main--no-hover']
+	]">
 		
 
 		<div :class="['upload_container', attr.upload_container, image_file_data ? attr.image_loaded : '']" @dragover.prevent @drop.prevent @drop="dropHandler">
@@ -38,7 +41,18 @@
 					</g>
 				</svg>
 				</figure>
-				<span :class="['upload-caption text medium', attr.hover, attr.primary_text, attr.text, attr.primary, attr.font_medium_1, attr.top_label, image_file_data ? attr.active_label : '']">
+				<span 
+					v-if="removable"
+					:class="['upload-caption text medium', 
+					attr.hover, 
+					attr.primary_text, 
+					attr.text, 
+					attr.primary, 
+					attr.font_medium_1, 
+					attr.top_label, 
+					image_file_data ? attr.active_label : '']"
+					
+				>
 					<img src="/icons/upload.png" :class="attr.upload_image" v-if="image_file_data">
 					{{ image_file_data ? `${caption.caption_3}` : `${caption.caption_1}`
 				}}</span>
@@ -180,6 +194,8 @@
 				this.actual_file = target_file.files
 			},
 			handleFile (input) {
+				if (!this.removable) return
+
 				this.validateFileSize(input[0].size)
 				this.validateSupportedFormat(input[0].type)
 				this.validateDimensions()
@@ -398,6 +414,9 @@
 			color: #666
 	.uploader
 		margin: 0 20px
+		&_main
+			&--no-hover
+				pointer-events: none
 		.upload_container
 			padding: 80px 0
 			margin: 20px 40px

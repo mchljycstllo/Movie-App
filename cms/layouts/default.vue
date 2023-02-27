@@ -562,6 +562,8 @@
           border: 1px solid var(--theme_error)
         &:hover
           border: 1px solid var(--theme_primary)
+        &--readonly
+          pointer-events: none
       textarea
         height: 150px
       &--disabled
