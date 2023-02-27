@@ -162,7 +162,8 @@
         this.records = new_records
       },
       checkCurrentUser(item) {
-        if (this.user && item.id == this.auth_user.id)  return false
+        console.log(item)
+        if (this.auth_user && item.id == this.auth_user.id)  return false
         else return true
       }
     },  
