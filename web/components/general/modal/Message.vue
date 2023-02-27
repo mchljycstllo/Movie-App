@@ -6,7 +6,7 @@
     ]">
       <div :class="attr['modal__head']">
         <h5 :class="attr['modal__head-title']"> {{ modal_info.type.toUpperCase() }} </h5>
-        <div :class="attr['modal__close']" @click="hideModal()">
+        <div :class="attr['modal__close']" @click="closeModal()">
           <span :class="attr['modal__x-mark']">+</span>
         </div>
       </div>
@@ -15,7 +15,7 @@
       </div>
       <div :class="attr['modal__footer']">
         <button 
-          @click="hideModal()"
+          @click="closeModal()"
           :class="[
             attr['modal__footer-button'],
             attr['modal__footer-button--close']
@@ -57,6 +57,10 @@
         .then(() => {
           this.hideLoader()
         })
+      },
+      closeModal () {
+        this.$nuxt.$emit('pressed-hide-modal')
+        this.hideModal()
       }
     }
   }

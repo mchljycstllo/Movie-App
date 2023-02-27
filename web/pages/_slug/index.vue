@@ -79,7 +79,6 @@
           this.loaded = true
         })
         .catch(err => {
-          this.loaded = true
           this.setError(err.response.data.errors[0])
         })
       }
@@ -87,6 +86,9 @@
     mounted () {
       this.$nuxt.$on('favorite-updated', () => {
         this.fetchData()
+      })
+      this.$nuxt.$on('pressed-hide-modal', () => {
+        this.$router.push('/')
       })
       setTimeout(() => {
         this.initialization()
@@ -108,6 +110,7 @@
     },
     destroyed () {
       this.$nuxt.$off('favorite-updated')
+      this.$nuxt.$off('pressed-hide-modal')
     }
   }
 </script>

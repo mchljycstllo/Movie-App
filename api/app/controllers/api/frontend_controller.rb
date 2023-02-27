@@ -13,10 +13,10 @@ module Api
         if @movie
           fetch_current_movie
         else
-          render json: {status: 'ERROR', errors: ['movie not found']}, status: :unprocessable_entity
+          render json: {status: 'ERROR', errors: ['Movie not found']}, status: :unprocessable_entity
         end
       rescue ActiveRecord::RecordNotFound
-        render json: {status: 'ERROR', errors: ['movie not found']}, status: :unprocessable_entity
+        render json: {status: 'ERROR', errors: ['Movie not found']}, status: :unprocessable_entity
       end
     end
 
