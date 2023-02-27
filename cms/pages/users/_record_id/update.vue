@@ -174,6 +174,7 @@
                     autocomplete="off" 
                     placeholder="Enter password" 
                     v-model="form_data.password"
+                    @input="checkRequiredPassword()"
                   >
                   <transition name="slide">
                     <span 
@@ -283,8 +284,6 @@
     }),
     methods: {
       submit () {
-        if (this.form_data.password.length > 0) this.confirm_password_required = true
-        else this.confirm_password_required = false
 
         this.showLoader()
         this.$refs.form.validate().then(success => {
@@ -360,8 +359,13 @@
           username: record.user_name,
           thumbnail_image: this.checkImage(record)
         }
-      }
+      },
+      checkRequiredPassword () {
+        if (this.form_data.password.length > 0) this.confirm_password_required = true
+        else this.confirm_password_required = false
 
+        console.log(this.confirm_password_required)
+      }
     },  
     mounted () {
       setTimeout(() => {
