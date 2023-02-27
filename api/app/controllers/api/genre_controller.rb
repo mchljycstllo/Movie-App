@@ -7,7 +7,7 @@ module Api
     def index
       to_return = []
 
-      genres = Genre.all().where(deleted: false)
+      genres = Genre.all.where(deleted: false).order(title: :asc)
       genres.each do |genre|
         genre_obj = {
           genre: genre,

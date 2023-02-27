@@ -14,7 +14,13 @@ module MovieConcern
     end
 
     def fetch_all_movies
-      @movies = Movie.where(deleted: false)
+      
+      if params.has_key?(:order_by_id)
+        @movies = Movie.where(deleted: false).order(id: :desc)
+      else
+        @movies = Movie.where(deleted: false).order(title: :asc)
+      end
+
       render json: {status: 'SUCCESS', msg: 'Loaded movie', data: manipulate_movies(@movies)}, status: :ok
     end
 

@@ -1,7 +1,7 @@
 module ArtistConcern
   private 
   def fetch_all_artists
-    artists = Artist.where(deleted: false)
+    artists = Artist.where(deleted: false).order(full_name: :asc)
   end
 
   def delete_artist_movies

@@ -192,9 +192,11 @@
     },  
     methods: {
       fetchData() {
-        this.$axios.$post('frontend/all-movies', {
-          user_id: this.auth_user ? this.auth_user.id : ''
-        }).then(({ data }) => {
+        let form_data = {
+          user_id: this.auth_user ? this.auth_user.id : '',
+          order_by_id: true
+        }
+        this.$axios.$post('frontend/all-movies', form_data).then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
