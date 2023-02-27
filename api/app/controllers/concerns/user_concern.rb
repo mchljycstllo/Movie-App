@@ -1,6 +1,6 @@
 module UserConcern
   def fetch_all_users
-    users = User.where(deleted: false)
+    users = User.where(deleted: false).order(full_name: :asc)
   end
 
   def update_user
