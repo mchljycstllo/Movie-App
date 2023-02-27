@@ -2,6 +2,7 @@ module Api
   class GenreController < ApplicationController
     #before_action :authenticate_user! TODO
     before_action :set_genre, only: [:show, :update, :destroy]
+    include MovieConcern
 
     def index
       to_return = []
@@ -57,6 +58,10 @@ module Api
       else
         render json: {status: 'ERROR', errors: ['No genre found']}, status: :unprocessable_entity
       end
+    end
+
+    def get_genre_movies
+      fetch_genre_movies
     end
 
     private 

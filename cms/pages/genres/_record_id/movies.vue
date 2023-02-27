@@ -9,17 +9,15 @@
         </div>
       </div>
       <div class="cms__main-content">
-        <div class="cms__actions">
-          <nuxt-link 
-            class="cms__actions-button"
-            :to="buttons.add"
-          >
-            <span>
-              ADD ITEM
-            </span>
-          </nuxt-link>
-        </div>
-        
+        <nuxt-link 
+          class="cms__actions-button"
+          :to="buttons.back_link"
+        >
+          <span>
+            BACK
+          </span>
+        </nuxt-link>
+
         <!--- record part --->
         <table 
           class="cms__table"
@@ -44,40 +42,15 @@
               <td class="cms__table-td">
                 <nuxt-link 
                   class="cms__table__name"
-                  :to="`/genres/${item.id}/update`"
+                  :to="`/${buttons.entity}/${item.id}/update`"
                 >
+                  <img
+                    class="cms__table-thumbnail"
+                    :src="item.image"
+                    :alt="item.image_alt"
+                  >
                   {{ item.title }}
                 </nuxt-link>
-              </td>
-              <td class="cms__table-td">
-                {{ item.movies_count }}
-              </td>
-              <td class="cms__table-td">
-                {{ $moment(item.created_at).format('MMMM DD, YYYY') }}
-              </td>
-              <td class="cms__table-td cms__table-td--buttons">
-                <nuxt-link :class="[
-                  'cms__table-button cms__table-button--success',
-                  item.movies_count == 0 && 'cms__table-button cms__table-button--disabled'
-                ]"
-                  :to="`/genres/${item.id}/movies`"
-                >
-                  Movies 
-                </nuxt-link>
-                <nuxt-link class="cms__table-button cms__table-button--info"
-                  :to="`/genres/${item.id}/update`"
-                >
-                  EDIT
-                </nuxt-link>
-                <button 
-                  :class="[
-                    'cms__table-button cms__table-button--danger',
-                    item.movies_count > 0 && 'cms__table-button--disabled'
-                  ]"
-                  @click="deleteItem(item)"
-                >
-                  DELETE
-                </button>
               </td>
             </tr>
           </tbody>
@@ -97,30 +70,20 @@
   export default {
     data: () => ({
       loaded: false,
-      title: 'Genres',
+      title: 'Movies',
       buttons: {
-        add: '/genres/create',
-        entity: 'genre'
+        add: '/movies/create',
+        back_link: `/genres`,
+        entity: 'movies'
       },
       table_fields: [
         {
-          name: 'name',
-          label: 'Name'
-        },
-        {
-          name: 'movies_count',
-          label: 'Movies Count'
-        },  
-        {
-          name: 'created_at',
-          label: 'Created At'
-        },
-        {
-          name: 'actions',
-          label: 'Actions'
+          name: 'title',
+          label: 'Title'
         }
       ],
-      records: []
+      records: [],
+      artist: null
     }),
     methods: {
       initialization () {
@@ -131,22 +94,27 @@
         this.showLoader()
         this.records = []
         this.loaded = false
-        this.$axios.$get('cms/genre').then(({ data }) => {
+        this.$axios.$post(`cms/pages/genre-movies-page`, {
+          genre_id: this.$route.params.record_id
+        }).then(({ data }) => {
           this.manipulateData(data)
         })
         .catch(err => {
-          this.setError(err.response.data.errors[0])
+          // this.setError(err.response.data.errors[0])
+          console.log(err)
         })
 
         this.loaded = true
         this.hideLoader()
       },
       manipulateData (records) {
-        let new_record = records.map((item, key) => ({
-          ...item.genre,
-          movies_count: item.movies
+        this.title = `${records.genre.title} movies`
+        let new_record = records.movies.map((item, key) => ({
+          ...item,
+          image: `${this.image_url}/${item.image.url}`
         }))
         this.records = new_record
+        console.log(records)
       }
     },  
     mounted () {

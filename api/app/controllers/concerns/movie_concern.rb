@@ -162,4 +162,16 @@ module MovieConcern
       }, status: :ok
     end
 
+    def fetch_genre_movies
+      genre = Genre.where(deleted: false, id: params[:genre_id]).first
+      movies = genre.movies.select('id', 'genre_id', 'title', 'slug', 'image', 'image_alt').where(deleted: false)
+
+      render json: {
+        data: {
+          genre: genre,
+          movies: movies
+        }
+      }, status: :ok
+    end
+
 end

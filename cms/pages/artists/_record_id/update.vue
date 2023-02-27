@@ -136,7 +136,7 @@
     data: () => ({
       loaded: false,
       error_messages: '',
-      title: 'Add Artist',
+      title: 'Update Artist',
       buttons: {
         back_link: '/artists'
       },
