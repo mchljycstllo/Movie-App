@@ -70,7 +70,7 @@
           else if (res.data.data.deleted) {
             this.setError('User not found')
             setTimeout(() => {
-              this.logout()
+              this.logout(false)
             }, 2000)
           }
           else {
