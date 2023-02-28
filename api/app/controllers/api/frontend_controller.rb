@@ -37,7 +37,7 @@ module Api
     #post frontend/search-movies
     def search_movies 
       search = params[:title]
-      movies = Movie.where("title LIKE ?", "%#{search}%")
+      movies = Movie.where("title LIKE ?", "%#{search}%").where(deleted: false)
       
       render json:{
         data: manipulate_movies(movies),
