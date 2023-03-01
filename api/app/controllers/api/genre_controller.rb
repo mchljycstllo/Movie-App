@@ -20,14 +20,20 @@ module Api
     end
 
     def create
-      genre = Genre.new(genre_params)
-
-      if genre.save
-        render json: {status: 'SUCCESS', msg: 'Saved genre', data: genre}, status: :ok
+      existing_genre = Genre.where(title: params[:title]).where(deleted: 0).first
+      if existing_genre
+        render json: {status: 'ERROR', errors: ["#{params[:title]} has already been taken"]}, status: :unprocessable_entity 
       else
-        errors = genre.errors[:title]
-        render json: {status: 'ERROR', errors: errors}, status: :unprocessable_entity
+        genre = Genre.new(genre_params)
+
+        if genre.save
+          render json: {status: 'SUCCESS', msg: 'Saved genre', data: genre}, status: :ok
+        else
+          errors = genre.errors[:title]
+          render json: {status: 'ERROR', errors: errors}, status: :unprocessable_entity
+        end
       end
+      
     end
 
     def show
