@@ -16,7 +16,7 @@
 <script>
   export default {
     components: {
-      ImageGrid: () => import('~/components/general/layouts/Imagegrid'),
+      ImageGrid: () => import('~/components/general/ImageGrid'),
       MainContent: () => import('~/components/single-movie/MainContent')
     },
     inject: [

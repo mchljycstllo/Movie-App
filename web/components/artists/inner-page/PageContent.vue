@@ -25,7 +25,7 @@
 <script>
   export default {
     components: {
-      ImageGrid: () => import('~/components/general/layouts/Imagegrid.vue'),
+      ImageGrid: () => import('~/components/general/ImageGrid.vue'),
       ArtistInfo: () => import('~/components/artists/inner-page/ArtistInfo')
     },
     inject: [

@@ -17,7 +17,7 @@
       }
     },
     components: {
-      ImageGrid: () => import('~/components/general/layouts/ImageGrid')
+      ImageGrid: () => import('~/components/general/ImageGrid')
     }
   }
 </script>
